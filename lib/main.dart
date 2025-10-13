@@ -4,6 +4,7 @@ import 'package:isharaapp/core/routes/app_routes.dart';
 import 'package:isharaapp/core/theme/dark_theme.dart';
 import 'package:isharaapp/core/theme/light_theme.dart';
 import 'package:go_router/go_router.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 
 Future<void> main() async {
@@ -41,13 +42,17 @@ class _IsharaaAppState extends State<IsharaaApp> {
       splitScreenMode: true,
       useInheritedMediaQuery: true,
       builder: (context, child) {
-        return MaterialApp.router(
-          title: 'Isharaa',
-          debugShowCheckedModeBanner: false,
-          theme: lightTheme,
-          darkTheme: darkTheme,
+        return ThemeController(
           themeMode: _themeMode,
-          routerConfig: _router,
+          toggleTheme: _toggleTheme,
+          child: MaterialApp.router(
+            title: 'Isharaa',
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: _themeMode,
+            routerConfig: _router,
+          ),
         );
       },
     );

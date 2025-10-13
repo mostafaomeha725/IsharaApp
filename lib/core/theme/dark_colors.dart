@@ -7,8 +7,9 @@ class AppDarkColors {
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
+  static const Color offwhite = Color(0xffFAFAFA);
 
-  static const Color primary = Color(0xFF4A39D9);
+  static const Color primary = Colors.white;
   static const Color secondary = Color(0xFFB23BB1);
 
   static const Color formfiledFillColor = Color(0xFF353535);

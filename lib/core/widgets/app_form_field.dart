@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:isharaapp/core/theme/dark_colors.dart';
 
 import '../theme/dimensions.dart';
 import '../theme/light_colors.dart';
@@ -84,15 +85,13 @@ class _AppFormFieldState extends State<AppFormField> {
       onChanged: (value) => setState(() {}),
       enabled: widget.enabled,
       textInputAction: widget.textInputAction,
-      validator:
-          widget.validator ??
+      validator: widget.validator ??
           (value) {
             // if (value?.isNotEmpty == true) {
             //   return 'Enter ${widget.validatedText ?? ''}';
             // }
             return null;
           },
-
       onSaved: widget.onSaved,
       onFieldSubmitted: widget.onFieldSubmitted,
       onTap: widget.onTap,
@@ -102,11 +101,14 @@ class _AppFormFieldState extends State<AppFormField> {
       inputFormatters: widget.inputFormatters,
       textAlign: widget.textAlign,
       autovalidateMode: widget.autovalidateMode,
-      style: font18w400,
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: widget.hintText,
-        // hintStyle: font16w500,
+        hintStyle: font14w500.copyWith(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? AppDarkColors.offwhite
+              : Colors.black,
+        ),
         filled: true,
         fillColor: widget.fillColor,
         contentPadding: widget.contentPadding ?? EdgeInsets.all(15.h),
@@ -114,7 +116,12 @@ class _AppFormFieldState extends State<AppFormField> {
         prefixIconConstraints: BoxConstraints(minWidth: 40.w, minHeight: 24.h),
         suffixIcon: widget.suffixIcon,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppLightColors.formFieldBorder),
+          borderSide: BorderSide(
+            color: widget.borderColor ??
+                (Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.formFieldBorder
+                    : AppLightColors.formFieldBorder),
+          ),
           borderRadius: BorderRadius.circular(
             widget.radius ?? AppDimensions.defaultRadius,
           ),
@@ -125,12 +132,18 @@ class _AppFormFieldState extends State<AppFormField> {
             widget.radius ?? AppDimensions.defaultRadius,
           ),
           borderSide: BorderSide(
-            color: widget.borderColor ?? AppLightColors.formFieldBorder,
+            color: widget.borderColor ??
+                (Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.formFieldBorder
+                    : AppLightColors.formFieldBorder),
           ),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: widget.borderColor ?? AppLightColors.formFieldBorder,
+            color: widget.borderColor ??
+                (Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.formFieldBorder
+                    : AppLightColors.formFieldBorder),
           ),
           borderRadius: BorderRadius.circular(
             widget.radius ?? AppDimensions.defaultRadius,

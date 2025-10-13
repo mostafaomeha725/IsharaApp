@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppLightColors {
-  static const Color formFieldBorder = Color(0xFFE8E8E8);
+  static const Color formFieldBorder = Color(0xff2C2C2C);
   static const Color hint = Colors.grey;
   static const Color text = Color(0xFFE8E8E8);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
 
-  static const Color primary = Color(0xFF4A39D9);
+  static const Color primary = Colors.black;
   static const Color secondary = Color(0xFFF324AC);
 
   static const Color formfiledFillColor = Color(0xFF353535);
