@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:isharaapp/core/theme/dark_colors.dart';
 import '/core/theme/dimensions.dart';
 import '/core/widgets/custom_text.dart';
 
@@ -46,8 +47,8 @@ class AppButton extends StatelessWidget implements Equatable {
     this.side,
     this.margin,
     this.borderColor = Colors.transparent,
-  }) : child = null,
-       gapLeadingText = null;
+  })  : child = null,
+        gapLeadingText = null;
 
   const AppButton.icon({
     super.key,
@@ -80,7 +81,12 @@ class AppButton extends StatelessWidget implements Equatable {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(radius ?? 12.r),
-          border: Border.all(color: borderColor ?? Colors.transparent),
+          border: Border.all(
+            color: borderColor ??
+                (Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.formFieldBorder
+                    : AppLightColors.formFieldBorder),
+          ),
         ),
         child: TextButton(
           onPressed: onPressed,
@@ -88,7 +94,9 @@ class AppButton extends StatelessWidget implements Equatable {
           style: TextButton.styleFrom(
             side: side,
             foregroundColor: hoveColor ?? Colors.white,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.white
+                : AppLightColors.black,
             padding: contentPadding ?? const EdgeInsets.all(8).r,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
@@ -109,7 +117,10 @@ class AppButton extends StatelessWidget implements Equatable {
                     fontWeight: textWeight ?? FontWeight.w600,
                     fontSize: textSize ?? 18.sp,
                     letterSpacing: letterSpacing,
-                    color: textColor,
+                    color: textColor ??
+                        (Theme.of(context).brightness == Brightness.dark
+                            ? AppDarkColors.black
+                            : AppLightColors.white),
                   ),
                 )
               : Row(
@@ -127,7 +138,10 @@ class AppButton extends StatelessWidget implements Equatable {
                           fontWeight: textWeight ?? FontWeight.w700,
                           fontSize: textSize ?? 14.sp,
                           letterSpacing: letterSpacing,
-                          color: textColor ?? Colors.white,
+                          color: textColor ??
+                              (Theme.of(context).brightness == Brightness.dark
+                                  ? AppDarkColors.black
+                                  : AppLightColors.white),
                         ),
                       ),
                     ),
@@ -141,22 +155,22 @@ class AppButton extends StatelessWidget implements Equatable {
 
   @override
   List<Object?> get props => [
-    text,
-    onPressed,
-    radius,
-    contentPadding,
-    color,
-    textColor,
-    hoveColor,
-    textSize,
-    textWeight,
-    elevation,
-    letterSpacing,
-    height,
-    child,
-    side,
-    gapLeadingText,
-  ];
+        text,
+        onPressed,
+        radius,
+        contentPadding,
+        color,
+        textColor,
+        hoveColor,
+        textSize,
+        textWeight,
+        elevation,
+        letterSpacing,
+        height,
+        child,
+        side,
+        gapLeadingText,
+      ];
 
   @override
   bool? get stringify => false;
