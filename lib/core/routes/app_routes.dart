@@ -2,6 +2,7 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
+import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
 import 'package:isharaapp/main.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import '/core/env.dart';
@@ -34,6 +35,9 @@ GoRouter createRouter({
       GoRoute(
           path: Routes.loginScreen,
           builder: (context, state) => const LoginScreen()),
+      GoRoute(
+          path: Routes.registerScreen,
+          builder: (context, state) => const RegisterScreen()),
     ],
   );
 }

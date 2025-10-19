@@ -62,7 +62,7 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
           color: isDark ? Colors.black : Colors.white,
           border: Border.all(
             color: isDark ? Colors.white : Colors.black,
-            width: 2,
+            width: 2.w,
           ),
         ),
         child: Stack(

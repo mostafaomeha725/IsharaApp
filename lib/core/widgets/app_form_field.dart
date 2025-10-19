@@ -32,6 +32,7 @@ class AppFormField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.radius = 12,
+    this.borderWidth,
     this.obsecureText = false,
     this.readOnly = false,
     this.autofillHints,
@@ -41,21 +42,16 @@ class AppFormField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final Widget? suffixIcon;
-
   final Widget? prefixIcon;
-
   final TextInputAction? textInputAction;
-
   final TextInputType? keyboardType;
   final bool? enabled;
-
   final void Function(String?)? onSaved;
   final String? Function(String?)? validator;
   final String? validatedText;
   final Function(String)? onFieldSubmitted;
   final Function(String)? onChanged;
   final VoidCallback? onTap;
-
   final int? maxLength;
   final int? minLines;
   final int? maxLines;
@@ -63,12 +59,14 @@ class AppFormField extends StatefulWidget {
   final TextAlign textAlign;
   final AutovalidateMode autovalidateMode;
   final double? radius;
+  final double? borderWidth;
   final bool obsecureText;
   final bool readOnly;
   final Iterable<String>? autofillHints;
   final EdgeInsetsGeometry? contentPadding;
   final Color? fillColor;
   final Color? borderColor;
+
   @override
   State<AppFormField> createState() => _AppFormFieldState();
 }
@@ -85,13 +83,7 @@ class _AppFormFieldState extends State<AppFormField> {
       onChanged: (value) => setState(() {}),
       enabled: widget.enabled,
       textInputAction: widget.textInputAction,
-      validator: widget.validator ??
-          (value) {
-            // if (value?.isNotEmpty == true) {
-            //   return 'Enter ${widget.validatedText ?? ''}';
-            // }
-            return null;
-          },
+      validator: widget.validator ?? (value) => null,
       onSaved: widget.onSaved,
       onFieldSubmitted: widget.onFieldSubmitted,
       onTap: widget.onTap,
@@ -121,21 +113,24 @@ class _AppFormFieldState extends State<AppFormField> {
                 (Theme.of(context).brightness == Brightness.dark
                     ? AppDarkColors.formFieldBorder
                     : AppLightColors.formFieldBorder),
+            width: widget.borderWidth ?? 2.0
+              ..w,
           ),
           borderRadius: BorderRadius.circular(
             widget.radius ?? AppDimensions.defaultRadius,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          // borderSide: const BorderSide(color: AppColors.opacityBlue),
-          borderRadius: BorderRadius.circular(
-            widget.radius ?? AppDimensions.defaultRadius,
-          ),
           borderSide: BorderSide(
             color: widget.borderColor ??
                 (Theme.of(context).brightness == Brightness.dark
                     ? AppDarkColors.formFieldBorder
                     : AppLightColors.formFieldBorder),
+            width: widget.borderWidth ?? 2.0
+              ..w,
+          ),
+          borderRadius: BorderRadius.circular(
+            widget.radius ?? AppDimensions.defaultRadius,
           ),
         ),
         disabledBorder: OutlineInputBorder(
@@ -144,20 +139,28 @@ class _AppFormFieldState extends State<AppFormField> {
                 (Theme.of(context).brightness == Brightness.dark
                     ? AppDarkColors.formFieldBorder
                     : AppLightColors.formFieldBorder),
+            width: widget.borderWidth ?? 2.0
+              ..w,
           ),
           borderRadius: BorderRadius.circular(
             widget.radius ?? AppDimensions.defaultRadius,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppLightColors.formfiledErrorColor),
+          borderSide: BorderSide(
+            color: AppLightColors.formfiledErrorColor,
+            width: widget.borderWidth ?? 2.0
+              ..w,
+          ),
           borderRadius: BorderRadius.circular(
             widget.radius ?? AppDimensions.defaultRadius,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             color: AppLightColors.formfiledErrorColor,
+            width: widget.borderWidth ?? 2.0
+              ..w,
           ),
           borderRadius: BorderRadius.circular(
             widget.radius ?? AppDimensions.defaultRadius,

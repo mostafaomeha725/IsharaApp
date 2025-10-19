@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
+import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/dark_colors.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
@@ -35,11 +37,11 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
     final isDarkMode = themeController.themeMode == ThemeMode.dark;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48),
+      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48.w),
       child: Column(
         children: [
           SizedBox(height: 36.h),
-          AppSVG(assetName: Assets.logo),
+          const AppSVG(assetName: Assets.logo),
           SizedBox(height: 18.h),
           AppFormField(
             controller: emailcontroller,
@@ -106,17 +108,22 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                       : const Color(0xffC4C4C4),
                 ),
               ),
-              AppText(
-                'Register now',
-                style: font14w700.copyWith(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppDarkColors.offwhite
-                      : const Color(0xffC4C4C4),
+              GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).push(Routes.registerScreen);
+                },
+                child: AppText(
+                  'Register now',
+                  style: font14w700.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppDarkColors.offwhite
+                        : const Color(0xffC4C4C4),
+                  ),
                 ),
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           ThemeToggleSwitch(
             isDarkMode: isDarkMode,
             onChanged: (value) {
