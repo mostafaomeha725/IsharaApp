@@ -57,7 +57,6 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
           children: [
             SizedBox(height: 36.h),
             const AppSVG(assetName: Assets.logo),
-            SizedBox(height: 18.h),
             Row(
               children: [
                 Expanded(
