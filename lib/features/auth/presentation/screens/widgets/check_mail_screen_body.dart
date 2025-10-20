@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
+import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/app_svg.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
@@ -105,7 +107,9 @@ class _CheckMailScreenBodyState extends State<CheckMailScreenBody> {
           SizedBox(height: 30.h),
           AppButton(
             text: 'Continue',
-            onPressed: () {},
+            onPressed: () {
+              GoRouter.of(context).push(Routes.createNewPasswordScreen);
+            },
             height: 50.h,
             radius: 22.r,
           ),
