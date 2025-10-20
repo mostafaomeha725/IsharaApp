@@ -6,6 +6,7 @@ import 'package:isharaapp/features/auth/presentation/screens/create_new_password
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_screen.dart';
+import 'package:isharaapp/features/auth/presentation/screens/reset_successful_screen.dart';
 import 'package:isharaapp/main.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import '/core/env.dart';
@@ -50,6 +51,9 @@ GoRouter createRouter({
       GoRoute(
           path: Routes.createNewPasswordScreen,
           builder: (context, state) => const CreateNewPasswordScreen()),
+      GoRoute(
+          path: Routes.resetSuccessful,
+          builder: (context, state) => const ResetSuccessfulScreen()),
     ],
   );
 }

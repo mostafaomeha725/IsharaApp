@@ -5,4 +5,5 @@ class Routes {
   static const resetScreen = '/reset';
   static const checkMailScreen = '/checkMail';
   static const createNewPasswordScreen = '/createPassword';
+  static const resetSuccessful = '/resetSuccessful';
 }
