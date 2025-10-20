@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
+import 'package:isharaapp/features/auth/presentation/screens/reset_screen.dart';
 import 'package:isharaapp/main.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import '/core/env.dart';
@@ -38,6 +39,9 @@ GoRouter createRouter({
       GoRoute(
           path: Routes.registerScreen,
           builder: (context, state) => const RegisterScreen()),
+      GoRoute(
+          path: Routes.resetScreen,
+          builder: (context, state) => const ResetScreen()),
     ],
   );
 }
