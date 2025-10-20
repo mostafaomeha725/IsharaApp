@@ -1,6 +1,7 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:isharaapp/features/auth/presentation/screens/check_mail_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_screen.dart';
@@ -42,6 +43,9 @@ GoRouter createRouter({
       GoRoute(
           path: Routes.resetScreen,
           builder: (context, state) => const ResetScreen()),
+      GoRoute(
+          path: Routes.checkMailScreen,
+          builder: (context, state) => const CheckMailScreen()),
     ],
   );
 }
