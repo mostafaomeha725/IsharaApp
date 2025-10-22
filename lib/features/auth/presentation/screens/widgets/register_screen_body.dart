@@ -51,7 +51,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     final isDarkMode = themeController.themeMode == ThemeMode.dark;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48.h),
+      padding: EdgeInsets.symmetric(horizontal: 22.w),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -211,7 +211,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                 ),
               ],
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 32.h),
             ThemeToggleSwitch(
               isDarkMode: isDarkMode,
               onChanged: (_) => themeController.toggleTheme(),
