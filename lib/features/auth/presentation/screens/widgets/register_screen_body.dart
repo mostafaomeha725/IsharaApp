@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
+import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/dark_colors.dart';
+import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_form_field.dart';
@@ -51,7 +53,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     final isDarkMode = themeController.themeMode == ThemeMode.dark;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48.h),
+      padding: EdgeInsets.symmetric(horizontal: 22.w),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -165,6 +167,12 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   child: GenderDropdownField(
                     value: selectedGender,
                     onChanged: (value) {
+                      final genderController = GenderController.of(context);
+                      if (value == "Male") {
+                        genderController.onGenderChanged(GenderTheme.boy);
+                      } else if (value == "Female") {
+                        genderController.onGenderChanged(GenderTheme.girl);
+                      }
                       setState(() => selectedGender = value);
                     },
                   ),
@@ -184,6 +192,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                 } else {
                   setState(() => errorMessage = null);
                 }
+                GoRouter.of(context).push(Routes.customNavBar);
               },
             ),
             SizedBox(height: 8.h),
@@ -211,7 +220,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                 ),
               ],
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 32.h),
             ThemeToggleSwitch(
               isDarkMode: isDarkMode,
               onChanged: (_) => themeController.toggleTheme(),
