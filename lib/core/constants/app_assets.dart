@@ -25,4 +25,23 @@ class Assets {
   static const String littledark = "assets/letters_dark.gif";
   static const String goolight = "assets/goo.gif";
   static const String goodark = "assets/goo_dark.gif";
+  // home assets
+  static const String homeprofile = "assets/home-profile.png";
+  static const String girlsplash = "assets/girl_splash.png";
+  static const String girlLogo = "assets/girl_logo.png";
+  static const String arrowgirl = "assets/arrow_girl.png";
+  static const String learngirl = "assets/learn_girl.png";
+  static const String practiegirl = "assets/practie_girl.png";
+  static const String testgirl = "assets/test_girl.png";
+  static const String homeIcon = "assets/home_icon.png";
+  static const String youtubeIcon = "assets/youtube_icon.png";
+  static const String profileIcon = "assets/profile-icon.png";
+  static const String bookIcon = "assets/book-icon.png";
+  static const String aiIcon = "assets/ai_icon.png";
+  static const String boySplash = "assets/boy_splash.png";
+  static const String boyLogo = "assets/Boy_logo 1.png";
+  static const String learnBoy = "assets/learn_boy.png";
+  static const String practieboy = "assets/practie_boy.png";
+  static const String testboy = "assets/test_boy.png";
+  static const String arrowboy = "assets/arrow_boy.png";
 }

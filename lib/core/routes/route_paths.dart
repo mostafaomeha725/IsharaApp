@@ -7,4 +7,5 @@ class Routes {
   static const checkMailScreen = '/checkMail';
   static const createNewPasswordScreen = '/createPassword';
   static const resetSuccessful = '/resetSuccessful';
+  static const customNavBar = '/customNavBar';
 }
