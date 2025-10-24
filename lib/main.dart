@@ -20,7 +20,7 @@ class IsharaaApp extends StatefulWidget {
 }
 
 class _IsharaaAppState extends State<IsharaaApp> {
-  ThemeMode _themeMode = ThemeMode.light;
+  ThemeMode _themeMode = ThemeMode.dark;
 
   void _toggleTheme() {
     setState(() {
