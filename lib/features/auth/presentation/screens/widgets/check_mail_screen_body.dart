@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/app_svg.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
@@ -54,7 +55,7 @@ class _CheckMailScreenBodyState extends State<CheckMailScreenBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AppSVG(assetName: Assets.newpass),
+          //   const AppAsset(assetName: Assets.),
           AppText(
             'Check your mail',
             style: font20w700,
