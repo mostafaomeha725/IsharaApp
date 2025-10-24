@@ -10,6 +10,7 @@ import 'package:isharaapp/features/splash/presentation/screens/onboarding_screen
 import 'package:isharaapp/features/splash/presentation/screens/splash_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_successful_screen.dart';
+import 'package:isharaapp/main.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import '/core/env.dart';
 import 'route_observer.dart';
@@ -61,6 +62,7 @@ GoRouter createRouter({
         path: Routes.customNavBar,
         builder: (context, state) => const CustomNavBar(),
       ),
+
     ],
   );
 }
