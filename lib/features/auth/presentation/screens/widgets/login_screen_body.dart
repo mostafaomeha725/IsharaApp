@@ -77,16 +77,21 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
             ),
           ),
           SizedBox(height: 16.h),
-          AppText(
-            'Forgotten your password..?',
-            style: font14w500.copyWith(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppDarkColors.offwhite
-                  : const Color(0xffC4C4C4),
-              decoration: TextDecoration.underline,
-              decorationColor: Theme.of(context).brightness == Brightness.dark
-                  ? AppDarkColors.offwhite
-                  : const Color(0xffC4C4C4),
+          GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(Routes.resetScreen);
+            },
+            child: AppText(
+              'Forgotten your password..?',
+              style: font14w500.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.offwhite
+                    : const Color(0xffC4C4C4),
+                decoration: TextDecoration.underline,
+                decorationColor: Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.offwhite
+                    : const Color(0xffC4C4C4),
+              ),
             ),
           ),
           SizedBox(height: 16.h),
