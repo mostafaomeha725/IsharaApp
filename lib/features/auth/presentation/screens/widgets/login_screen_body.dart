@@ -41,7 +41,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
       child: Column(
         children: [
           SizedBox(height: 36.h),
-          const AppSVG(assetName: Assets.logo),
+          // const AppSVG(assetName: Assets.logo),
           SizedBox(height: 18.h),
           AppFormField(
             controller: emailcontroller,

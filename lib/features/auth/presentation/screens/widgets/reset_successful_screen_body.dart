@@ -18,7 +18,7 @@ class ResetSuccessfulScreenBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AppSVG(assetName: Assets.newpass),
+          //  const AppSVG(assetName: Assets.newpass),
           AppText(
             'Reset Successful',
             style: font20w700,

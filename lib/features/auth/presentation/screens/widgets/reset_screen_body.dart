@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/app_form_field.dart';
 import 'package:isharaapp/core/widgets/app_svg.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
@@ -33,7 +34,11 @@ class _ResetScreenBodyState extends State<ResetScreenBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AppSVG(assetName: Assets.newpass),
+          AppAsset(
+            assetName: Assets.forgetPasswordlight,
+            width: 250.w,
+            height: 250.h,
+          ),
           AppText(
             'Forget Password ',
             style: font20w700,
@@ -65,7 +70,7 @@ class _ResetScreenBodyState extends State<ResetScreenBody> {
             radius: 22.r,
           ),
           SizedBox(
-            height: 32.h,
+            height: 72.h,
           )
         ],
       ),
