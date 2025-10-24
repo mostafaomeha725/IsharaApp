@@ -5,6 +5,9 @@ import 'package:isharaapp/features/auth/presentation/screens/check_mail_screen.d
 import 'package:isharaapp/features/auth/presentation/screens/create_new_password_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
+import 'package:isharaapp/features/splash/presentation/screens/onboarding_screen.dart';
+import 'package:isharaapp/features/splash/presentation/screens/splash_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_successful_screen.dart';
 import 'package:isharaapp/main.dart';
@@ -22,7 +25,7 @@ GoRouter createRouter({
   required ThemeMode themeMode,
 }) {
   return GoRouter(
-    initialLocation: Routes.loginScreen,
+    initialLocation: Routes.splashScreen,
     navigatorKey: navigatorKey,
     debugLogDiagnostics: true,
     observers: [
@@ -32,16 +35,17 @@ GoRouter createRouter({
     ],
     routes: [
       GoRoute(
-        path: Routes.splashScreen,
-        builder: (context, state) =>
-            SplashScreen(onToggleTheme: onToggleTheme, themeMode: themeMode),
-      ),
+          path: Routes.splashScreen,
+          builder: (context, state) => const SplashScreen()),
       GoRoute(
           path: Routes.loginScreen,
           builder: (context, state) => const LoginScreen()),
       GoRoute(
           path: Routes.registerScreen,
           builder: (context, state) => const RegisterScreen()),
+      GoRoute(
+          path: Routes.onboardingScreen,
+          builder: (context, state) => const OnboardScreen()),
       GoRoute(
           path: Routes.resetScreen,
           builder: (context, state) => const ResetScreen()),
@@ -54,6 +58,11 @@ GoRouter createRouter({
       GoRoute(
           path: Routes.resetSuccessful,
           builder: (context, state) => const ResetSuccessfulScreen()),
+      GoRoute(
+        path: Routes.customNavBar,
+        builder: (context, state) => const CustomNavBar(),
+      ),
+
     ],
   );
 }

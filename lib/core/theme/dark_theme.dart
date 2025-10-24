@@ -26,10 +26,10 @@ final darkTheme = ThemeData(
   colorScheme: darkColorScheme,
   useMaterial3: true,
   fontFamily: AppStrings.fontFamily,
-  // scaffoldBackgroundColor: Colors.black,
+  scaffoldBackgroundColor: Color(0xFF2C2C2C),
   hintColor: Colors.black,
   inputDecorationTheme: InputDecorationTheme(
     hintStyle: TextStyle(color: Colors.white),
-    fillColor: Colors.black,
+    fillColor: Color(0xFF2C2C2C),
   ),
 );
