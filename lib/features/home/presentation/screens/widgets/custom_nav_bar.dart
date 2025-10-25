@@ -19,18 +19,24 @@ class CustomNavBar extends StatefulWidget {
 class _CustomNavBarState extends State<CustomNavBar> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
-    LearnScreen(),
-    PracticeScreen(),
-    TestScreen(),
-    ProfileScreen(),
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const LearnScreen(),
+    const PracticeScreen(),
+    const TestScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
     if (index == _selectedIndex) return;
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  void goToLevelOne() {
+    setState(() {
+      _selectedIndex = 1; // LearnScreen
     });
   }
 

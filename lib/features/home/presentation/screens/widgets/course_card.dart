@@ -30,7 +30,7 @@ class CourseCard extends StatelessWidget {
         : const Color(0xFFF24BB6);
 
     return Padding(
-      padding: EdgeInsets.only(top: 16.h),
+      padding: EdgeInsets.only(top: 10.h),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
