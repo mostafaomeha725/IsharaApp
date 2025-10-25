@@ -5,13 +5,13 @@ import 'package:isharaapp/features/auth/presentation/screens/check_mail_screen.d
 import 'package:isharaapp/features/auth/presentation/screens/create_new_password_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
+
 import 'package:isharaapp/features/home/presentation/screens/start_learning_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 import 'package:isharaapp/features/splash/presentation/screens/onboarding_screen.dart';
 import 'package:isharaapp/features/splash/presentation/screens/splash_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_successful_screen.dart';
-import 'package:isharaapp/main.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import '/core/env.dart';
 import 'route_observer.dart';
@@ -62,10 +62,6 @@ GoRouter createRouter({
       GoRoute(
         path: Routes.customNavBar,
         builder: (context, state) => const CustomNavBar(),
-      ),
-      GoRoute(
-        path: Routes.startLearning,
-        builder: (context, state) => const StartLearningScreen(),
       ),
     ],
   );
