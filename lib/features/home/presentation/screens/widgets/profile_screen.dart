@@ -5,6 +5,7 @@ import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/features/auth/presentation/screens/widgets/theme_toggle_switch.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/custom_appbar.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_profile_card.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/info_profile.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/item_profile_options.dart';
@@ -29,26 +30,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      const Spacer(),
-                      Text(
-                        '    My Profile',
-                        style: font20w700,
-                      ),
-                      const Spacer(flex: 2),
-                    ],
-                  ),
-                ),
+                const CustomAppBarRow(title: 'My Profile'),
                 SizedBox(height: 20.h),
                 Padding(
                   padding:

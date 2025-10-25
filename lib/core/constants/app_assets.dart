@@ -70,4 +70,6 @@ class Assets {
   static const String cleardBoy = "assets/clear_boy.png";
   static const String logoutGirl = "assets/logout-girl.png";
   static const String logoutBoy = "assets/logout_boy.png";
+  static const String girl = "assets/girl.png";
+  static const String boy = "assets/boy.png";
 }
