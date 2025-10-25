@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ThemeToggleSwitch extends StatefulWidget {
   final bool isDarkMode;
   final ValueChanged<bool> onChanged;
+  final Color? activeColor;
 
   const ThemeToggleSwitch({
     super.key,
     required this.isDarkMode,
     required this.onChanged,
+    this.activeColor,
   });
 
   @override
@@ -50,6 +52,7 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
   @override
   Widget build(BuildContext context) {
     final isDark = widget.isDarkMode;
+    final color = widget.activeColor ?? (isDark ? Colors.black : Colors.white);
 
     return GestureDetector(
       onTap: _toggleTheme,
@@ -59,9 +62,9 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
         padding: EdgeInsets.symmetric(horizontal: 6.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
-          color: isDark ? Colors.black : Colors.white,
+          color: isDark ? color : Colors.white,
           border: Border.all(
-            color: isDark ? Colors.white : Colors.black,
+            color: color,
             width: 2.w,
           ),
         ),
@@ -74,12 +77,12 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
               children: [
                 Icon(
                   Icons.wb_sunny_rounded,
-                  color: isDark ? Colors.white54 : Colors.black,
+                  color: isDark ? Colors.white54 : color,
                   size: 22.sp,
                 ),
                 Icon(
                   Icons.nightlight_round,
-                  color: isDark ? Colors.white : Colors.black54,
+                  color: isDark ? Colors.white : color.withOpacity(0.6),
                   size: 20.sp,
                 ),
               ],
@@ -93,13 +96,13 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
                 width: 36.w,
                 height: 36.h,
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.white : Colors.black,
+                  color: isDark ? Colors.white : color,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
                   child: Icon(
                     isDark ? Icons.nightlight_round : Icons.wb_sunny_rounded,
-                    color: isDark ? Colors.black : Colors.white,
+                    color: isDark ? color : Colors.white,
                     size: 18.sp,
                   ),
                 ),

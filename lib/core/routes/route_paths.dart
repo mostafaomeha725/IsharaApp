@@ -8,4 +8,8 @@ class Routes {
   static const createNewPasswordScreen = '/createPassword';
   static const resetSuccessful = '/resetSuccessful';
   static const customNavBar = '/customNavBar';
+  static const testLevelOneScreen = '/TestLevelOneScreen';
+  static const testLevelTwoScreen = '/TestLevelTwoScreen';
+  static const testLevelThreeScreen = '/TestLevelThreeScreen';
+  static const testLevelFourScreen = '/TestLevelFourScreen';
 }

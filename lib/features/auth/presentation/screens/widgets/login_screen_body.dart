@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/dark_colors.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_form_field.dart';
-import 'package:isharaapp/core/widgets/app_svg.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/auth/presentation/screens/widgets/theme_toggle_switch.dart';
