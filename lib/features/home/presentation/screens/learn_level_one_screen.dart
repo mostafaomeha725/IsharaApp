@@ -5,8 +5,8 @@ import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
 
 class LearnLevelOneScreen extends StatelessWidget {
-  const LearnLevelOneScreen({super.key});
-
+  const LearnLevelOneScreen({super.key, this.onTap});
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -22,55 +22,66 @@ class LearnLevelOneScreen extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            const CourseCard(
-                title: 'level one',
-                subtitle: 'Letter A',
-                completetext: '0 of 1 Completed',
-                value: 0),
-            const CourseCard(
+            CourseCard(
+              title: 'level one',
+              subtitle: 'Letter A',
+              completetext: '0 of 1 Completed',
+              value: 0,
+              onTap: onTap,
+            ),
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter B',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter C',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter E',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter L',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter O',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter V',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter W',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter U',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
-            const CourseCard(
+            CourseCard(
                 title: 'level one',
                 subtitle: 'Letter Y',
                 completetext: '0 of 1 Completed',
+                onTap: onTap,
                 value: 0),
             SizedBox(
               height: 16.h,

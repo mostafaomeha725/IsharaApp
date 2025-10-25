@@ -6,7 +6,6 @@ import 'package:isharaapp/features/auth/presentation/screens/create_new_password
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
 
-import 'package:isharaapp/features/home/presentation/screens/start_learning_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 import 'package:isharaapp/features/splash/presentation/screens/onboarding_screen.dart';
 import 'package:isharaapp/features/splash/presentation/screens/splash_screen.dart';

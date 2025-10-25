@@ -10,6 +10,7 @@ class CourseCard extends StatelessWidget {
   final String completetext;
   final double value;
   final bool isinto;
+  final bool isPractice;
   final void Function()? onTap;
 
   const CourseCard({
@@ -19,6 +20,7 @@ class CourseCard extends StatelessWidget {
     required this.completetext,
     required this.value,
     this.isinto = true,
+    this.isPractice = false,
     this.onTap,
   });
 
@@ -85,24 +87,33 @@ class CourseCard extends StatelessWidget {
                   ],
                 ),
               ),
-              isinto
-                  ? Container(
+              isPractice
+                  ? SizedBox(
                       width: 40.w,
                       height: 40.h,
-                      decoration: BoxDecoration(
-                        color: mainColor,
-                        shape: BoxShape.circle,
-                      ),
                       child: Icon(
-                        Icons.play_arrow_rounded,
-                        color: Colors.white,
-                        size: 32.sp,
-                      ),
-                    )
-                  : SizedBox(
-                      width: 40.w,
-                      height: 40.h,
-                    ),
+                        Icons.arrow_right_alt,
+                        size: 38.sp,
+                        color: mainColor,
+                      ))
+                  : isinto
+                      ? Container(
+                          width: 40.w,
+                          height: 40.h,
+                          decoration: BoxDecoration(
+                            color: mainColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.play_arrow_rounded,
+                            color: Colors.white,
+                            size: 32.sp,
+                          ),
+                        )
+                      : SizedBox(
+                          width: 40.w,
+                          height: 40.h,
+                        ),
             ],
           ),
         ),
