@@ -5,6 +5,7 @@ import 'package:isharaapp/features/auth/presentation/screens/check_mail_screen.d
 import 'package:isharaapp/features/auth/presentation/screens/create_new_password_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
+import 'package:isharaapp/features/home/presentation/screens/practise_lesson_details_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/test_level_four_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/test_level_one_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/test_level_three_screen.dart';
@@ -67,6 +68,14 @@ GoRouter createRouter({
         path: Routes.customNavBar,
         builder: (context, state) => const CustomNavBar(),
       ),
+      GoRoute(
+        path: Routes.practisedetails,
+        builder: (context, state) {
+          final letter = state.extra as String; // استقبل الحرف من extra
+          return PractiseLessonDetailsScreen(letter: letter);
+        },
+      ),
+
       GoRoute(
           path: Routes.testLevelOneScreen,
           builder: (context, state) => const TestLevelOneScreen()),

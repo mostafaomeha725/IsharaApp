@@ -89,11 +89,17 @@ class _LearnScreenState extends State<LearnScreen> {
                   : _showLevelOne
                       ? const LearnLevelOneScreen(ispractise: false)
                       : _showLevelTwo
-                          ? const LearnLevelTwoScreen()
+                          ? const LearnLevelTwoScreen(
+                              ispractise: false,
+                            )
                           : _showLevelThree
-                              ? const LearnLevelThreeScreen()
+                              ? const LearnLevelThreeScreen(
+                                  ispractise: false,
+                                )
                               : _showLevelFour
-                                  ? const LearnLevelFourScreen()
+                                  ? const LearnLevelFourScreen(
+                                      ispractise: false,
+                                    )
                                   : SingleChildScrollView(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 16.w),

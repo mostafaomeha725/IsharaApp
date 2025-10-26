@@ -13,4 +13,5 @@ class Routes {
   static const testLevelThreeScreen = '/TestLevelThreeScreen';
   static const testLevelFourScreen = '/TestLevelFourScreen';
   static const lessondetails = '/lessondetails';
+  static const practisedetails = '/practisedetails';
 }
