@@ -6,7 +6,6 @@ import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/app_form_field.dart';
-import 'package:isharaapp/core/widgets/app_svg.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 

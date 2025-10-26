@@ -6,10 +6,11 @@ import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/light_theme.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/gender_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const IsharaaApp());
+  runApp(GenderProvider(child: const IsharaaApp()));
 }
 
 class IsharaaApp extends StatefulWidget {
