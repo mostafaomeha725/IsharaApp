@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/theme/dark_colors.dart';
 import '/core/theme/dimensions.dart';
 import '/core/widgets/custom_text.dart';
-
 import '../extensions/ext.dart';
 import '../theme/light_colors.dart';
 import 'bouncing_widgets.dart';
@@ -79,7 +78,7 @@ class AppButton extends StatelessWidget implements Equatable {
         height: height ?? 57.h,
         margin: margin,
         decoration: BoxDecoration(
-          color: color,
+          color: color, // اللون اللي بيتحدد من الخارج
           borderRadius: BorderRadius.circular(radius ?? 12.r),
           border: Border.all(
             color: borderColor ??
@@ -93,10 +92,12 @@ class AppButton extends StatelessWidget implements Equatable {
           clipBehavior: Clip.antiAlias,
           style: TextButton.styleFrom(
             side: side,
-            foregroundColor: hoveColor ?? Colors.white,
-            backgroundColor: Theme.of(context).brightness == Brightness.dark
-                ? AppDarkColors.white
-                : AppLightColors.black,
+            // ✅ هنا التعديل: استخدم اللون الممرر بدل اللون الثابت
+            backgroundColor: color,
+            foregroundColor: textColor ??
+                (Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.black
+                    : AppLightColors.white),
             padding: contentPadding ?? const EdgeInsets.all(8).r,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
@@ -119,7 +120,7 @@ class AppButton extends StatelessWidget implements Equatable {
                     letterSpacing: letterSpacing,
                     color: textColor ??
                         (Theme.of(context).brightness == Brightness.dark
-                            ? AppDarkColors.black
+                            ? AppDarkColors.white
                             : AppLightColors.white),
                   ),
                 )
@@ -140,7 +141,7 @@ class AppButton extends StatelessWidget implements Equatable {
                           letterSpacing: letterSpacing,
                           color: textColor ??
                               (Theme.of(context).brightness == Brightness.dark
-                                  ? AppDarkColors.black
+                                  ? AppDarkColors.white
                                   : AppLightColors.white),
                         ),
                       ),

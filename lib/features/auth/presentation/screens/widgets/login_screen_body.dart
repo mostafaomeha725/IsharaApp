@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
+import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/dark_colors.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
+import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/app_form_field.dart';
-import 'package:isharaapp/core/widgets/app_svg.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/auth/presentation/screens/widgets/theme_toggle_switch.dart';
@@ -35,11 +37,17 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
     final isDarkMode = themeController.themeMode == ThemeMode.dark;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48),
+      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48.w),
       child: Column(
         children: [
           SizedBox(height: 36.h),
-          AppSVG(assetName: Assets.logo),
+          AppAsset(
+            assetName: themeController.themeMode == ThemeMode.dark
+                ? Assets.darklogo
+                : Assets.lightlogo,
+            width: 250.w,
+            height: 250.h,
+          ),
           SizedBox(height: 18.h),
           AppFormField(
             controller: emailcontroller,
@@ -75,16 +83,21 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
             ),
           ),
           SizedBox(height: 16.h),
-          AppText(
-            'Forgotten your password..?',
-            style: font14w500.copyWith(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppDarkColors.offwhite
-                  : const Color(0xffC4C4C4),
-              decoration: TextDecoration.underline,
-              decorationColor: Theme.of(context).brightness == Brightness.dark
-                  ? AppDarkColors.offwhite
-                  : const Color(0xffC4C4C4),
+          GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(Routes.resetScreen);
+            },
+            child: AppText(
+              'Forgotten your password..?',
+              style: font14w500.copyWith(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.offwhite
+                    : const Color(0xffC4C4C4),
+                decoration: TextDecoration.underline,
+                decorationColor: Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.offwhite
+                    : const Color(0xffC4C4C4),
+              ),
             ),
           ),
           SizedBox(height: 16.h),
@@ -106,17 +119,22 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                       : const Color(0xffC4C4C4),
                 ),
               ),
-              AppText(
-                'Register now',
-                style: font14w700.copyWith(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppDarkColors.offwhite
-                      : const Color(0xffC4C4C4),
+              GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).push(Routes.registerScreen);
+                },
+                child: AppText(
+                  'Register now',
+                  style: font14w700.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? AppDarkColors.offwhite
+                        : const Color(0xffC4C4C4),
+                  ),
                 ),
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           ThemeToggleSwitch(
             isDarkMode: isDarkMode,
             onChanged: (value) {

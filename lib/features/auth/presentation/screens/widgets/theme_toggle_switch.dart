@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ThemeToggleSwitch extends StatefulWidget {
   final bool isDarkMode;
   final ValueChanged<bool> onChanged;
+  final Color? activeColor;
 
   const ThemeToggleSwitch({
     super.key,
     required this.isDarkMode,
     required this.onChanged,
+    this.activeColor,
   });
 
   @override
@@ -51,6 +53,13 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
   Widget build(BuildContext context) {
     final isDark = widget.isDarkMode;
 
+    // 🎨 الألوان محسّنة حسب الثيم
+    final Color activeColor =
+        widget.activeColor ?? (isDark ? Colors.white : Colors.black);
+    final Color backgroundColor = isDark
+        ? Colors.black
+        : const Color(0xFFF0F0F0); // رمادي فاتح بدل الأبيض الصافي
+
     return GestureDetector(
       onTap: _toggleTheme,
       child: Container(
@@ -59,10 +68,10 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
         padding: EdgeInsets.symmetric(horizontal: 6.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
-          color: isDark ? Colors.black : Colors.white,
+          color: backgroundColor,
           border: Border.all(
-            color: isDark ? Colors.white : Colors.black,
-            width: 2,
+            color: activeColor,
+            width: 2.w,
           ),
         ),
         child: Stack(
@@ -74,12 +83,12 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
               children: [
                 Icon(
                   Icons.wb_sunny_rounded,
-                  color: isDark ? Colors.white54 : Colors.black,
+                  color: isDark ? Colors.white54 : Colors.amber[700],
                   size: 22.sp,
                 ),
                 Icon(
                   Icons.nightlight_round,
-                  color: isDark ? Colors.white : Colors.black54,
+                  color: isDark ? Colors.white : Colors.indigo[700],
                   size: 20.sp,
                 ),
               ],
@@ -93,8 +102,15 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
                 width: 36.w,
                 height: 36.h,
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.white : Colors.black,
+                  color: activeColor,
                   shape: BoxShape.circle,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    )
+                  ],
                 ),
                 child: Center(
                   child: Icon(
