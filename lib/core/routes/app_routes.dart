@@ -5,6 +5,7 @@ import 'package:isharaapp/features/auth/presentation/screens/check_mail_screen.d
 import 'package:isharaapp/features/auth/presentation/screens/create_new_password_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/login_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/register_screen.dart';
+import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
 
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 import 'package:isharaapp/features/splash/presentation/screens/onboarding_screen.dart';
@@ -62,6 +63,9 @@ GoRouter createRouter({
         path: Routes.customNavBar,
         builder: (context, state) => const CustomNavBar(),
       ),
+      // GoRoute(
+      //     path: Routes.lessondetails,
+      //     builder: (context, state) => const LesseonDetailsScreen()),
     ],
   );
 }

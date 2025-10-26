@@ -87,7 +87,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       onPressed: _openLevelOne,
                     )
                   : _showLevelOne
-                      ? const LearnLevelOneScreen()
+                      ? const LearnLevelOneScreen(ispractise: false)
                       : _showLevelTwo
                           ? const LearnLevelTwoScreen()
                           : _showLevelThree
