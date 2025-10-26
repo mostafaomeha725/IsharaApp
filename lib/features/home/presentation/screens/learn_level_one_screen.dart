@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
-import 'package:isharaapp/features/home/presentation/screens/practise_lesson_details_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
 
 class LearnLevelOneScreen extends StatefulWidget {
-  const LearnLevelOneScreen({super.key, required this.ispractise, this.onTap});
+  const LearnLevelOneScreen({
+    super.key,
+    required this.ispractise,
+    this.onTap,
+  });
+
   final bool ispractise;
   final void Function(String letter)? onTap;
 
@@ -19,20 +25,24 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
   bool _showLessonDetails = false;
   String? _selectedLetter;
 
-  // فتح أي letter
   void _openLesson(String letter) {
-    setState(() {
-      _selectedLetter = letter;
-      _showLessonDetails = true; // مهم جداً لعرض الشاشة
-    });
+    final String fullLetterTitle = 'Level One Letter $letter';
 
-    // لو ispractise = false وعايز ترجع letter كمان
-    if (!widget.ispractise) {
-      widget.onTap?.call(letter);
+    if (widget.ispractise) {
+      context.push(
+        Routes.practisedetails,
+        extra: fullLetterTitle,
+      );
+    } else {
+      setState(() {
+        _selectedLetter = fullLetterTitle;
+        _showLessonDetails = true;
+      });
+
+      widget.onTap?.call(fullLetterTitle);
     }
   }
 
-  // زر العودة
   void _goBack() {
     setState(() {
       _showLessonDetails = false;
@@ -47,12 +57,10 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: _showLessonDetails
-            ? widget.ispractise
-                ? PractiseLessonDetailsScreen(onBack: _goBack) // لو practice
-                : LesseonDetailsScreen(
-                    letter: _selectedLetter ?? 'A',
-                    onBack: _goBack, // لو normal lesson
-                  )
+            ? LesseonDetailsScreen(
+                letter: _selectedLetter ?? 'Level One Letter A',
+                onBack: _goBack,
+              )
             : SingleChildScrollView(
                 key: const ValueKey('levelOneList'),
                 padding: EdgeInsets.symmetric(horizontal: 16.w),

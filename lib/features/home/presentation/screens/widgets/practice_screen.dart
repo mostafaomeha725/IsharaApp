@@ -73,7 +73,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
     }
 
     return Scaffold(
-      extendBodyBehindAppBar: true, // ✅ الخلفية تمتد خلف الـ AppBar
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: HomeAppbar(title: appBarTitle, onBack: _goBackOneStep),
@@ -83,7 +83,6 @@ class _PracticeScreenState extends State<PracticeScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // ✅ خلفية موحدة تمتد خلف كل شيء
           Container(
             decoration: BoxDecoration(
               color: bgColor,
@@ -94,8 +93,6 @@ class _PracticeScreenState extends State<PracticeScreen> {
               ),
             ),
           ),
-
-          // ✅ المحتوى الداخلي
           SafeArea(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
@@ -115,11 +112,35 @@ class _PracticeScreenState extends State<PracticeScreen> {
                           },
                         )
                       : _showLevelTwo
-                          ? const LearnLevelTwoScreen()
+                          ? LearnLevelTwoScreen(
+                              ispractise: true,
+                              onTap: (letter) {
+                                setState(() {
+                                  _showLessonDetails = true;
+                                  _selectedLetter = letter;
+                                });
+                              },
+                            )
                           : _showLevelThree
-                              ? const LearnLevelThreeScreen()
+                              ? LearnLevelThreeScreen(
+                                  ispractise: true,
+                                  onTap: (letter) {
+                                    setState(() {
+                                      _showLessonDetails = true;
+                                      _selectedLetter = letter;
+                                    });
+                                  },
+                                )
                               : _showLevelFour
-                                  ? const LearnLevelFourScreen()
+                                  ? LearnLevelFourScreen(
+                                      ispractise: true,
+                                      onTap: (letter) {
+                                        setState(() {
+                                          _showLessonDetails = true;
+                                          _selectedLetter = letter;
+                                        });
+                                      },
+                                    )
                                   : Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 16.w),
@@ -143,8 +164,6 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                                 'Our AI will give you instant feedback.',
                                           ),
                                           SizedBox(height: 22.h),
-
-                                          // ✅ كروت المستويات
                                           CourseCard(
                                             title: 'Level One',
                                             subtitle:
