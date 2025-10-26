@@ -17,7 +17,8 @@ class LearnLevelThreeScreen extends StatelessWidget {
             height: 8.h,
           ),
           AppText('letters G,H,M,N,X',
-              style: font16w700, alignment: AlignmentDirectional.center),
+              style: font16w700.copyWith(color: Colors.white),
+              alignment: AlignmentDirectional.center),
           SizedBox(
             height: 8.h,
           ),

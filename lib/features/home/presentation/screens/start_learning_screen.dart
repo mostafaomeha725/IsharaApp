@@ -27,26 +27,30 @@ class StartLearningScreen extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 16.h),
-          AppText('1. Watch & Learn', style: font20w700),
+          AppText('1. Watch & Learn',
+              style: font20w700.copyWith(color: Colors.white)),
           SizedBox(height: 8.h),
           const TextRowStartLearning(
               title: 'Start with video lessons for each letter. '),
           const TextRowStartLearning(
               title: 'Pay attention to hand shape and movement'),
           SizedBox(height: 40.h),
-          AppText('2. Practice with AI', style: font20w700),
+          AppText('2. Practice with AI',
+              style: font20w700.copyWith(color: Colors.white)),
           SizedBox(height: 8.h),
           const TextRowStartLearning(
               title: 'Use your camera to practice signs.'),
           const TextRowStartLearning(
               title: 'Our AI will give you instant feedback.'),
           SizedBox(height: 40.h),
-          AppText('3. Build Words', style: font20w700),
+          AppText('3. Build Words',
+              style: font20w700.copyWith(color: Colors.white)),
           SizedBox(height: 8.h),
           const TextRowStartLearning(
               title: 'Combine letters you are learned\nto form real words.'),
           SizedBox(height: 40.h),
-          AppText('4. Take Your Time', style: font20w700),
+          AppText('4. Take Your Time',
+              style: font20w700.copyWith(color: Colors.white)),
           SizedBox(height: 8.h),
           const TextRowStartLearning(title: 'Go at your own pace. '),
           const TextRowStartLearning(
