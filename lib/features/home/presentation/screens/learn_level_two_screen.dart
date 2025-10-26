@@ -18,7 +18,8 @@ class LearnLevelTwoScreen extends StatelessWidget {
               height: 8.h,
             ),
             AppText('letters D,F,K,R,S,I,T',
-                style: font16w700, alignment: AlignmentDirectional.center),
+                style: font16w700.copyWith(color: Colors.white),
+                alignment: AlignmentDirectional.center),
             SizedBox(
               height: 8.h,
             ),

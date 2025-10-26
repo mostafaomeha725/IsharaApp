@@ -9,6 +9,7 @@ import 'package:isharaapp/features/home/presentation/screens/test_level_four_scr
 import 'package:isharaapp/features/home/presentation/screens/test_level_one_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/test_level_three_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/test_level_two_screen.dart';
+import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
 
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 import 'package:isharaapp/features/splash/presentation/screens/onboarding_screen.dart';
@@ -78,6 +79,9 @@ GoRouter createRouter({
       GoRoute(
           path: Routes.testLevelFourScreen,
           builder: (context, state) => const TestLevelFourScreen()),
+      // GoRoute(
+      //     path: Routes.lessondetails,
+      //     builder: (context, state) => const LesseonDetailsScreen()),
     ],
   );
 }
