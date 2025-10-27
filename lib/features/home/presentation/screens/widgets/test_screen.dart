@@ -34,7 +34,7 @@ class TestScreen extends StatelessWidget {
                   SizedBox(height: 25.h),
                   Text(
                     "Each level contains words made only\nfrom the letters you've learned in that\nlevel.\n\nStart with Level One and progress as\nyou master each set of letters.",
-                    style: font20w700,
+                    style: font20w700.copyWith(color: Colors.white),
                   ),
                   SizedBox(height: 40.h),
                   AppButton(
@@ -91,7 +91,7 @@ class TestScreen extends StatelessWidget {
                   SizedBox(height: 50.h),
                   Text(
                       'Complete levels in order for the\n     best learning experience.',
-                      style: font14w700)
+                      style: font14w700.copyWith(color: Colors.white)),
                 ],
               ),
             )

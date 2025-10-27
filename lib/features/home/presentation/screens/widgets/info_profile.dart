@@ -40,11 +40,11 @@ class InfoProfile extends StatelessWidget {
           children: [
             Text(
               'Mahmoud Elhenawy',
-              style: font20w700,
+              style: font20w700.copyWith(color: Colors.white),
             ),
             Text(
               'mahmoud202203355@gmailcom',
-              style: font14w400,
+              style: font14w400.copyWith(color: Colors.white),
             ),
           ],
         )

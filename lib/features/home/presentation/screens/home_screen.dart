@@ -7,7 +7,9 @@ import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/home_card.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.onNavigateToTab});
+  final Function(int)?
+      onNavigateToTab; //دس الفانكشن اللي بتعملي نافجين جوا ال nav bar كانه تايمر
 
   @override
   Widget build(BuildContext context) {
@@ -60,41 +62,58 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 24.h),
-                    HomeCard(
-                      title: "Learn",
-                      subtitle: 'Explore new lessons and expand your knowledge',
-                      image: gender == GenderTheme.boy
-                          ? Assets.learnBoy
-                          : Assets.learngirl,
-                      backgroundColor: gender == GenderTheme.boy
-                          ? const Color(0xFFECF2FE)
-                          : const Color(0xffFEF1F9),
-                      onArrowTap: () {},
+                    GestureDetector(
+                      onTap: () {
+                        onNavigateToTab?.call(1);
+                      },
+                      child: HomeCard(
+                        title: "Learn",
+                        subtitle:
+                            'Explore new lessons and expand your knowledge',
+                        image: gender == GenderTheme.boy
+                            ? Assets.learnBoy
+                            : Assets.learngirl,
+                        backgroundColor: gender == GenderTheme.boy
+                            ? const Color(0xFFECF2FE)
+                            : const Color(0xffFEF1F9),
+                        onArrowTap: () {},
+                      ),
                     ),
                     SizedBox(height: 14.h),
-                    HomeCard(
-                      title: "Practice",
-                      subtitle:
-                          'Reinforce what you have learned with Quick exercises',
-                      image: gender == GenderTheme.boy
-                          ? Assets.practieboy
-                          : Assets.practiegirl,
-                      backgroundColor: gender == GenderTheme.boy
-                          ? const Color(0xFFECF2FE)
-                          : const Color(0xffFEF1F9),
-                      onArrowTap: () {},
+                    GestureDetector(
+                      onTap: () {
+                        onNavigateToTab?.call(2);
+                      },
+                      child: HomeCard(
+                        title: "Practice",
+                        subtitle:
+                            'Reinforce what you have learned with Quick exercises',
+                        image: gender == GenderTheme.boy
+                            ? Assets.practieboy
+                            : Assets.practiegirl,
+                        backgroundColor: gender == GenderTheme.boy
+                            ? const Color(0xFFECF2FE)
+                            : const Color(0xffFEF1F9),
+                        onArrowTap: () {},
+                      ),
                     ),
                     SizedBox(height: 14.h),
-                    HomeCard(
-                      title: "Test yourself with AI Bot",
-                      subtitle: 'Explore new lessons and expand your knowledge',
-                      image: gender == GenderTheme.boy
-                          ? Assets.testboy
-                          : Assets.testgirl,
-                      backgroundColor: gender == GenderTheme.boy
-                          ? const Color(0xFFECF2FE)
-                          : const Color(0xffFEF1F9),
-                      onArrowTap: () {},
+                    GestureDetector(
+                      onTap: () {
+                        onNavigateToTab?.call(3);
+                      },
+                      child: HomeCard(
+                        title: "Test yourself with AI Bot",
+                        subtitle:
+                            'Explore new lessons and expand your knowledge',
+                        image: gender == GenderTheme.boy
+                            ? Assets.testboy
+                            : Assets.testgirl,
+                        backgroundColor: gender == GenderTheme.boy
+                            ? const Color(0xFFECF2FE)
+                            : const Color(0xffFEF1F9),
+                        onArrowTap: () {},
+                      ),
                     ),
                   ],
                 ),
