@@ -51,6 +51,9 @@ class LesseonDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 52.h,
+              ),
               AppText(
                 data['title']!,
                 style: font20w700.copyWith(color: Colors.white),
