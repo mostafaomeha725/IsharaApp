@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 
 class CustomAppBarRow extends StatelessWidget {
   final String title;
@@ -19,13 +20,17 @@ class CustomAppBarRow extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: onBack ?? () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: onBack ??
+                () {
+                  final navBarState = CustomNavBar.of(context);
+                  navBarState?.onWillPop();
+                },
           ),
           const Spacer(),
           Text(
             title,
-            style: font20w700,
+            style: font20w700.copyWith(color: Colors.white),
           ),
           const Spacer(flex: 2),
         ],

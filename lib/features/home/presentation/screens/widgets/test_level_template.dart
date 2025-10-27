@@ -129,7 +129,8 @@ class TestLevelTemplate extends StatelessWidget {
                 ),
                 Text(
                   accuracy,
-                  style: font32w700.copyWith(fontSize: 36.sp),
+                  style:
+                      font32w700.copyWith(fontSize: 36.sp, color: Colors.white),
                 ),
               ],
             ),
