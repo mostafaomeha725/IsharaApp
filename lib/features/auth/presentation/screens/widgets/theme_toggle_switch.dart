@@ -53,12 +53,10 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
   Widget build(BuildContext context) {
     final isDark = widget.isDarkMode;
 
-    // 🎨 الألوان محسّنة حسب الثيم
     final Color activeColor =
         widget.activeColor ?? (isDark ? Colors.white : Colors.black);
-    final Color backgroundColor = isDark
-        ? Colors.black
-        : const Color(0xFFF0F0F0); // رمادي فاتح بدل الأبيض الصافي
+    final Color backgroundColor =
+        isDark ? Colors.transparent : const Color(0xFFF0F0F0);
 
     return GestureDetector(
       onTap: _toggleTheme,

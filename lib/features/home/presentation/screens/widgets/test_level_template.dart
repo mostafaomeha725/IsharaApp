@@ -42,7 +42,7 @@ class TestLevelTemplate extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    CustomAppBarRow(title: title),
+                    CustomAppBarRow(title: title, onBack: onBackPressed),
                     SizedBox(height: 16.h),
                     CustomRichWord(word: word),
                     SizedBox(height: 16.h),

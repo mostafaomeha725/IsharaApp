@@ -46,7 +46,7 @@ class TestScreen extends StatelessWidget {
                     textColor: gender == GenderTheme.boy
                         ? const Color(0xFF3A7CF2)
                         : const Color(0xFFF24BB6),
-                    textSize: 32.sp,
+                    textSize: 28.sp,
                     radius: 24.r,
                   ),
                   SizedBox(height: 20.h),
@@ -59,7 +59,7 @@ class TestScreen extends StatelessWidget {
                     textColor: gender == GenderTheme.boy
                         ? const Color(0xFF3A7CF2)
                         : const Color(0xFFF24BB6),
-                    textSize: 32.sp,
+                    textSize: 28.sp,
                     radius: 24.r,
                   ),
                   SizedBox(height: 20.h),
@@ -72,7 +72,7 @@ class TestScreen extends StatelessWidget {
                     textColor: gender == GenderTheme.boy
                         ? const Color(0xFF3A7CF2)
                         : const Color(0xFFF24BB6),
-                    textSize: 32.sp,
+                    textSize: 28.sp,
                     radius: 24.r,
                   ),
                   SizedBox(height: 20.h),
@@ -85,7 +85,7 @@ class TestScreen extends StatelessWidget {
                     textColor: gender == GenderTheme.boy
                         ? const Color(0xFF3A7CF2)
                         : const Color(0xFFF24BB6),
-                    textSize: 32.sp,
+                    textSize: 28.sp,
                     radius: 24.r,
                   ),
                   SizedBox(height: 50.h),
