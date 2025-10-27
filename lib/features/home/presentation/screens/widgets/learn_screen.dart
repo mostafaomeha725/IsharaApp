@@ -111,12 +111,14 @@ class _LearnScreenState extends State<LearnScreen> {
                                             'Master the Sign Language Alphabet',
                                             style: font16w700.copyWith(
                                                 color: Colors.white),
+                                            overflow: TextOverflow.visible,
                                           ),
                                           SizedBox(height: 16.h),
                                           AppText(
                                             'Start with the easiest letters and build your skills step-by-step',
                                             style: font16w400.copyWith(
                                                 color: Colors.white),
+                                            overflow: TextOverflow.visible,
                                           ),
                                           SizedBox(height: 12.h),
                                           CourseCard(
