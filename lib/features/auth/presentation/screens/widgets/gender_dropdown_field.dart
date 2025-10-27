@@ -22,7 +22,7 @@ class GenderDropdownField extends StatelessWidget {
         isDark ? AppDarkColors.formFieldBorder : AppLightColors.formFieldBorder;
 
     return DropdownButtonFormField<String>(
-      initialValue: value,
+      value: value,
       decoration: InputDecoration(
         prefixIcon: Padding(
           padding: EdgeInsets.only(left: 16.h, right: 6.h),
