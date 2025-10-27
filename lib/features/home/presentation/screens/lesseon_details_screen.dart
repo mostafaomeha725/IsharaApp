@@ -4,9 +4,9 @@ import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/words_details.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class LesseonDetailsScreen extends StatefulWidget {
+class LesseonDetailsScreen extends StatelessWidget {
   const LesseonDetailsScreen({
     super.key,
     required this.onBack,
@@ -16,48 +16,13 @@ class LesseonDetailsScreen extends StatefulWidget {
   final VoidCallback onBack;
   final String letter;
 
-  @override
-  State<LesseonDetailsScreen> createState() => _LesseonDetailsScreenState();
-}
-
-class _LesseonDetailsScreenState extends State<LesseonDetailsScreen> {
-  late YoutubePlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(
-              'https://youtu.be/eEmXHJX7Wb0?si=UJctxW12nos8B352')!
-          .toString(),
-      flags: const YoutubePlayerFlags(autoPlay: false, mute: false),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _showMiniPlayer() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.black,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.4,
-          child: YoutubePlayer(
-            controller: _controller,
-            showVideoProgressIndicator: true,
-          ),
-        );
-      },
-    );
+  Future<void> _openYoutubeVideo(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      debugPrint('Could not launch $url');
+    }
   }
 
   @override
@@ -67,13 +32,17 @@ class _LesseonDetailsScreenState extends State<LesseonDetailsScreen> {
         ? const Color(0xFF3A7CF2)
         : const Color(0xFFF24BB6);
 
-    final String singleLetter = widget.letter.split(' ').last;
+    final String singleLetter = letter.split(' ').last;
     final data = lessonsData[singleLetter] ??
         {
-          'title': widget.letter,
+          'title': letter,
           'steps': 'No data available for this letter.',
           'mistakes': '',
         };
+
+    const String videoUrl = 'https://youtu.be/eEmXHJX7Wb0?si=UJctxW12nos8B352';
+    const String videoId = 'eEmXHJX7Wb0';
+    const String thumbnailUrl = 'https://img.youtube.com/vi/$videoId/0.jpg';
 
     return SafeArea(
       child: Padding(
@@ -89,15 +58,33 @@ class _LesseonDetailsScreenState extends State<LesseonDetailsScreen> {
               ),
               SizedBox(height: 24.h),
               GestureDetector(
-                onTap: _showMiniPlayer,
+                onTap: () => _openYoutubeVideo(videoUrl),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(16.r),
-                      child: YoutubePlayer(
-                        controller: _controller,
-                        showVideoProgressIndicator: false,
+                      child: Image.network(
+                        thumbnailUrl,
+                        height: 200.h,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            height: 200.h,
+                            color: Colors.black12,
+                            alignment: Alignment.center,
+                            child: const CircularProgressIndicator(),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          height: 200.h,
+                          color: Colors.grey[800],
+                          alignment: Alignment.center,
+                          child: const Icon(Icons.broken_image,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                     Container(
@@ -126,6 +113,7 @@ class _LesseonDetailsScreenState extends State<LesseonDetailsScreen> {
               AppText(
                 data['steps']!,
                 style: font16w700.copyWith(color: Colors.white),
+                overflow: TextOverflow.visible,
               ),
               SizedBox(height: 40.h),
               Align(
@@ -139,6 +127,7 @@ class _LesseonDetailsScreenState extends State<LesseonDetailsScreen> {
               AppText(
                 data['mistakes']!,
                 style: font16w700.copyWith(color: Colors.white),
+                overflow: TextOverflow.visible,
               ),
             ],
           ),
