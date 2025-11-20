@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/item_personal_data.dart';
@@ -11,21 +10,19 @@ import 'package:isharaapp/features/home/presentation/screens/widgets/item_person
 class CustomProfileCard extends StatelessWidget {
   const CustomProfileCard({
     super.key,
-    required this.gender,
+    required ThemeMode themeMode,
   });
-
-  final GenderTheme gender;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 398.w,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xffFAFAFA),
         borderRadius: BorderRadius.circular(15.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.2),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -39,32 +36,24 @@ class CustomProfileCard extends StatelessWidget {
             Text(
               'Pesonal Data',
               style: font16w700.copyWith(
-                color: gender == GenderTheme.boy
-                    ? const Color(0xFF3A7CF2)
-                    : const Color(0xFFF24BB6),
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 16.h),
             ItemPersonalData(
               title: 'Name',
               subtitle: 'mahmoud elhenawy',
-              image: gender == GenderTheme.boy
-                  ? Assets.userSquareBoy
-                  : Assets.userSquareGirl,
+              image: Assets.iconProfile,
             ),
             ItemPersonalData(
               title: 'Email',
               subtitle: 'nourreldinahmed@gmail.com',
-              image: gender == GenderTheme.boy
-                  ? Assets.gmailBoy
-                  : Assets.gmailGirl,
+              image: Assets.iconEmail,
             ),
             ItemPersonalData(
               title: 'Date of birth',
               subtitle: '1/10/2004',
-              image: gender == GenderTheme.boy
-                  ? Assets.birthBoy
-                  : Assets.birthGirl,
+              image: Assets.iconBirthday,
             ),
             Row(
               children: [
@@ -73,18 +62,14 @@ class CustomProfileCard extends StatelessWidget {
                   child: ItemPersonalData(
                     title: 'Gender',
                     subtitle: 'Male',
-                    image: gender == GenderTheme.boy
-                        ? Assets.genderBoy
-                        : Assets.genderGirl,
+                    image: Assets.iconGender,
                   ),
                 ),
                 SizedBox(width: 12.w),
                 AppButton(
                   text: 'Edit data',
                   onPressed: () {},
-                  color: gender == GenderTheme.boy
-                      ? const Color(0xFF3A7CF2)
-                      : const Color(0xFFF24BB6),
+                  color: Colors.black,
                   radius: 16.r,
                   height: 40.h,
                   textSize: 15.sp,

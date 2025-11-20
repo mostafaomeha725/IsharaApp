@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 
@@ -18,8 +17,6 @@ class ItemPersonalData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gender = GenderController.of(context).genderTheme;
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h), // مسافة بين العناصر
       child: Row(
@@ -38,18 +35,14 @@ class ItemPersonalData extends StatelessWidget {
                 Text(
                   title,
                   style: font12w700.copyWith(
-                    color: gender == GenderTheme.boy
-                        ? const Color(0xFF3A7CF2)
-                        : const Color(0xFFF24BB6),
+                    color: Colors.black,
                   ),
                 ),
                 SizedBox(height: 4.h),
                 Text(
                   subtitle,
                   style: font12w400.copyWith(
-                    color: gender == GenderTheme.boy
-                        ? const Color(0xFF3A7CF2)
-                        : const Color(0xFFF24BB6),
+                    color: Colors.black,
                   ),
                 ),
               ],

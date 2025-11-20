@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 
@@ -23,21 +22,17 @@ class HomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gender = GenderController.of(context).genderTheme;
-
     return Container(
       width: 398.w,
       height: 249.h,
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: gender == GenderTheme.boy
-            ? const Color(0xFFECF2FE)
-            : const Color(0xffFEF1F9),
+        color: Color(0xffFAFAFA),
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.2),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -48,22 +43,14 @@ class HomeCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: font20w700.copyWith(
-              color: gender == GenderTheme.boy
-                  ? const Color(0xFF3A7CF2)
-                  : const Color(0xffF24BB6),
-            ),
+            style: font20w700.copyWith(color: Color(0xff333333)),
           ),
           SizedBox(height: 6.h),
           Text(
             subtitle,
-            style: font14w400.copyWith(
-              color: gender == GenderTheme.boy
-                  ? const Color(0xFF3A7CF2)
-                  : const Color(0xffF24BB6),
-            ),
+            style: font14w400.copyWith(color: Color(0xff333333)),
           ),
-          const Spacer(), // بدل Expanded
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -77,9 +64,8 @@ class HomeCard extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: AppAsset(
-                    assetName: gender == GenderTheme.boy
-                        ? Assets.arrowboy
-                        : Assets.arrowgirl,
+                    color: Color(0xff333333),
+                    assetName: Assets.arrowgirl,
                     height: 40.h,
                     width: 40.w,
                   ),

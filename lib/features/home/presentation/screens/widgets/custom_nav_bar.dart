@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/features/home/presentation/screens/home_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/learn_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/nav_bar_item.dart';
@@ -64,8 +63,6 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    final gender = GenderController.of(context).genderTheme;
-
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
@@ -75,40 +72,33 @@ class _CustomNavBarState extends State<CustomNavBar> {
         ),
         bottomNavigationBar: BottomAppBar(
           height: 65.h,
-          color: gender == GenderTheme.boy
-              ? const Color(0xFF152D57)
-              : const Color(0xFF571B42),
+          color: Color(0xff252525),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               NavBarItem(
                 icon: Assets.homeIcon,
                 isSelected: _selectedIndex == 0,
-                gender: gender,
                 onTap: () => _onItemTapped(0),
               ),
               NavBarItem(
                 icon: Assets.youtubeIcon,
                 isSelected: _selectedIndex == 1,
-                gender: gender,
                 onTap: () => _onItemTapped(1),
               ),
               NavBarItem(
                 icon: Assets.bookIcon,
                 isSelected: _selectedIndex == 2,
-                gender: gender,
                 onTap: () => _onItemTapped(2),
               ),
               NavBarItem(
                 icon: Assets.aiIcon,
                 isSelected: _selectedIndex == 3,
-                gender: gender,
                 onTap: () => _onItemTapped(3),
               ),
               NavBarItem(
                 icon: Assets.profileIcon,
                 isSelected: _selectedIndex == 4,
-                gender: gender,
                 onTap: () => _onItemTapped(4),
               ),
             ],

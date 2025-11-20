@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_appbar.dart';
@@ -24,18 +24,16 @@ class TestLevelTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gender = GenderController.of(context).genderTheme;
+    final themeController = ThemeController.of(context);
+
     return Scaffold(
-      backgroundColor: gender == GenderTheme.boy
-          ? const Color(0xFF3A7CF2)
-          : const Color(0xFFF24BB6),
       body: SafeArea(
         child: Stack(
           children: [
             AppAsset(
-              assetName: gender == GenderTheme.boy
-                  ? Assets.boySplash
-                  : Assets.girlsplash,
+              assetName: themeController.themeMode == ThemeMode.dark
+                  ? Assets.splashdark
+                  : Assets.splashlight,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -46,28 +44,36 @@ class TestLevelTemplate extends StatelessWidget {
                     SizedBox(height: 16.h),
                     CustomRichWord(word: word),
                     SizedBox(height: 16.h),
-                    _buildVideoBox(context, gender),
+                    _buildVideoBox(
+                        context, themeController.themeMode == ThemeMode.dark),
                     SizedBox(height: 30.h),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Practice Tips:",
-                        style: font16w700.copyWith(color: Colors.white),
+                        style: font16w700.copyWith(
+                            color: themeController.themeMode == ThemeMode.dark
+                                ? Colors.white
+                                : Colors.black),
                       ),
                     ),
                     SizedBox(height: 8.h),
-                    _buildTip("Find good lighting facing your hands"),
-                    _buildTip("Keep your hand centered in the frame"),
-                    _buildTip("Make sure all fingers are visible"),
-                    _buildTip("Don't rush - form the sign carefully"),
+                    _buildTip(context, "Find good lighting facing your hands"),
+                    _buildTip(context, "Keep your hand centered in the frame"),
+                    _buildTip(context, "Make sure all fingers are visible"),
+                    _buildTip(context, "Don't rush - form the sign carefully"),
                     SizedBox(height: 16.h),
                     AppButton(
                       text: 'back to letter lesson',
                       onPressed: onBackPressed,
-                      textColor: Colors.white,
+                      textColor: themeController.themeMode == ThemeMode.dark
+                          ? Colors.white
+                          : Colors.black,
                       color: Colors.transparent,
                       radius: 32.r,
-                      borderColor: Colors.white,
+                      borderColor: themeController.themeMode == ThemeMode.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
                     SizedBox(height: 16.h),
                   ],
@@ -80,7 +86,7 @@ class TestLevelTemplate extends StatelessWidget {
     );
   }
 
-  Widget _buildVideoBox(BuildContext context, GenderTheme gender) {
+  Widget _buildVideoBox(BuildContext context, bool isDarkMode) {
     return Container(
       width: double.infinity,
       height: 400.h,
@@ -97,7 +103,7 @@ class TestLevelTemplate extends StatelessWidget {
               width: double.infinity,
               height: 460.h,
               fit: BoxFit.cover,
-              assetName: gender == GenderTheme.boy ? Assets.boy : Assets.girl,
+              assetName: Assets.boy,
             ),
           ),
           Positioned(
@@ -140,16 +146,23 @@ class TestLevelTemplate extends StatelessWidget {
     );
   }
 
-  Widget _buildTip(String text) {
+  Widget _buildTip(BuildContext context, String text) {
     return Padding(
       padding: EdgeInsets.only(bottom: 3.h),
       child: Row(
         children: [
-          Text("• ", style: font18w700.copyWith(color: Colors.white)),
+          Text("• ",
+              style: font18w700.copyWith(
+                  color: ThemeController.of(context).themeMode == ThemeMode.dark
+                      ? Colors.white
+                      : Colors.black)),
           Expanded(
             child: Text(
               text,
-              style: font16w700.copyWith(color: Colors.white),
+              style: font16w700.copyWith(
+                  color: ThemeController.of(context).themeMode == ThemeMode.dark
+                      ? Colors.white
+                      : Colors.black),
             ),
           ),
         ],

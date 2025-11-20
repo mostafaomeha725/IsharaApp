@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/learn_level_four_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/learn_level_one_screen.dart';
@@ -36,8 +36,8 @@ class _LearnScreenState extends State<LearnScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final gender = GenderController.of(context).genderTheme;
-    final bgColor = gender == GenderTheme.boy
+    final themeController = ThemeController.of(context);
+    final bgColor = themeController.themeMode == ThemeMode.dark
         ? const Color(0xFF3A7CF2)
         : const Color(0xFFF24BB6);
 
@@ -59,7 +59,7 @@ class _LearnScreenState extends State<LearnScreen> {
             decoration: BoxDecoration(
               color: bgColor,
               image: const DecorationImage(
-                image: AssetImage(Assets.girlsplash),
+                image: AssetImage(Assets.splashlight),
                 fit: BoxFit.cover,
                 opacity: 0.7,
               ),

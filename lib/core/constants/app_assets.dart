@@ -6,15 +6,11 @@ class Assets {
   static const String forgetPasswordlight = "assets/Forgot password light.gif";
   static const String forgetPassworddark = "assets/Forgot password dark .gif";
 
-  static const String goodark = "assets/goo_dark.gif";
-  static const String goolight = "assets/goo.gif";
-  static const String letterdark = "assets/letters_dark.gif";
-  static const String letter = "assets/letters.gif";
-  static const String playvideo = "assets/play_video_dark.gif";
-  static const String studydark = "assets/study_dark.gif";
-  static const String study = "assets/study.gif";
-  static const String wellcomedark = "assets/Welcome_dark.gif";
-  static const String wellcome = "assets/Welcome.gif";
+  static const String onboardingone = "assets/onboarding_one.png";
+  static const String onboardingtwo = "assets/onboarding_two.png";
+  static const String onboardingthree = "assets/onboarding_three.png";
+  static const String onboardingfour = "assets/onboarding_four.png";
+  static const String onboardingfive = "assets/onboarding_five.png";
   static const String logo = "assets/neutral logo 1.svg";
   static const String emailcheck = "assets/emailcheck 1.png";
   static const String confirmedcuate = "assets/Confirmed-cuate 1.png";
@@ -38,7 +34,6 @@ class Assets {
   static const String littledark = "assets/letters_dark.gif";
 
   static const String homeprofile = "assets/home-profile.png";
-  static const String girlsplash = "assets/girl_splash.png";
   static const String girlLogo = "assets/girl_logo.png";
   static const String arrowgirl = "assets/arrow_girl.png";
   static const String learngirl = "assets/learn_girl.png";
@@ -49,15 +44,15 @@ class Assets {
   static const String profileIcon = "assets/profile-icon.png";
   static const String bookIcon = "assets/book-icon.png";
   static const String aiIcon = "assets/ai_icon.png";
-  static const String boySplash = "assets/splash_boy.png";
   static const String boyLogo = "assets/Boy_logo 1.png";
   static const String learnBoy = "assets/learn_boy.png";
   static const String practieboy = "assets/practie_boy.png";
   static const String testboy = "assets/test_boy.png";
   static const String arrowboy = "assets/arrow_boy.png";
   static const String girlEdit = "assets/girl-edit.png";
-  static const String boyEdit = "assets/boy-edit (1).png";
+  static const String iconEdit = "assets/icon_edit.png";
   static const String iconProfileCircle = "assets/profile-circle.png";
+  static const String iconProfileCircleL = "assets/profile_black.png";
   static const String userSquareGirl = "assets/iconsax-user-square (2).png";
   static const String userSquareBoy = "assets/user-square_boy.png";
   static const String gmailBoy = "assets/gmail_boy.png";
@@ -73,5 +68,17 @@ class Assets {
   static const String logoutGirl = "assets/logout-girl.png";
   static const String logoutBoy = "assets/logout_boy.png";
   static const String girl = "assets/girl.png";
-  static const String boy = "assets/boy.png";
+  static const String boy = "assets/boy_image.png";
+  static const String iconProfile = "assets/icon_profile.png";
+  static const String iconEmail = "assets/icon_Email.png";
+  static const String iconBirthday = "assets/icon_birthday.png";
+  static const String iconGender = "assets/icon_gender.png";
+  static const String iconTheme = "assets/icon_theme.png";
+  static const String iconRemove = "assets/icon_remove.png";
+  static const String iconLogout = "assets/icon_logout.png";
+  static const String book1 = "assets/book_one.png";
+  static const String book2 = "assets/book_two.png";
+  static const String book3 = "assets/book_three.png";
+  static const String book4 = "assets/book_four.png";
+  static const String passImage = "assets/pass_image.png";
 }
