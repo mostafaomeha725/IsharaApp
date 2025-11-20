@@ -34,11 +34,7 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
   @override
   void didUpdateWidget(covariant ThemeToggleSwitch oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.isDarkMode) {
-      _controller.forward();
-    } else {
-      _controller.reverse();
-    }
+    widget.isDarkMode ? _controller.forward() : _controller.reverse();
   }
 
   @override
@@ -51,12 +47,14 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
 
   @override
   Widget build(BuildContext context) {
-    final isDark = widget.isDarkMode;
+    final bool isDark = widget.isDarkMode;
 
     final Color activeColor =
         widget.activeColor ?? (isDark ? Colors.white : Colors.black);
+
+    // 🔥 خلفية السويتش بعد التعديل
     final Color backgroundColor =
-        isDark ? Colors.transparent : const Color(0xFFF0F0F0);
+        isDark ? const Color(0xFF333333) : Colors.black.withOpacity(0.08);
 
     return GestureDetector(
       onTap: _toggleTheme,
@@ -75,23 +73,24 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Icons in background
+            /// الخلفية (الأيقونات)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Icon(
                   Icons.wb_sunny_rounded,
-                  color: isDark ? Colors.white54 : Colors.amber[700],
+                  color: isDark ? Colors.white54 : Colors.orangeAccent,
                   size: 22.sp,
                 ),
                 Icon(
                   Icons.nightlight_round,
-                  color: isDark ? Colors.white : Colors.indigo[700],
+                  color: isDark ? Colors.white : Colors.indigo[600],
                   size: 20.sp,
                 ),
               ],
             ),
-            // Moving circle
+
+            /// الدائرة المتحركة
             AnimatedAlign(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
@@ -102,12 +101,12 @@ class _ThemeToggleSwitchState extends State<ThemeToggleSwitch>
                 decoration: BoxDecoration(
                   color: activeColor,
                   shape: BoxShape.circle,
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
-                      color: Colors.black26,
+                      color: Colors.black.withOpacity(0.25),
                       blurRadius: 4,
-                      offset: Offset(0, 2),
-                    )
+                      offset: const Offset(0, 2),
+                    ),
                   ],
                 ),
                 child: Center(

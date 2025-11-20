@@ -7,7 +7,7 @@ class TestLevelOneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TestLevelTemplate(
-      title: "Level One: Able",
+      title: "Level One",
       word: "Able",
       accuracy: "50%",
       onBackPressed: () {

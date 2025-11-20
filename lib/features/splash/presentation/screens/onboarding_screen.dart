@@ -32,9 +32,17 @@ class _OnboardScreenState extends State<OnboardScreen> {
   Widget build(BuildContext context) {
     final themeController = ThemeController.of(context);
     return Scaffold(
+      backgroundColor: ThemeController.of(context).themeMode == ThemeMode.dark
+          ? Color(0xff2b2b23)
+          : Color(0xfffafafa),
       body: SafeArea(
         child: Stack(
           children: [
+            AppAsset(
+              assetName: themeController.themeMode == ThemeMode.dark
+                  ? Assets.splashdark
+                  : Assets.splashlight,
+            ),
             Column(
               children: [
                 const SizedBox(height: 100),
@@ -74,7 +82,9 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   child: Text(
                     'Skip',
                     style: TextStyle(
-                      color: Color(0xFF3A7CF2),
+                      color: themeController.themeMode == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/words_details.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,10 +27,10 @@ class LesseonDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gender = GenderController.of(context).genderTheme;
-    final Color mainColor = gender == GenderTheme.boy
-        ? const Color(0xFF3A7CF2)
-        : const Color(0xFFF24BB6);
+    final themeController = ThemeController.of(context);
+    final Color mainColor = themeController.themeMode == ThemeMode.dark
+        ? Colors.white
+        : Colors.black;
 
     final String singleLetter = letter.split(' ').last;
     final data = lessonsData[singleLetter] ??

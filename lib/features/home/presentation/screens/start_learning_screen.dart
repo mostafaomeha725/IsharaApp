@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:isharaapp/core/theme/gender_controller.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/text_row_start_learning.dart';
@@ -14,13 +14,14 @@ class StartLearningScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gender = GenderController.of(context).genderTheme;
-    final genderColor = gender == GenderTheme.boy
-        ? const Color(0xFF3A7CF2)
-        : const Color(0xFFF24BB6);
-    final buttomColor = gender == GenderTheme.boy
-        ? const Color(0xFF152D57)
-        : const Color(0xFF571B42);
+    final themeController = ThemeController.of(context);
+
+    final buttomColor = themeController.themeMode == ThemeMode.dark
+        ? Colors.black
+        : Colors.white;
+    final textColor = themeController.themeMode == ThemeMode.dark
+        ? Colors.white
+        : Colors.black;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -67,7 +68,7 @@ class StartLearningScreen extends StatelessWidget {
                   onPressed: onGoBack,
                   height: 42.h,
                   borderColor: Colors.white,
-                  textColor: genderColor,
+                  textColor: textColor,
                   color: Colors.white,
                   textSize: 15.sp,
                   textWeight: FontWeight.w500,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 
 class HiveManager {
   Future<void> setBool(String key, bool value) async {
@@ -27,6 +28,7 @@ class OnboardingFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = ThemeController.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Row(
@@ -41,10 +43,12 @@ class OnboardingFooter extends StatelessWidget {
                   curve: Curves.easeOut,
                 );
               },
-              child: const Text(
+              child: Text(
                 'Back',
                 style: TextStyle(
-                  color: Color(0xFF3A7CF2),
+                  color: themeController.themeMode == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -61,10 +65,12 @@ class OnboardingFooter extends StatelessWidget {
                   curve: Curves.easeOut,
                 );
               },
-              child: const Text(
+              child: Text(
                 'Next',
                 style: TextStyle(
-                  color: Color(0xFF3A7CF2),
+                  color: themeController.themeMode == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -73,10 +79,12 @@ class OnboardingFooter extends StatelessWidget {
           else
             TextButton(
               onPressed: () => onboardingSeen(context),
-              child: const Text(
+              child: Text(
                 'Begin',
                 style: TextStyle(
-                  color: Color(0xFF3A7CF2),
+                  color: themeController.themeMode == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
