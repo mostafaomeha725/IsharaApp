@@ -4,13 +4,18 @@ import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/home_appbar.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/text_row_start_learning.dart';
 
 class StartLearningScreen extends StatelessWidget {
   final VoidCallback onGoBack;
   final void Function()? onPressed;
-  const StartLearningScreen(
-      {super.key, required this.onGoBack, this.onPressed});
+
+  const StartLearningScreen({
+    super.key,
+    required this.onGoBack,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +28,10 @@ class StartLearningScreen extends StatelessWidget {
         ? Colors.white
         : Colors.black;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Column(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
+      body: Stack(
         children: [
           SizedBox(height: 16.h),
           AppText('1. Watch & Learn',
@@ -85,8 +91,18 @@ class StartLearningScreen extends StatelessWidget {
                   textSize: 15,
                   textWeight: FontWeight.w500,
                 ),
-              ),
-            ],
+                SizedBox(height: 40.h),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: HomeAppbar(
+              title: 'Start Learning',
+              onBack: onGoBack,
+            ),
           ),
         ],
       ),

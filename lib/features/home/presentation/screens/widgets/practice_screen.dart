@@ -12,6 +12,7 @@ import 'package:isharaapp/features/home/presentation/screens/lesseon_details_scr
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/home_appbar.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/text_row_start_learning.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 
 class PracticeScreen extends StatefulWidget {
   const PracticeScreen({super.key});
@@ -48,6 +49,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
           _showLevelThree ||
           _showLevelFour) {
         _closeAll();
+      } else {
+        final navBarState = CustomNavBar.of(context);
+        navBarState?.onWillPop();
       }
     });
   }
@@ -102,45 +106,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
                       letter: '',
                     )
                   : _showLevelOne
-                      ? LearnLevelOneScreen(
-                          ispractise: true,
-                          onTap: (letter) {
-                            setState(() {
-                              _showLessonDetails = true;
-                              _selectedLetter = letter;
-                            });
-                          },
-                        )
+                      ? const LearnLevelOneScreen(ispractise: true)
                       : _showLevelTwo
-                          ? LearnLevelTwoScreen(
-                              ispractise: true,
-                              onTap: (letter) {
-                                setState(() {
-                                  _showLessonDetails = true;
-                                  _selectedLetter = letter;
-                                });
-                              },
-                            )
+                          ? const LearnLevelTwoScreen(ispractise: true)
                           : _showLevelThree
-                              ? LearnLevelThreeScreen(
-                                  ispractise: true,
-                                  onTap: (letter) {
-                                    setState(() {
-                                      _showLessonDetails = true;
-                                      _selectedLetter = letter;
-                                    });
-                                  },
-                                )
+                              ? const LearnLevelThreeScreen(ispractise: true)
                               : _showLevelFour
-                                  ? LearnLevelFourScreen(
-                                      ispractise: true,
-                                      onTap: (letter) {
-                                        setState(() {
-                                          _showLessonDetails = true;
-                                          _selectedLetter = letter;
-                                        });
-                                      },
-                                    )
+                                  ? const LearnLevelFourScreen(ispractise: true)
                                   : Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 16.w),

@@ -20,26 +20,17 @@ class LearnScreen extends StatefulWidget {
 }
 
 class _LearnScreenState extends State<LearnScreen> {
-  bool _showStartLearning = false;
-  bool _showLevelOne = false;
-  bool _showLevelTwo = false;
-  bool _showLevelThree = false;
-  bool _showLevelFour = false;
+  int _currentIndex = 0;
 
-  void _openLevelOne() {
+  void _goTo(int index) {
     setState(() {
-      _showStartLearning = false;
-      _showLevelOne = true;
+      _currentIndex = index;
     });
   }
 
-  void _closeAll() {
+  void _goBack() {
     setState(() {
-      _showStartLearning = false;
-      _showLevelOne = false;
-      _showLevelTwo = false;
-      _showLevelThree = false;
-      _showLevelFour = false;
+      _currentIndex = 0;
     });
   }
 
@@ -50,21 +41,17 @@ class _LearnScreenState extends State<LearnScreen> {
         ? const Color(0xFF3A7CF2)
         : const Color(0xFFF24BB6);
 
-    String appBarTitle = 'Learn';
-    if (_showStartLearning) appBarTitle = 'How to start learning';
-    if (_showLevelOne) appBarTitle = 'Level One';
-    if (_showLevelTwo) appBarTitle = 'Level Two';
-    if (_showLevelThree) appBarTitle = 'Level Three';
-    if (_showLevelFour) appBarTitle = 'Level Four';
+    final pages = [
+      _buildMainMenu(context),
+      StartLearningScreen(onGoBack: _goBack, onPressed: () => _goTo(2)),
+      LearnLevelOneScreen(ispractise: false, onBack: _goBack),
+      LearnLevelTwoScreen(ispractise: false, onBack: _goBack),
+      LearnLevelThreeScreen(ispractise: false, onBack: _goBack),
+      LearnLevelFourScreen(ispractise: false, onBack: _goBack),
+    ];
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: HomeAppbar(title: appBarTitle, onBack: _closeAll),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -81,111 +68,91 @@ class _LearnScreenState extends State<LearnScreen> {
           SafeArea(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
-              child: _showStartLearning
-                  ? StartLearningScreen(
-                      onGoBack: _closeAll,
-                      onPressed: _openLevelOne,
-                    )
-                  : _showLevelOne
-                      ? const LearnLevelOneScreen(ispractise: false)
-                      : _showLevelTwo
-                          ? const LearnLevelTwoScreen(
-                              ispractise: false,
-                            )
-                          : _showLevelThree
-                              ? const LearnLevelThreeScreen(
-                                  ispractise: false,
-                                )
-                              : _showLevelFour
-                                  ? const LearnLevelFourScreen(
-                                      ispractise: false,
-                                    )
-                                  : SingleChildScrollView(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 16.w),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          AppText(
-                                            'Master the Sign Language Alphabet',
-                                            style: font16w700.copyWith(
-                                                color: Colors.white),
-                                            overflow: TextOverflow.visible,
-                                          ),
-                                          SizedBox(height: 16.h),
-                                          AppText(
-                                            'Start with the easiest letters and build your skills step-by-step',
-                                            style: font16w400.copyWith(
-                                                color: Colors.white),
-                                            overflow: TextOverflow.visible,
-                                          ),
-                                          SizedBox(height: 12.h),
-                                          CourseCard(
-                                            title: 'Introduction',
-                                            subtitle: 'How to start learning',
-                                            completetext: '0 of 1 completed',
-                                            value: 0.1,
-                                            isinto: false,
-                                            onTap: () {
-                                              setState(() {
-                                                _showStartLearning = true;
-                                              });
-                                            },
-                                          ),
-                                          CourseCard(
-                                            title: 'Level One',
-                                            subtitle:
-                                                'letters A,B,C,E,L,O,V,W,U,Y',
-                                            completetext: '0 of 10 completed',
-                                            value: 0.0,
-                                            onTap: () {
-                                              setState(() {
-                                                _showLevelOne = true;
-                                              });
-                                            },
-                                          ),
-                                          CourseCard(
-                                            title: 'Level Two',
-                                            subtitle: 'letters D,F,K,R,S,I,T',
-                                            completetext: '0 of 7 completed',
-                                            value: 0.0,
-                                            onTap: () {
-                                              setState(() {
-                                                _showLevelTwo = true;
-                                              });
-                                            },
-                                          ),
-                                          CourseCard(
-                                            title: 'Level Three',
-                                            subtitle: 'letters G,H,M,N,X',
-                                            completetext: '0 of 5 completed',
-                                            value: 0.0,
-                                            onTap: () {
-                                              setState(() {
-                                                _showLevelThree = true;
-                                              });
-                                            },
-                                          ),
-                                          CourseCard(
-                                            title: 'Level Four',
-                                            subtitle: 'letters P,Q,Z,J',
-                                            completetext: '0 of 4 completed',
-                                            value: 0.0,
-                                            onTap: () {
-                                              setState(() {
-                                                _showLevelFour = true;
-                                              });
-                                            },
-                                          ),
-                                          SizedBox(height: 16.h),
-                                        ],
-                                      ),
-                                    ),
+              child: pages[_currentIndex],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMainMenu(BuildContext context) {
+    return Stack(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 76.h),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(
+                  'Master the Sign Language Alphabet',
+                  style: font16w700.copyWith(color: Colors.white),
+                ),
+                SizedBox(height: 16.h),
+                AppText(
+                  'Start with the easiest letters and build your skills step-by-step',
+                  style: font16w400.copyWith(color: Colors.white),
+                  overflow: TextOverflow.visible,
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                AppText(
+                  'Complete all lessons to form words and start communicating.',
+                  style: font16w400.copyWith(color: Colors.white),
+                  overflow: TextOverflow.visible,
+                ),
+                SizedBox(height: 12.h),
+                CourseCard(
+                  title: 'Introduction',
+                  subtitle: 'How to start learning',
+                  completetext: '0 of 1 completed',
+                  value: 0.1,
+                  isinto: false,
+                  onTap: () => _goTo(1),
+                ),
+                CourseCard(
+                  title: 'Level One',
+                  subtitle: 'letters A,B,C,E,L,O,V,W,U,Y',
+                  completetext: '0 of 10 completed',
+                  value: 0.0,
+                  onTap: () => _goTo(2),
+                ),
+                CourseCard(
+                  title: 'Level Two',
+                  subtitle: 'letters D,F,K,R,S,I,T',
+                  completetext: '0 of 7 completed',
+                  value: 0.0,
+                  onTap: () => _goTo(3),
+                ),
+                CourseCard(
+                  title: 'Level Three',
+                  subtitle: 'letters G,H,M,N,X',
+                  completetext: '0 of 5 completed',
+                  value: 0.0,
+                  onTap: () => _goTo(4),
+                ),
+                CourseCard(
+                  title: 'Level Four',
+                  subtitle: 'letters P,Q,Z,J',
+                  completetext: '0 of 4 completed',
+                  value: 0.0,
+                  onTap: () => _goTo(5),
+                ),
+                SizedBox(height: 16.h),
+              ],
+            ),
+          ),
+        ),
+        const Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: HomeAppbar(title: 'Learn'),
+        ),
+      ],
     );
   }
 }
