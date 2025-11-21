@@ -27,9 +27,15 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = ThemeController.of(context);
-    final Color mainColor = themeController.themeMode == ThemeMode.dark
-        ? Colors.white
-        : Colors.black;
+
+    final bool isDark = themeController.themeMode == ThemeMode.dark;
+
+    final Color mainTextColor = isDark ? Colors.white : Colors.black;
+    final Color cardBg = isDark ? const Color(0xFF1E1E1E) : Colors.white;
+    final Color tagBg = isDark ? Colors.white : Colors.black;
+    final Color tagText = isDark ? Colors.black : const Color(0xffECF2FE);
+    final Color progressBg = isDark ? Colors.white24 : const Color(0xffC4C4C4);
+    final Color iconColor = isDark ? Colors.white : Colors.black;
 
     return Padding(
       padding: EdgeInsets.only(top: 10.h),
@@ -38,7 +44,7 @@ class CourseCard extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(16.h),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: cardBg,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
@@ -52,24 +58,24 @@ class CourseCard extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
                       decoration: BoxDecoration(
-                        color: mainColor,
+                        color: tagBg,
                         borderRadius: BorderRadius.circular(8.sp),
                       ),
                       child: Text(
                         title,
                         style: font12w400.copyWith(
-                          color: const Color(0xffECF2FE),
+                          color: tagText,
                         ),
                       ),
                     ),
                     SizedBox(height: 8.h),
                     AppText(
                       subtitle,
-                      style: font16w400.copyWith(color: mainColor),
+                      style: font16w400.copyWith(color: mainTextColor),
                     ),
                     AppText(
                       completetext,
-                      style: font12w400.copyWith(color: mainColor),
+                      style: font12w400.copyWith(color: mainTextColor),
                     ),
                     SizedBox(height: 4.h),
                     ClipRRect(
@@ -78,8 +84,8 @@ class CourseCard extends StatelessWidget {
                         padding: EdgeInsets.only(right: 72.w),
                         child: LinearProgressIndicator(
                           value: value,
-                          color: mainColor,
-                          backgroundColor: const Color(0xffC4C4C4),
+                          color: iconColor,
+                          backgroundColor: progressBg,
                           minHeight: 4.h,
                         ),
                       ),
@@ -94,19 +100,19 @@ class CourseCard extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_right_alt,
                         size: 38.sp,
-                        color: mainColor,
+                        color: iconColor,
                       ))
                   : isinto
                       ? Container(
                           width: 40.w,
                           height: 40.h,
                           decoration: BoxDecoration(
-                            color: mainColor,
+                            color: iconColor,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.play_arrow_rounded,
-                            color: Colors.white,
+                            color: isDark ? Colors.black : Colors.white,
                             size: 32.sp,
                           ),
                         )

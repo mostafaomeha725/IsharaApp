@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 
 import 'package:isharaapp/core/widgets/custom_button.dart';
@@ -49,6 +50,8 @@ class _CheckMailScreenBodyState extends State<CheckMailScreenBody> {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = ThemeController.of(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22.w),
       child: SingleChildScrollView(
@@ -57,7 +60,11 @@ class _CheckMailScreenBodyState extends State<CheckMailScreenBody> {
             SizedBox(
               height: 72.h,
             ),
-            const AppAsset(assetName: Assets.emailcheck),
+            AppAsset(
+              assetName: Assets.email,
+              width: 280.w,
+              height: 250.h,
+            ),
             AppText(
               'Check your mail',
               style: font20w700,
@@ -110,6 +117,12 @@ class _CheckMailScreenBodyState extends State<CheckMailScreenBody> {
             SizedBox(height: 30.h),
             AppButton(
               text: 'Continue',
+              color: themeController.themeMode == ThemeMode.dark
+                  ? Colors.white
+                  : Colors.black,
+              textColor: themeController.themeMode == ThemeMode.dark
+                  ? Colors.black
+                  : Colors.white,
               onPressed: () {
                 GoRouter.of(context).push(Routes.createNewPasswordScreen);
               },

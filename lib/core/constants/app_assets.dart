@@ -10,7 +10,8 @@ class Assets {
   static const String onboardingtwo = "assets/onboarding_two.png";
   static const String onboardingthree = "assets/onboarding_three.png";
   static const String onboardingfour = "assets/onboarding_four.png";
-  static const String onboardingfive = "assets/onboarding_five.png";
+  static const String onboardingfive =
+      "assets/young boys and young girl jumping.png";
   static const String logo = "assets/neutral logo 1.svg";
   static const String emailcheck = "assets/emailcheck 1.png";
   static const String confirmedcuate = "assets/Confirmed-cuate 1.png";
@@ -81,4 +82,18 @@ class Assets {
   static const String book3 = "assets/book_three.png";
   static const String book4 = "assets/book_four.png";
   static const String passImage = "assets/pass_image.png";
+  static const String dataSecurity = "assets/data security (1).png";
+  static const String laptopwithpasswordnotification =
+      "assets/laptop with password notification and lock icon (1).png";
+  static const String email = "assets/email.png";
+  static const String yellowsecurity =
+      "assets/yellow security shield button (1).png";
+
+  static const String boyandgirlworkoncomputer =
+      "assets/boy and girl working on computer.png";
+  static const String onlinemeating = "assets/online meetings.png";
+  static const String sideviewofyoungmanwearingsmartwatchandholdingbook =
+      "assets/side view of young man wearing smart watch and holding book.png";
+  static const String youngwomanwritingnotebook =
+      "assets/young woman writing in a notebook.png";
 }

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
+import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/learn_level_four_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/learn_level_one_screen.dart';
@@ -11,7 +12,6 @@ import 'package:isharaapp/features/home/presentation/screens/learn_level_two_scr
 import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/home_appbar.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/text_row_start_learning.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -59,9 +59,6 @@ class _PracticeScreenState extends State<PracticeScreen> {
   @override
   Widget build(BuildContext context) {
     final themeController = ThemeController.of(context);
-    final bgColor = themeController.themeMode == ThemeMode.dark
-        ? const Color(0xFF3A7CF2)
-        : const Color(0xFFF24BB6);
 
     String appBarTitle = 'Practice';
     if (_showLessonDetails) {
@@ -87,16 +84,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: bgColor,
-              image: DecorationImage(
-                image: AssetImage(Assets.splashlight),
-                fit: BoxFit.cover,
-                opacity: 0.7,
-              ),
-            ),
+          AppAsset(
+            assetName: themeController.themeMode == ThemeMode.dark
+                ? Assets.splashdark
+                : Assets.splashlight,
           ),
+
+          /// Main Content
           SafeArea(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
@@ -113,27 +107,71 @@ class _PracticeScreenState extends State<PracticeScreen> {
                               ? const LearnLevelThreeScreen(ispractise: true)
                               : _showLevelFour
                                   ? const LearnLevelFourScreen(ispractise: true)
-                                  : Padding(
+                                  : SingleChildScrollView(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 16.w),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(height: 16.h),
-                                          AppText(
-                                            'Practice with AI',
-                                            style: font20w700.copyWith(
-                                                color: Colors.white),
-                                          ),
-                                          SizedBox(height: 8.h),
-                                          const TextRowStartLearning(
-                                            title:
-                                                'Use your camera to practice signs.',
-                                          ),
-                                          const TextRowStartLearning(
-                                            title:
-                                                'Our AI will give you instant feedback.',
+                                          // AppText(
+                                          //   'Practice with AI',
+                                          //   style: font20w700.copyWith(
+                                          //       // جعل النص يتأقلم مع الخلفية أو الثيم
+                                          //       color:
+                                          //           themeController.themeMode ==
+                                          //                   ThemeMode.dark
+                                          //               ? Colors.white
+                                          //               : Colors.black),
+                                          // ),
+                                          // SizedBox(height: 8.h),
+                                          // const TextRowStartLearning(
+                                          //   title:
+                                          //       'Use your camera to practice signs.',
+                                          // ),
+                                          // const TextRowStartLearning(
+                                          //   title:
+                                          //       'Our AI will give you instant feedback.',
+                                          // ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              AppAsset(
+                                                assetName: Assets
+                                                    .youngwomanwritingnotebook,
+                                                width: 100.w,
+                                              ),
+                                              SizedBox(
+                                                width: 16.w,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  AppText(
+                                                    'Use your camera to',
+                                                    style: font16w700,
+                                                    alignment:
+                                                        AlignmentDirectional
+                                                            .center,
+                                                  ),
+                                                  AppText(
+                                                    'practice signs.',
+                                                    style: font16w700,
+                                                    alignment:
+                                                        AlignmentDirectional
+                                                            .center,
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                width: 16.w,
+                                              ),
+                                              AppAsset(
+                                                assetName: Assets
+                                                    .sideviewofyoungmanwearingsmartwatchandholdingbook,
+                                                width: 80.w,
+                                              ),
+                                            ],
                                           ),
                                           SizedBox(height: 22.h),
                                           CourseCard(
@@ -149,6 +187,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                               });
                                             },
                                           ),
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
                                           CourseCard(
                                             title: 'Level Two',
                                             subtitle: 'letters D,F,K,R,S,I,T',
@@ -160,6 +201,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                                 _showLevelTwo = true;
                                               });
                                             },
+                                          ),
+                                          SizedBox(
+                                            height: 22.h,
                                           ),
                                           CourseCard(
                                             title: 'Level Three',
@@ -173,6 +217,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                               });
                                             },
                                           ),
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
                                           CourseCard(
                                             title: 'Level Four',
                                             subtitle: 'letters P,Q,Z,J',
@@ -185,7 +232,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                               });
                                             },
                                           ),
-                                          SizedBox(height: 16.h),
+                                          SizedBox(height: 38.h),
                                         ],
                                       ),
                                     ),

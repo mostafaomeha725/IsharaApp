@@ -103,7 +103,15 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
           SizedBox(height: 16.h),
           AppButton(
             text: 'Sign in',
-            onPressed: () {},
+            color: themeController.themeMode == ThemeMode.dark
+                ? Colors.white
+                : Colors.black,
+            textColor: themeController.themeMode == ThemeMode.dark
+                ? Colors.black
+                : Colors.white,
+            onPressed: () {
+              GoRouter.of(context).push(Routes.customNavBar);
+            },
             height: 50.h,
             radius: 22.r,
           ),

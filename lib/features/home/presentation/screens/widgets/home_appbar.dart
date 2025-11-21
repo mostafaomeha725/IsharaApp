@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,6 +19,12 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = ThemeController.of(context);
+    final bool isDark = themeController.themeMode == ThemeMode.dark;
+
+    final Color iconColor = isDark ? Colors.white : Colors.black;
+    final Color titleColor = isDark ? Colors.white : Colors.black;
+
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -25,7 +32,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
         icon: Icon(
           Icons.arrow_back_ios_new,
           size: 20.sp,
-          color: Colors.white,
+          color: iconColor,
         ),
         onPressed: onBack ??
             () {
@@ -36,7 +43,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Text(
         title,
-        style: font20w700.copyWith(color: Colors.white),
+        style: font20w700.copyWith(color: titleColor),
       ),
     );
   }

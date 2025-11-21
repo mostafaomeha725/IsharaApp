@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
+import 'package:isharaapp/core/widgets/app_asset.dart';
+import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/words_details.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,9 +14,11 @@ class LesseonDetailsScreen extends StatelessWidget {
     super.key,
     required this.onBack,
     required this.letter,
+    this.onNext,
   });
 
   final VoidCallback onBack;
+  final VoidCallback? onNext;
   final String letter;
 
   Future<void> _openYoutubeVideo(String url) async {
@@ -28,9 +33,15 @@ class LesseonDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = ThemeController.of(context);
-    final Color mainColor = themeController.themeMode == ThemeMode.dark
-        ? Colors.white
-        : Colors.black;
+    final bool isDark = themeController.themeMode == ThemeMode.dark;
+
+    final Color mainColor = isDark ? Colors.white : Colors.black;
+    final Color secondaryColor = isDark ? Colors.white70 : Colors.black87;
+    final Color overlayColor =
+        // ignore: deprecated_member_use
+        isDark ? Colors.black.withOpacity(0.5) : Colors.white.withOpacity(0.3);
+    final Color buttonBg = isDark ? Colors.white : Colors.black;
+    final Color buttonText = isDark ? Colors.black : Colors.white;
 
     final String singleLetter = letter.split(' ').last;
     final data = lessonsData[singleLetter] ??
@@ -51,13 +62,13 @@ class LesseonDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 52.h,
-              ),
-              AppText(
-                data['title']!,
-                style: font20w700.copyWith(color: Colors.white),
-                alignment: AlignmentDirectional.center,
+              SizedBox(height: 52.h),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppAsset(assetName: Assets.boyandgirlworkoncomputer),
+                  AppAsset(assetName: Assets.onlinemeating),
+                ],
               ),
               SizedBox(height: 24.h),
               GestureDetector(
@@ -83,10 +94,9 @@ class LesseonDetailsScreen extends StatelessWidget {
                         },
                         errorBuilder: (context, error, stackTrace) => Container(
                           height: 200.h,
-                          color: Colors.grey[800],
+                          color: isDark ? Colors.grey[800] : Colors.grey[300],
                           alignment: Alignment.center,
-                          child: const Icon(Icons.broken_image,
-                              color: Colors.white),
+                          child: Icon(Icons.broken_image, color: mainColor),
                         ),
                       ),
                     ),
@@ -95,8 +105,7 @@ class LesseonDetailsScreen extends StatelessWidget {
                       width: 60.w,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        // ignore: deprecated_member_use
-                        color: Colors.black.withOpacity(0.5),
+                        color: overlayColor,
                         border: Border.all(color: mainColor, width: 3),
                       ),
                       child: Icon(Icons.play_arrow, color: mainColor, size: 40),
@@ -109,13 +118,13 @@ class LesseonDetailsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: AppText(
                   'KEY STEPS:',
-                  style: font20w700.copyWith(color: Colors.white),
+                  style: font20w700.copyWith(color: mainColor),
                 ),
               ),
               SizedBox(height: 8.h),
               AppText(
                 data['steps']!,
-                style: font16w700.copyWith(color: Colors.white),
+                style: font16w700.copyWith(color: secondaryColor),
                 overflow: TextOverflow.visible,
               ),
               SizedBox(height: 40.h),
@@ -123,15 +132,53 @@ class LesseonDetailsScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: AppText(
                   'COMMON MISTAKES:',
-                  style: font20w700.copyWith(color: Colors.white),
+                  style: font20w700.copyWith(color: mainColor),
                 ),
               ),
               SizedBox(height: 8.h),
               AppText(
                 data['mistakes']!,
-                style: font16w700.copyWith(color: Colors.white),
+                style: font16w700.copyWith(color: secondaryColor),
                 overflow: TextOverflow.visible,
               ),
+              SizedBox(height: 32.h),
+              AppText(
+                'Try practicing along with the video!',
+                style: font20w700.copyWith(color: mainColor),
+                alignment: AlignmentDirectional.center,
+              ),
+              SizedBox(height: 32.h),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 10,
+                    child: AppButton(
+                      text: 'Go Back',
+                      onPressed: onBack,
+                      height: 42.h,
+                      borderColor: buttonBg,
+                      color: buttonBg,
+                      textColor: buttonText,
+                      textSize: 15.sp,
+                      textWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    flex: 10,
+                    child: AppButton(
+                      text: 'Next Letter',
+                      onPressed: onNext,
+                      height: 42.h,
+                      color: buttonBg,
+                      textColor: buttonText,
+                      textSize: 15.sp,
+                      textWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 32.h),
             ],
           ),
         ),
