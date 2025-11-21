@@ -51,7 +51,7 @@ class Assets {
   static const String testboy = "assets/test_boy.png";
   static const String arrowboy = "assets/arrow_boy.png";
   static const String girlEdit = "assets/girl-edit.png";
-  static const String iconEdit = "assets/icon_edit.png";
+  static const String iconEdit = "assets/icon_editt.png";
   static const String iconProfileCircle = "assets/profile-circle.png";
   static const String iconProfileCircleL = "assets/profile_black.png";
   static const String userSquareGirl = "assets/iconsax-user-square (2).png";

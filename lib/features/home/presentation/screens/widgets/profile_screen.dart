@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  const CustomAppBarRow(title: 'My Profile'),
+                  const CustomAppBarRow(title: '  My Profile'),
 
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -39,14 +39,14 @@ class ProfileScreen extends StatelessWidget {
                     child: InfoProfile(themeMode: themeController.themeMode),
                   ),
 
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 24.h),
                   CustomProfileCard(themeMode: themeController.themeMode),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 16.h),
 
                   /// Container Options Section
                   Container(
                     width: double.infinity,
-                    margin: EdgeInsets.symmetric(horizontal: 16.w),
+                    margin: EdgeInsets.symmetric(horizontal: 13.w),
                     decoration: BoxDecoration(
                       color: const Color(0xffFAFAFA),
                       borderRadius: BorderRadius.circular(15.r),
@@ -108,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 30.h),
 
                   AppAsset(
                     width: 175.w,

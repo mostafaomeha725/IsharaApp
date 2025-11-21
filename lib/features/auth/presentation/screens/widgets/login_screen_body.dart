@@ -38,116 +38,126 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48.w),
-      child: Column(
+      child: Stack(
         children: [
-          SizedBox(height: 36.h),
           AppAsset(
             assetName: themeController.themeMode == ThemeMode.dark
-                ? Assets.darklogo
-                : Assets.lightlogo,
-            width: 250.w,
-            height: 250.h,
+                ? Assets.splashdark
+                : Assets.splashlight,
           ),
-          SizedBox(height: 18.h),
-          AppFormField(
-            controller: emailcontroller,
-            hintText: 'Email Address',
-            prefixIcon: Padding(
-              padding: EdgeInsets.only(right: 6.h, left: 16.h),
-              child: Icon(Icons.email, size: 24.sp),
-            ),
-            radius: 22.r,
-          ),
-          SizedBox(height: 18.h),
-          AppFormField(
-            maxLines: 1,
-            controller: passwordcontroller,
-            hintText: 'Password',
-            prefixIcon: Padding(
-              padding: EdgeInsets.only(left: 16.h, right: 6.h),
-              child: const Icon(Icons.lock),
-            ),
-            obsecureText: obscurePassword,
-            radius: 22.r,
-            suffixIcon: IconButton(
-              icon: Icon(
-                obscurePassword ? Icons.visibility_off : Icons.visibility,
-                color: isDarkMode ? AppDarkColors.offwhite : Colors.black,
-                size: 22.sp,
-              ),
-              onPressed: () {
-                setState(() {
-                  obscurePassword = !obscurePassword;
-                });
-              },
-            ),
-          ),
-          SizedBox(height: 16.h),
-          GestureDetector(
-            onTap: () {
-              GoRouter.of(context).push(Routes.resetScreen);
-            },
-            child: AppText(
-              'Forgotten your password..?',
-              style: font14w500.copyWith(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppDarkColors.offwhite
-                    : const Color(0xffC4C4C4),
-                decoration: TextDecoration.underline,
-                decorationColor: Theme.of(context).brightness == Brightness.dark
-                    ? AppDarkColors.offwhite
-                    : const Color(0xffC4C4C4),
-              ),
-            ),
-          ),
-          SizedBox(height: 16.h),
-          AppButton(
-            text: 'Sign in',
-            color: themeController.themeMode == ThemeMode.dark
-                ? Colors.white
-                : Colors.black,
-            textColor: themeController.themeMode == ThemeMode.dark
-                ? Colors.black
-                : Colors.white,
-            onPressed: () {
-              GoRouter.of(context).push(Routes.customNavBar);
-            },
-            height: 50.h,
-            radius: 22.r,
-          ),
-          SizedBox(height: 8.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
-              AppText(
-                'Don’t have an account ?  ',
-                style: font14w500.copyWith(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppDarkColors.offwhite
-                      : const Color(0xffC4C4C4),
+              SizedBox(height: 36.h),
+              AppAsset(
+                assetName: themeController.themeMode == ThemeMode.dark
+                    ? Assets.darklogo
+                    : Assets.lightlogo,
+                width: 250.w,
+                height: 250.h,
+              ),
+              SizedBox(height: 18.h),
+              AppFormField(
+                controller: emailcontroller,
+                hintText: 'Email Address',
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(right: 6.h, left: 16.h),
+                  child: Icon(Icons.email, size: 24.sp),
+                ),
+                radius: 22.r,
+              ),
+              SizedBox(height: 18.h),
+              AppFormField(
+                maxLines: 1,
+                controller: passwordcontroller,
+                hintText: 'Password',
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(left: 16.h, right: 6.h),
+                  child: const Icon(Icons.lock),
+                ),
+                obsecureText: obscurePassword,
+                radius: 22.r,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    color: isDarkMode ? AppDarkColors.offwhite : Colors.black,
+                    size: 22.sp,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      obscurePassword = !obscurePassword;
+                    });
+                  },
                 ),
               ),
+              SizedBox(height: 16.h),
               GestureDetector(
                 onTap: () {
-                  GoRouter.of(context).push(Routes.registerScreen);
+                  GoRouter.of(context).push(Routes.resetScreen);
                 },
                 child: AppText(
-                  'Register now',
-                  style: font14w700.copyWith(
+                  'Forgotten your password..?',
+                  style: font14w500.copyWith(
                     color: Theme.of(context).brightness == Brightness.dark
                         ? AppDarkColors.offwhite
                         : const Color(0xffC4C4C4),
+                    decoration: TextDecoration.underline,
+                    decorationColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? AppDarkColors.offwhite
+                            : const Color(0xffC4C4C4),
                   ),
                 ),
               ),
+              SizedBox(height: 16.h),
+              AppButton(
+                text: 'Sign in',
+                color: themeController.themeMode == ThemeMode.dark
+                    ? Colors.white
+                    : Colors.black,
+                textColor: themeController.themeMode == ThemeMode.dark
+                    ? Colors.black
+                    : Colors.white,
+                onPressed: () {
+                  GoRouter.of(context).push(Routes.customNavBar);
+                },
+                height: 50.h,
+                radius: 22.r,
+              ),
+              SizedBox(height: 8.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    'Don’t have an account ?  ',
+                    style: font14w500.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppDarkColors.offwhite
+                          : const Color(0xffC4C4C4),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).push(Routes.registerScreen);
+                    },
+                    child: AppText(
+                      'Register now',
+                      style: font14w700.copyWith(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppDarkColors.offwhite
+                            : const Color(0xffC4C4C4),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              ThemeToggleSwitch(
+                isDarkMode: isDarkMode,
+                onChanged: (value) {
+                  themeController.toggleTheme();
+                },
+              ),
             ],
-          ),
-          const Spacer(),
-          ThemeToggleSwitch(
-            isDarkMode: isDarkMode,
-            onChanged: (value) {
-              themeController.toggleTheme();
-            },
           ),
         ],
       ),
