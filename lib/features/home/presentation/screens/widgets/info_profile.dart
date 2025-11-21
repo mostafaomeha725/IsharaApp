@@ -36,7 +36,7 @@ class InfoProfile extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 16.h),
         Column(
           children: [
             Text(

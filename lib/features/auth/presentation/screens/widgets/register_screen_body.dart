@@ -54,179 +54,190 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22.w),
       child: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(height: 36.h),
             AppAsset(
               assetName: themeController.themeMode == ThemeMode.dark
-                  ? Assets.darklogo
-                  : Assets.lightlogo,
-              width: 250.w,
-              height: 250.h,
+                  ? Assets.splashdark
+                  : Assets.splashlight,
             ),
-            Row(
+            Column(
               children: [
-                Expanded(
-                  child: AppFormField(
-                    maxLines: 1,
-                    controller: firstNameController,
-                    hintText: 'First name',
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 16.h, right: 6.h),
-                      child: const Icon(Icons.person),
+                SizedBox(height: 36.h),
+                AppAsset(
+                  assetName: themeController.themeMode == ThemeMode.dark
+                      ? Assets.darklogo
+                      : Assets.lightlogo,
+                  width: 250.w,
+                  height: 250.h,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppFormField(
+                        maxLines: 1,
+                        controller: firstNameController,
+                        hintText: 'First name',
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(left: 16.h, right: 6.h),
+                          child: const Icon(Icons.person),
+                        ),
+                        radius: 22.r,
+                      ),
                     ),
-                    radius: 22.r,
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: AppFormField(
+                        controller: lastNameController,
+                        maxLines: 1,
+                        hintText: 'Last name',
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(left: 16.h, right: 6.h),
+                          child: const Icon(Icons.person),
+                        ),
+                        radius: 22.r,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 18.h),
+                AppFormField(
+                  maxLines: 1,
+                  controller: emailController,
+                  hintText: 'Email Address',
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(right: 6.h, left: 16.h),
+                    child: const Icon(Icons.email),
+                  ),
+                  radius: 22.r,
+                ),
+                SizedBox(height: 18.h),
+                AppFormField(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  maxLines: 1,
+                  obsecureText: obscurePassword,
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(left: 16.h, right: 6.h),
+                    child: const Icon(Icons.lock),
+                  ),
+                  radius: 22.r,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      color: isDarkMode ? AppDarkColors.offwhite : Colors.black,
+                      size: 22.sp,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        obscurePassword = !obscurePassword;
+                      });
+                    },
                   ),
                 ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: AppFormField(
-                    controller: lastNameController,
-                    maxLines: 1,
-                    hintText: 'Last name',
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 16.h, right: 6.h),
-                      child: const Icon(Icons.person),
-                    ),
-                    radius: 22.r,
+                SizedBox(height: 18.h),
+                AppFormField(
+                  controller: confirmPasswordController,
+                  hintText: 'Re-write password',
+                  obsecureText: obscureConfirmPassword,
+                  maxLines: 1,
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(left: 16.h, right: 6.h),
+                    child: const Icon(Icons.lock),
                   ),
+                  radius: 22.r,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      obscureConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: isDarkMode ? AppDarkColors.offwhite : Colors.black,
+                      size: 22.sp,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        obscureConfirmPassword = !obscureConfirmPassword;
+                      });
+                    },
+                  ),
+                ),
+                if (errorMessage != null) ...[
+                  SizedBox(height: 6.h),
+                  AppText(
+                    errorMessage!,
+                    style: font12w400.copyWith(color: Colors.red),
+                  ),
+                ],
+                SizedBox(height: 18.h),
+                Row(
+                  children: [
+                    Expanded(
+                      child:
+                          DateOfBirthField(controller: dateOfBirthController),
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: GenderDropdownField(
+                        value: selectedGender,
+                        onChanged: (value) {},
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                AppButton(
+                  color: themeController.themeMode == ThemeMode.dark
+                      ? Colors.white
+                      : Colors.black,
+                  text: 'Sign up',
+                  textColor: themeController.themeMode == ThemeMode.dark
+                      ? Colors.black
+                      : Colors.white,
+                  height: 50.h,
+                  radius: 22.r,
+                  onPressed: () {
+                    if (passwordController.text !=
+                        confirmPasswordController.text) {
+                      setState(() {
+                        errorMessage = 'Please make sure your passwords match.';
+                      });
+                    } else {
+                      setState(() => errorMessage = null);
+                    }
+                    GoRouter.of(context).push(Routes.customNavBar);
+                  },
+                ),
+                SizedBox(height: 8.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      'Already have an account? ',
+                      style: font14w500.copyWith(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppDarkColors.offwhite
+                            : const Color(0xffC4C4C4),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => GoRouter.of(context).pop(),
+                      child: AppText(
+                        'Sign in',
+                        style: font14w700.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppDarkColors.offwhite
+                              : const Color(0xffC4C4C4),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 32.h),
+                ThemeToggleSwitch(
+                  isDarkMode: isDarkMode,
+                  onChanged: (_) => themeController.toggleTheme(),
                 ),
               ],
-            ),
-            SizedBox(height: 18.h),
-            AppFormField(
-              maxLines: 1,
-              controller: emailController,
-              hintText: 'Email Address',
-              prefixIcon: Padding(
-                padding: EdgeInsets.only(right: 6.h, left: 16.h),
-                child: const Icon(Icons.email),
-              ),
-              radius: 22.r,
-            ),
-            SizedBox(height: 18.h),
-            AppFormField(
-              controller: passwordController,
-              hintText: 'Password',
-              maxLines: 1,
-              obsecureText: obscurePassword,
-              prefixIcon: Padding(
-                padding: EdgeInsets.only(left: 16.h, right: 6.h),
-                child: const Icon(Icons.lock),
-              ),
-              radius: 22.r,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  obscurePassword ? Icons.visibility_off : Icons.visibility,
-                  color: isDarkMode ? AppDarkColors.offwhite : Colors.black,
-                  size: 22.sp,
-                ),
-                onPressed: () {
-                  setState(() {
-                    obscurePassword = !obscurePassword;
-                  });
-                },
-              ),
-            ),
-            SizedBox(height: 18.h),
-            AppFormField(
-              controller: confirmPasswordController,
-              hintText: 'Re-write password',
-              obsecureText: obscureConfirmPassword,
-              maxLines: 1,
-              prefixIcon: Padding(
-                padding: EdgeInsets.only(left: 16.h, right: 6.h),
-                child: const Icon(Icons.lock),
-              ),
-              radius: 22.r,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  obscureConfirmPassword
-                      ? Icons.visibility_off
-                      : Icons.visibility,
-                  color: isDarkMode ? AppDarkColors.offwhite : Colors.black,
-                  size: 22.sp,
-                ),
-                onPressed: () {
-                  setState(() {
-                    obscureConfirmPassword = !obscureConfirmPassword;
-                  });
-                },
-              ),
-            ),
-            if (errorMessage != null) ...[
-              SizedBox(height: 6.h),
-              AppText(
-                errorMessage!,
-                style: font12w400.copyWith(color: Colors.red),
-              ),
-            ],
-            SizedBox(height: 18.h),
-            Row(
-              children: [
-                Expanded(
-                  child: DateOfBirthField(controller: dateOfBirthController),
-                ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: GenderDropdownField(
-                    value: selectedGender,
-                    onChanged: (value) {},
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 24.h),
-            AppButton(
-              color: themeController.themeMode == ThemeMode.dark
-                  ? Colors.white
-                  : Colors.black,
-              text: 'Sign up',
-              textColor: themeController.themeMode == ThemeMode.dark
-                  ? Colors.black
-                  : Colors.white,
-              height: 50.h,
-              radius: 22.r,
-              onPressed: () {
-                if (passwordController.text != confirmPasswordController.text) {
-                  setState(() {
-                    errorMessage = 'Please make sure your passwords match.';
-                  });
-                } else {
-                  setState(() => errorMessage = null);
-                }
-                GoRouter.of(context).push(Routes.customNavBar);
-              },
-            ),
-            SizedBox(height: 8.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppText(
-                  'Already have an account? ',
-                  style: font14w500.copyWith(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? AppDarkColors.offwhite
-                        : const Color(0xffC4C4C4),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => GoRouter.of(context).pop(),
-                  child: AppText(
-                    'Sign in',
-                    style: font14w700.copyWith(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppDarkColors.offwhite
-                          : const Color(0xffC4C4C4),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 32.h),
-            ThemeToggleSwitch(
-              isDarkMode: isDarkMode,
-              onChanged: (_) => themeController.toggleTheme(),
             ),
           ],
         ),
