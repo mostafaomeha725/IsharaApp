@@ -173,22 +173,26 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 22.h),
+                                          SizedBox(
+                                            height: 38.h,
+                                          ),
                                           CourseCard(
                                             title: 'Level One',
                                             subtitle:
-                                                'letters A,B,C,E,L,O,V,W,U,Y',
+                                                'letters A B C E L O V W U Y',
                                             completetext: '0 of 10 completed',
                                             value: 0.0,
                                             isPractice: true,
+                                            assetName: Assets.catonbooks,
                                             onTap: () {
                                               setState(() {
                                                 _showLevelOne = true;
                                               });
                                             },
+                                            showBadgeImage: true,
                                           ),
                                           SizedBox(
-                                            height: 22.h,
+                                            height: 38.h,
                                           ),
                                           CourseCard(
                                             title: 'Level Two',
@@ -196,6 +200,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                             completetext: '0 of 7 completed',
                                             value: 0.0,
                                             isPractice: true,
+                                            showBadgeImage: true,
+                                            assetName: Assets.boylookingglobal,
                                             onTap: () {
                                               setState(() {
                                                 _showLevelTwo = true;
@@ -203,7 +209,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                             },
                                           ),
                                           SizedBox(
-                                            height: 22.h,
+                                            height: 38.h,
                                           ),
                                           CourseCard(
                                             title: 'Level Three',
@@ -211,6 +217,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                             completetext: '0 of 5 completed',
                                             value: 0.0,
                                             isPractice: true,
+                                            showBadgeImage: true,
+                                            assetName: Assets.booksandcup,
                                             onTap: () {
                                               setState(() {
                                                 _showLevelThree = true;
@@ -218,7 +226,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                             },
                                           ),
                                           SizedBox(
-                                            height: 22.h,
+                                            height: 38.h,
                                           ),
                                           CourseCard(
                                             title: 'Level Four',
@@ -226,6 +234,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                             completetext: '0 of 4 completed',
                                             value: 0.0,
                                             isPractice: true,
+                                            showBadgeImage: true,
+                                            assetName: Assets.stackofbooks,
                                             onTap: () {
                                               setState(() {
                                                 _showLevelFour = true;

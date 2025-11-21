@@ -7,7 +7,6 @@ import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
-
 import 'package:isharaapp/core/widgets/custom_button.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/auth/presentation/screens/widgets/otp_input_field.dart';
@@ -51,87 +50,89 @@ class _CheckMailScreenBodyState extends State<CheckMailScreenBody> {
   @override
   Widget build(BuildContext context) {
     final themeController = ThemeController.of(context);
+    final isDarkMode = themeController.themeMode == ThemeMode.dark;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 22.w),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 72.h,
-            ),
-            AppAsset(
-              assetName: Assets.email,
-              width: 280.w,
-              height: 250.h,
-            ),
-            AppText(
-              'Check your mail',
-              style: font20w700,
-              alignment: AlignmentDirectional.center,
-            ),
-            SizedBox(height: 4.h),
-            AppText(
-              'We just sent an OTP to your registered email address',
-              maxLines: 2,
-              style: font16w400,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 30.h),
-            const OtpInputField(),
-            SizedBox(height: 10.h),
-            AppText(
-              "00:${seconds.toString().padLeft(2, '0')}",
-              style: font16w400.copyWith(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? const Color(0xFFFAFAFA)
-                    : const Color(0xFF7B92BA),
-              ),
-              alignment: AlignmentDirectional.center,
-            ),
-            SizedBox(height: 10.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
+      children: [
+        AppAsset(
+          assetName: isDarkMode ? Assets.splashdark : Assets.splashlight,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 22.w),
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                AppText(
-                  "Didn’t get a code?  ",
-                  style: font16w400,
+                SizedBox(height: 72.h),
+                AppAsset(
+                  assetName: Assets.email,
+                  width: 280.w,
+                  height: 250.h,
                 ),
-                GestureDetector(
-                  onTap: seconds == 0 ? startTimer : null,
-                  child: AppText(
-                    "Resend",
-                    style: font16w700.copyWith(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? (seconds == 0
-                              ? const Color(0xFFFAFAFA)
-                              : const Color.fromARGB(255, 121, 122, 122))
-                          : (seconds == 0
-                              ? const Color(0xFF000000)
-                              : const Color.fromARGB(255, 211, 212, 214)),
-                    ),
+                AppText(
+                  'Check your mail',
+                  style: font20w700,
+                  alignment: AlignmentDirectional.center,
+                ),
+                SizedBox(height: 4.h),
+                AppText(
+                  'We just sent an OTP to your registered email address',
+                  maxLines: 2,
+                  style: font16w400,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 30.h),
+                const OtpInputField(),
+                SizedBox(height: 10.h),
+                AppText(
+                  "00:${seconds.toString().padLeft(2, '0')}",
+                  style: font16w400.copyWith(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xFFFAFAFA)
+                        : const Color(0xFF7B92BA),
                   ),
+                  alignment: AlignmentDirectional.center,
+                ),
+                SizedBox(height: 10.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      "Didn’t get a code?  ",
+                      style: font16w400,
+                    ),
+                    GestureDetector(
+                      onTap: seconds == 0 ? startTimer : null,
+                      child: AppText(
+                        "Resend",
+                        style: font16w700.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? (seconds == 0
+                                  ? const Color(0xFFFAFAFA)
+                                  : const Color.fromARGB(255, 121, 122, 122))
+                              : (seconds == 0
+                                  ? const Color(0xFF000000)
+                                  : const Color.fromARGB(255, 211, 212, 214)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30.h),
+                AppButton(
+                  text: 'Continue',
+                  color: isDarkMode ? Colors.white : Colors.black,
+                  textColor: isDarkMode ? Colors.black : Colors.white,
+                  onPressed: () {
+                    GoRouter.of(context).push(Routes.createNewPasswordScreen);
+                  },
+                  height: 50.h,
+                  radius: 22.r,
                 ),
               ],
             ),
-            SizedBox(height: 30.h),
-            AppButton(
-              text: 'Continue',
-              color: themeController.themeMode == ThemeMode.dark
-                  ? Colors.white
-                  : Colors.black,
-              textColor: themeController.themeMode == ThemeMode.dark
-                  ? Colors.black
-                  : Colors.white,
-              onPressed: () {
-                GoRouter.of(context).push(Routes.createNewPasswordScreen);
-              },
-              height: 50.h,
-              radius: 22.r,
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

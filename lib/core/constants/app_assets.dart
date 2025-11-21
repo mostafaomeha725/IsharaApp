@@ -21,7 +21,7 @@ class Assets {
   static const String resetpassword = "assets/Forgot password-cuate 1 (1).svg";
   static const String newpass = "assets/Security-cuate 1.svg";
   static const String splashdark = "assets/splash_dark.png";
-  static const String splashlight = "assets/splash_light.png";
+  static const String splashlight = "assets/texture_boy_light 5.png";
   static const String darklogo = "assets/darklogo.png";
   static const String darkappbarlogo = "assets/darkappbarlogo.png";
   static const String lightappbarlogo = "assets/ligt_appbar_logo.png";
@@ -83,6 +83,12 @@ class Assets {
   static const String book4 = "assets/book_four.png";
   static const String passImage = "assets/pass_image.png";
   static const String dataSecurity = "assets/data security (1).png";
+  static const String catonbooks = "assets/cat on books plant.png";
+  static const String stackofbooks = "assets/stack of books.png";
+  static const String booksandcup = "assets/books and cup.png";
+  static const String boylookingglobal =
+      "assets/boy looking at the globe through magnifying glass.png";
+
   static const String laptopwithpasswordnotification =
       "assets/laptop with password notification and lock icon (1).png";
   static const String email = "assets/email.png";
