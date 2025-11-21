@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/theme/styles.dart';
+import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
@@ -25,6 +27,8 @@ class _LearnLevelThreeScreenState extends State<LearnLevelThreeScreen> {
   bool _showLessonDetails = false;
   String? _selectedLetter;
 
+  final List<String> _lettersList = ['G', 'H', 'M', 'N', 'X'];
+
   void _openLesson(String letter) {
     final String fullLetterTitle = 'Level Three Letter $letter';
 
@@ -35,6 +39,24 @@ class _LearnLevelThreeScreenState extends State<LearnLevelThreeScreen> {
         _selectedLetter = fullLetterTitle;
         _showLessonDetails = true;
       });
+    }
+  }
+
+  void _goToNextLetter() {
+    if (_selectedLetter == null) return;
+
+    final String currentLetterChar = _selectedLetter!.split(' ').last;
+    final int currentIndex = _lettersList.indexOf(currentLetterChar);
+
+    if (currentIndex != -1 && currentIndex < _lettersList.length - 1) {
+      final String nextLetter = _lettersList[currentIndex + 1];
+      setState(() {
+        _selectedLetter = 'Level Three Letter $nextLetter';
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("You have completed all the letters!")),
+      );
     }
   }
 
@@ -66,6 +88,7 @@ class _LearnLevelThreeScreenState extends State<LearnLevelThreeScreen> {
                 ? LesseonDetailsScreen(
                     letter: _selectedLetter ?? 'Level Three Letter G',
                     onBack: _goBackFromLesson,
+                    onNext: _goToNextLetter,
                   )
                 : SingleChildScrollView(
                     key: const ValueKey('levelThreeList'),
@@ -73,13 +96,42 @@ class _LearnLevelThreeScreenState extends State<LearnLevelThreeScreen> {
                     child: Column(
                       children: [
                         SizedBox(height: widget.onBack != null ? 76.h : 16.h),
-                        AppText(
-                          'letters G,H,M,N,X',
-                          style: font16w700.copyWith(color: Colors.white),
-                          alignment: AlignmentDirectional.center,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppAsset(
+                              assetName: Assets.youngwomanwritingnotebook,
+                              width: 100.w,
+                            ),
+                            SizedBox(
+                              width: 16.w,
+                            ),
+                            Column(
+                              children: [
+                                AppText(
+                                  'letters',
+                                  style: font16w700,
+                                  alignment: AlignmentDirectional.center,
+                                ),
+                                AppText(
+                                  'G H M N X',
+                                  style: font16w700,
+                                  alignment: AlignmentDirectional.center,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 16.w,
+                            ),
+                            AppAsset(
+                              assetName: Assets
+                                  .sideviewofyoungmanwearingsmartwatchandholdingbook,
+                              width: 80.w,
+                            ),
+                          ],
                         ),
                         SizedBox(height: 8.h),
-                        ...['G', 'H', 'M', 'N', 'X']
+                        ..._lettersList
                             .map(
                               (letter) => CourseCard(
                                 title: 'Level Three',

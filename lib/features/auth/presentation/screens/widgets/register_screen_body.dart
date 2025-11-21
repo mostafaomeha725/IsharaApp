@@ -178,7 +178,13 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
             ),
             SizedBox(height: 24.h),
             AppButton(
+              color: themeController.themeMode == ThemeMode.dark
+                  ? Colors.white
+                  : Colors.black,
               text: 'Sign up',
+              textColor: themeController.themeMode == ThemeMode.dark
+                  ? Colors.black
+                  : Colors.white,
               height: 50.h,
               radius: 22.r,
               onPressed: () {
