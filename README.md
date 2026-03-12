@@ -1,4 +1,5 @@
-# Ishara – AI Sign Language Learning App
+# 🤟 Ishara – AI Sign Language Learning App
+
 
 
 **Ishara** is an AI-powered mobile application designed to help children learn sign language through interactive lessons and real-time gesture recognition.
@@ -7,57 +8,57 @@ The application combines **computer vision** with structured educational content
 
 ---
 
-## Overview
+## 📖 Overview
 
 The application allows users to learn sign language step by step through:
 
-* Interactive learning modules
-* Educational videos
-* Practice tests
+* 📚 Interactive learning modules
+* 🎥 Educational videos
+* 📝 Practice tests
 
 Using the device camera, the AI model analyzes hand gestures in real time and verifies whether the performed sign matches the expected gesture.
 
 ---
 
-## Key Features
+## ✨ Key Features
 
-* User Authentication (Login & Sign Up)
-* Dark Mode & Light Mode support
-* Interactive Sign Language Lessons
-* AI-powered Hand Sign Recognition
-* Learning Progress Evaluation through Tests
-* Educational Video Content
-* Backend Integration for User Data
-* Real-time Camera Detection
+* 🔐 User Authentication (Login & Sign Up)
+* 🌙 Dark Mode & ☀️ Light Mode
+* 🤟 Interactive Sign Language Lessons
+* 🧠 AI-powered Hand Sign Recognition
+* 📊 Learning Progress Evaluation through Tests
+* 🎬 Educational Video Content
+* ☁️ Backend Integration for User Data
+* 📷 Real-time Camera Detection
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
-### Mobile Application
+### 📱 Mobile Application
 
 * Flutter
 * Dart
 
-### Artificial Intelligence
+### 🤖 Artificial Intelligence
 
 * Python
 * YOLOv8
 * OpenCV
 * Roboflow Dataset
 
-### Architecture
+### 🧩 Architecture
 
 * MVVM (Model – View – ViewModel)
 
-### Backend
+### 🌐 Backend
 
 * REST API
 * User Authentication & Data Management
 
 ---
 
-## System Architecture
+## 🏗 System Architecture
 
 The project follows the **MVVM architecture** to ensure clean code organization and maintainability.
 
@@ -88,7 +89,7 @@ lib/
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 Clone the repository
 
@@ -116,7 +117,7 @@ flutter run
 
 ---
 
-## Future Improvements
+## 🚀 Future Improvements
 
 * Sentence-level sign recognition
 * Gamified learning experience
