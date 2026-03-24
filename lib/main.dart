@@ -1,24 +1,37 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:isharaapp/core/routes/app_routes.dart';
 import 'package:isharaapp/core/theme/dark_theme.dart';
 import 'package:isharaapp/core/theme/light_theme.dart';
-import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
+
+List<CameraDescription> cameras = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    debugPrint('Error in fetching the cameras: $e');
+  }
+
   runApp(const IsharaaApp());
 }
 
 class IsharaaApp extends StatefulWidget {
   const IsharaaApp({super.key});
+
   @override
   State<IsharaaApp> createState() => _IsharaaAppState();
 }
 
 class _IsharaaAppState extends State<IsharaaApp> {
   ThemeMode _themeMode = ThemeMode.dark;
+
   void _toggleTheme() {
     setState(() {
       _themeMode =
@@ -26,10 +39,18 @@ class _IsharaaAppState extends State<IsharaaApp> {
     });
   }
 
-  late final GoRouter _router = createRouter(
-    onToggleTheme: _toggleTheme,
-    themeMode: _themeMode,
-  );
+  late final GoRouter _router;
+
+  @override
+  void initState() {
+    super.initState();
+    _router = createRouter(
+      onToggleTheme: _toggleTheme,
+      themeMode: _themeMode,
+      cameras: cameras,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

@@ -30,6 +30,15 @@ android {
         versionName = flutter.versionName
     }
 
+    // ----------------------------------------------------------
+    // 👇 التعديل هنا: منع ضغط ملفات الموديل (مهم جداً)
+    // ----------------------------------------------------------
+    aaptOptions {
+        noCompress("tflite")
+        noCompress("lite")
+    }
+    // ----------------------------------------------------------
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
