@@ -1,6 +1,20 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_template.dart';
+import 'package:go_router/go_router.dart';
+import 'package:isharaapp/features/home/presentation/screens/learn_level_two_screen.dart';
+
+const List<String> _levelTwoWords = [
+  'risk',
+  'sir',
+  'dirt',
+  'kids',
+  'verb',
+  'dark',
+  'four',
+  'draw',
+  'feud',
+  'cake',
+];
 
 class TestLevelTwoScreen extends StatelessWidget {
   final CameraDescription camera;
@@ -12,13 +26,13 @@ class TestLevelTwoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TestLevelTemplate(
-      title: "Level Two: Risk",
-      word: "Risk",
-      camera: camera,
-      onBackPressed: () {
-        Navigator.pop(context);
-      },
+    return LearnLevelTwoScreen(
+      ispractise: true,
+      onBack: () => context.pop(),
+      items: _levelTwoWords,
+      itemType: 'Word',
+      headerTitle: 'words',
+      headerSubtitle: 'Choose a word from cards below',
     );
   }
 }
