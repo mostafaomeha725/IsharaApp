@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
-
-class HiveManager {
-  Future<void> setBool(String key, bool value) async {
-    // TODO: replace this stub with the real persistence implementation (e.g., Hive or SharedPreferences).
-    return;
-  }
-}
 
 class OnboardingFooter extends StatelessWidget {
   const OnboardingFooter({
     super.key,
     required this.controller,
     required this.index,
+    required this.onFinish,
   });
 
   final PageController controller;
   final int index;
-
-  Future<void> onboardingSeen(BuildContext context) async {
-    await HiveManager().setBool('onboarding', true);
-
-    GoRouter.of(context).push(Routes.loginScreen);
-  }
+  final Future<void> Function() onFinish;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +65,7 @@ class OnboardingFooter extends StatelessWidget {
             )
           else
             TextButton(
-              onPressed: () => onboardingSeen(context),
+              onPressed: onFinish,
               child: Text(
                 'Begin',
                 style: TextStyle(

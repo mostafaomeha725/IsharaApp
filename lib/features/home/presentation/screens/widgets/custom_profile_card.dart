@@ -5,13 +5,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
+import 'package:isharaapp/features/home/data/models/profile_user_model.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/item_personal_data.dart';
 
 class CustomProfileCard extends StatelessWidget {
   const CustomProfileCard({
     super.key,
-    required ThemeMode themeMode,
+    required this.user,
+    required this.onEditName,
+    this.isLoading = false,
   });
+
+  final ProfileUserModel user;
+  final VoidCallback onEditName;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +49,17 @@ class CustomProfileCard extends StatelessWidget {
             SizedBox(height: 16.h),
             ItemPersonalData(
               title: 'Name',
-              subtitle: 'mahmoud elhenawy',
+              subtitle: user.fullName,
               image: Assets.iconProfile,
             ),
             ItemPersonalData(
               title: 'Email',
-              subtitle: 'nourreldinahmed@gmail.com',
+              subtitle: user.email,
               image: Assets.iconEmail,
             ),
             ItemPersonalData(
               title: 'Date of birth',
-              subtitle: '1/10/2004',
+              subtitle: user.dateOfBirth,
               image: Assets.iconBirthday,
             ),
             Row(
@@ -61,14 +68,14 @@ class CustomProfileCard extends StatelessWidget {
                   fit: FlexFit.loose,
                   child: ItemPersonalData(
                     title: 'Gender',
-                    subtitle: 'Male',
+                    subtitle: user.gender,
                     image: Assets.iconGender,
                   ),
                 ),
                 SizedBox(width: 12.w),
                 AppButton(
-                  text: 'Edit data',
-                  onPressed: () {},
+                  text: isLoading ? 'Saving...' : 'Edit data',
+                  onPressed: isLoading ? null : onEditName,
                   color: Colors.black,
                   radius: 16.r,
                   height: 40.h,

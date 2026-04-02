@@ -69,7 +69,7 @@ class GenderDropdownField extends StatelessWidget {
       ),
       items: [
         DropdownMenuItem(
-            value: 'Male',
+            value: 'male',
             child: Text(
               'Male',
               style: font14w400.copyWith(
@@ -77,7 +77,7 @@ class GenderDropdownField extends StatelessWidget {
               ),
             )),
         DropdownMenuItem(
-            value: 'Female',
+            value: 'female',
             child: Text(
               'Female',
               style: font14w400.copyWith(

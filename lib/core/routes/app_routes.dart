@@ -63,11 +63,39 @@ GoRouter createRouter({
       ),
       GoRoute(
         path: Routes.checkMailScreen,
-        builder: (context, state) => const CheckMailScreen(),
+        builder: (context, state) {
+          if (state.extra is Map<String, dynamic>) {
+            final extra = state.extra as Map<String, dynamic>;
+            final email = extra['email']?.toString() ?? '';
+            final flow = extra['flow'] == 'verify'
+                ? CheckMailFlow.emailVerification
+                : CheckMailFlow.forgotPassword;
+
+            return CheckMailScreen(
+              email: email,
+              flow: flow,
+            );
+          }
+
+          final email = (state.extra as String?) ?? '';
+          return CheckMailScreen(
+            email: email,
+            flow: CheckMailFlow.forgotPassword,
+          );
+        },
       ),
       GoRoute(
         path: Routes.createNewPasswordScreen,
-        builder: (context, state) => const CreateNewPasswordScreen(),
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          final email = extra?['email']?.toString() ?? '';
+          final otp = extra?['otp']?.toString() ?? '';
+
+          return CreateNewPasswordScreen(
+            email: email,
+            otp: otp,
+          );
+        },
       ),
       GoRoute(
         path: Routes.resetSuccessful,

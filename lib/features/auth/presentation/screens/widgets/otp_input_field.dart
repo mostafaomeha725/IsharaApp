@@ -5,7 +5,14 @@ import 'package:isharaapp/core/theme/light_colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpInputField extends StatelessWidget {
-  const OtpInputField({super.key});
+  const OtpInputField({
+    super.key,
+    this.onChanged,
+    this.onCompleted,
+  });
+
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,8 @@ class OtpInputField extends StatelessWidget {
           inactiveColor: inactiveColor,
           selectedColor: selectedColor,
         ),
-        onChanged: (value) {},
+        onChanged: onChanged,
+        onCompleted: onCompleted,
       ),
     );
   }

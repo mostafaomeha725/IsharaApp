@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
+import 'package:isharaapp/core/storage/app_session_manager.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 
@@ -15,6 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
+  final AppSessionManager _sessionManager = AppSessionManager();
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
@@ -28,9 +30,23 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 3), () {
-      GoRouter.of(context).push(Routes.onboardingScreen);
-    });
+    Future.delayed(const Duration(seconds: 3), _navigateNext);
+  }
+
+  Future<void> _navigateNext() async {
+    final onboardingSeen = await _sessionManager.isOnboardingSeen();
+    final hasAuthToken = await _sessionManager.hasAuthToken();
+
+    if (!mounted) return;
+
+    if (!onboardingSeen) {
+      GoRouter.of(context).go(Routes.onboardingScreen);
+      return;
+    }
+
+    GoRouter.of(context).go(
+      hasAuthToken ? Routes.customNavBar : Routes.loginScreen,
+    );
   }
 
   @override

@@ -15,6 +15,8 @@ class DateOfBirthField extends StatefulWidget {
 }
 
 class _DateOfBirthFieldState extends State<DateOfBirthField> {
+  String _twoDigits(int value) => value.toString().padLeft(2, '0');
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -66,8 +68,10 @@ class _DateOfBirthFieldState extends State<DateOfBirthField> {
         );
 
         if (picked != null) {
-          widget.controller.text =
-              '${picked.day}/${picked.month}/${picked.year}';
+          final year = picked.year.toString();
+          final month = _twoDigits(picked.month);
+          final day = _twoDigits(picked.day);
+          widget.controller.text = '$year-$month-$day';
         }
       },
     );

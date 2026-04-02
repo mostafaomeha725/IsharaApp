@@ -9,7 +9,10 @@ class InfoProfile extends StatelessWidget {
   const InfoProfile({
     super.key,
     required ThemeMode themeMode,
+    required this.fullName,
   });
+
+  final String fullName;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class InfoProfile extends StatelessWidget {
         Column(
           children: [
             Text(
-              'Mahmoud Elhenawy',
+              fullName,
               style: font20w700.copyWith(
                   color: isDark ? Colors.white : Colors.black),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
+import 'package:isharaapp/core/storage/app_session_manager.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/features/splash/presentation/screens/widgets/custom_indicator.dart';
@@ -21,11 +22,19 @@ class OnboardScreen extends StatefulWidget {
 }
 
 class _OnboardScreenState extends State<OnboardScreen> {
+  final AppSessionManager _sessionManager = AppSessionManager();
   final _controller = PageController();
   int index = 0;
 
-  void onboardingSeen(BuildContext context) {
-    GoRouter.of(context).push(Routes.loginScreen);
+  Future<void> onboardingSeen() async {
+    await _sessionManager.setOnboardingSeen();
+    final hasAuthToken = await _sessionManager.hasAuthToken();
+
+    if (!mounted) return;
+
+    GoRouter.of(context).go(
+      hasAuthToken ? Routes.customNavBar : Routes.loginScreen,
+    );
   }
 
   @override
@@ -69,7 +78,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                OnboardingFooter(controller: _controller, index: index),
+                OnboardingFooter(
+                  controller: _controller,
+                  index: index,
+                  onFinish: onboardingSeen,
+                ),
                 const SizedBox(height: 20),
               ],
             ),
@@ -78,7 +91,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 top: 21,
                 right: 20,
                 child: TextButton(
-                  onPressed: () => onboardingSeen(context),
+                  onPressed: onboardingSeen,
                   child: Text(
                     'Skip',
                     style: TextStyle(
