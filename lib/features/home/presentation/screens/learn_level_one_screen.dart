@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +8,8 @@ import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_runtime_helpers.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/learn_level_shared_flow_mixin.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/home_appbar.dart';
 
@@ -14,16 +18,25 @@ class LearnLevelOneScreen extends StatefulWidget {
     super.key,
     required this.ispractise,
     this.onBack,
+    this.items,
+    this.itemType = 'Letter',
+    this.headerTitle = 'letters',
+    this.headerSubtitle,
   });
 
   final bool ispractise;
   final VoidCallback? onBack;
+  final List<String>? items;
+  final String itemType;
+  final String headerTitle;
+  final String? headerSubtitle;
 
   @override
   State<LearnLevelOneScreen> createState() => _LearnLevelOneScreenState();
 }
 
-class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
+class _LearnLevelOneScreenState extends State<LearnLevelOneScreen>
+    with LearnLevelSharedFlowMixin<LearnLevelOneScreen> {
   bool _showLessonDetails = false;
   String? _selectedLetter;
 
@@ -40,49 +53,45 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
     'Y'
   ];
 
-  void _openLesson(String letter) {
-    final String fullLetterTitle = 'Level One Letter $letter';
+  List<String> get _items => widget.items ?? _lettersList;
 
+  @override
+  bool get isPracticeMode => widget.ispractise;
+
+  @override
+  String get itemTypeLabel => widget.itemType;
+
+  @override
+  String get levelLabel => 'Level One';
+
+  @override
+  List<String> get levelItems => _items;
+
+  @override
+  String? get selectedLessonTitle => _selectedLetter;
+
+  @override
+  set selectedLessonTitle(String? value) => _selectedLetter = value;
+
+  @override
+  bool get isShowingLessonDetails => _showLessonDetails;
+
+  @override
+  set isShowingLessonDetails(bool value) => _showLessonDetails = value;
+
+  @override
+  void initState() {
+    super.initState();
     if (widget.ispractise) {
-      context.push('/practisedetails', extra: fullLetterTitle);
-    } else {
-      setState(() {
-        _selectedLetter = fullLetterTitle;
-        _showLessonDetails = true;
-      });
+      unawaited(prewarmTestLevelModel());
     }
-  }
-
-  void _goToNextLetter() {
-    if (_selectedLetter == null) return;
-
-    final String currentLetterChar = _selectedLetter!.split(' ').last;
-    final int currentIndex = _lettersList.indexOf(currentLetterChar);
-
-    if (currentIndex != -1 && currentIndex < _lettersList.length - 1) {
-      final String nextLetter = _lettersList[currentIndex + 1];
-      setState(() {
-        _selectedLetter = 'Level One Letter $nextLetter';
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("You have completed all the letters!")),
-      );
-    }
-  }
-
-  void _goBackFromLesson() {
-    setState(() {
-      _showLessonDetails = false;
-      _selectedLetter = null;
-    });
   }
 
   void _goBackToLevels() {
     if (widget.onBack != null) {
       widget.onBack!();
     } else {
-      Navigator.pop(context);
+      context.pop();
     }
   }
 
@@ -97,9 +106,9 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
             duration: const Duration(milliseconds: 300),
             child: _showLessonDetails
                 ? LesseonDetailsScreen(
-                    letter: _selectedLetter ?? 'Level One Letter A',
-                    onBack: _goBackFromLesson,
-                    onNext: _goToNextLetter,
+                    letter: _selectedLetter ?? lessonTitleForItem(_items.first),
+                    onBack: goBackFromLesson,
+                    onNext: goToNextLesson,
                   )
                 : SingleChildScrollView(
                     key: const ValueKey('levelOneList'),
@@ -120,12 +129,12 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
                             Column(
                               children: [
                                 AppText(
-                                  'letters',
+                                  widget.headerTitle,
                                   style: font16w700,
                                   alignment: AlignmentDirectional.center,
                                 ),
                                 AppText(
-                                  'A B C E L O V W U Y',
+                                  widget.headerSubtitle ?? _items.join(' '),
                                   style: font16w700,
                                   alignment: AlignmentDirectional.center,
                                 ),
@@ -142,14 +151,14 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
                           ],
                         ),
                         SizedBox(height: 8.h),
-                        ..._lettersList
+                        ..._items
                             .map(
-                              (letter) => CourseCard(
+                              (item) => CourseCard(
                                 title: 'Level One',
-                                subtitle: 'Letter $letter',
+                                subtitle: '${widget.itemType} $item',
                                 completetext: '0 of 1 Completed',
                                 value: 0,
-                                onTap: () => _openLesson(letter),
+                                onTap: () => openLesson(item),
                                 isPractice: widget.ispractise,
                               ),
                             )
@@ -168,8 +177,7 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen> {
                 title: _showLessonDetails
                     ? (_selectedLetter ?? 'Level One')
                     : 'Level One',
-                onBack:
-                    _showLessonDetails ? _goBackFromLesson : _goBackToLevels,
+                onBack: _showLessonDetails ? goBackFromLesson : _goBackToLevels,
               ),
             ),
         ],

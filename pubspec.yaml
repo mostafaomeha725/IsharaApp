@@ -40,5 +40,6 @@ flutter:
 
   assets:
     - assets/  # مجلد الصور والملفات الثابتة داخل التطبيق
+    - assets/letters/  # صور الحروف A-Z
     - assets/model/best_float16.tflite  # موديل YOLO للتعرف على الإشارات
     - assets/model/labels.txt  # ملف أسماء الفئات المُعترف عليها من الموديل
