@@ -33,6 +33,32 @@ class Assets {
   static const String studylight = "assets/study.gif";
   static const String littlelight = "assets/letters.gif";
   static const String littledark = "assets/letters_dark.gif";
+  static const String letterA = "assets/letters/a.png";
+  static const String letterB = "assets/letters/b.png";
+  static const String letterC = "assets/letters/c.png";
+  static const String letterD = "assets/letters/d.png";
+  static const String letterE = "assets/letters/e.png";
+  static const String letterF = "assets/letters/f.png";
+  static const String letterG = "assets/letters/g.png";
+  static const String letterH = "assets/letters/h.png";
+  static const String letterI = "assets/letters/i.png";
+  static const String letterJ = "assets/letters/j.png";
+  static const String letterK = "assets/letters/k.png";
+  static const String letterL = "assets/letters/l.png";
+  static const String letterM = "assets/letters/m.png";
+  static const String letterN = "assets/letters/n.png";
+  static const String letterO = "assets/letters/o.png";
+  static const String letterP = "assets/letters/p.png";
+  static const String letterQ = "assets/letters/q.png";
+  static const String letterR = "assets/letters/r.png";
+  static const String letterS = "assets/letters/s.png";
+  static const String letterT = "assets/letters/t.png";
+  static const String letterU = "assets/letters/u.png";
+  static const String letterV = "assets/letters/v.png";
+  static const String letterW = "assets/letters/w.png";
+  static const String letterX = "assets/letters/x.png";
+  static const String letterY = "assets/letters/y.png";
+  static const String letterZ = "assets/letters/z.png";
 
   static const String homeprofile = "assets/home-profile.png";
   static const String girlLogo = "assets/girl_logo.png";
@@ -102,4 +128,66 @@ class Assets {
       "assets/side view of young man wearing smart watch and holding book.png";
   static const String youngwomanwritingnotebook =
       "assets/young woman writing in a notebook.png";
+
+  static String letterAssetFor(String value) {
+    final normalized = value.trim().toUpperCase();
+    final key = normalized.isEmpty ? 'A' : normalized.substring(0, 1);
+
+    switch (key) {
+      case 'A':
+        return letterA;
+      case 'B':
+        return letterB;
+      case 'C':
+        return letterC;
+      case 'D':
+        return letterD;
+      case 'E':
+        return letterE;
+      case 'F':
+        return letterF;
+      case 'G':
+        return letterG;
+      case 'H':
+        return letterH;
+      case 'I':
+        return letterI;
+      case 'J':
+        return letterJ;
+      case 'K':
+        return letterK;
+      case 'L':
+        return letterL;
+      case 'M':
+        return letterM;
+      case 'N':
+        return letterN;
+      case 'O':
+        return letterO;
+      case 'P':
+        return letterP;
+      case 'Q':
+        return letterQ;
+      case 'R':
+        return letterR;
+      case 'S':
+        return letterS;
+      case 'T':
+        return letterT;
+      case 'U':
+        return letterU;
+      case 'V':
+        return letterV;
+      case 'W':
+        return letterW;
+      case 'X':
+        return letterX;
+      case 'Y':
+        return letterY;
+      case 'Z':
+        return letterZ;
+      default:
+        return letterA;
+    }
+  }
 }

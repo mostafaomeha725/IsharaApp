@@ -1,24 +1,38 @@
 import 'package:camera/camera.dart'; // استدعاء الكاميرا
 import 'package:flutter/material.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_template.dart';
+import 'package:go_router/go_router.dart';
+import 'package:isharaapp/features/home/presentation/screens/learn_level_one_screen.dart';
+
+const List<String> _levelOneWords = [
+  'risk',
+  'sir',
+  'dirt',
+  'kids',
+  'verb',
+  'dark',
+  'four',
+  'draw',
+  'feud',
+  'cake',
+];
 
 class TestLevelOneScreen extends StatelessWidget {
-  final CameraDescription camera; // متغير للكاميرا
+  final CameraDescription camera;
 
   const TestLevelOneScreen({
     super.key,
-    required this.camera, // إضافته للـ Constructor
+    required this.camera,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TestLevelTemplate(
-      title: "Level One",
-      word: "Able",
-      camera: camera, // تمرير الكاميرا
-      onBackPressed: () {
-        Navigator.pop(context);
-      },
+    return LearnLevelOneScreen(
+      ispractise: true,
+      onBack: () => context.pop(),
+      items: _levelOneWords,
+      itemType: 'Word',
+      headerTitle: 'words',
+      headerSubtitle: 'Choose a word from cards below',
     );
   }
 }
