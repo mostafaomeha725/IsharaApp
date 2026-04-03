@@ -1,3 +1,5 @@
+import 'package:isharaapp/features/home/domain/entities/profile_user_entity.dart';
+
 class ProfileUserModel {
   final int id;
   final String firstName;
@@ -43,5 +45,18 @@ class ProfileUserModel {
       'date_of_birth': dateOfBirth,
       'is_verified': isVerified,
     };
+  }
+
+  ProfileUserEntity toEntity() {
+    return ProfileUserEntity(
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      fullName: fullName,
+      email: email,
+      gender: gender,
+      dateOfBirth: dateOfBirth,
+      isVerified: isVerified,
+    );
   }
 }

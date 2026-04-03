@@ -1,11 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/custom_button.dart';
-import 'package:isharaapp/features/home/data/models/profile_user_model.dart';
+import 'package:isharaapp/features/home/domain/entities/profile_user_entity.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/item_personal_data.dart';
 
 class CustomProfileCard extends StatelessWidget {
@@ -16,7 +14,7 @@ class CustomProfileCard extends StatelessWidget {
     this.isLoading = false,
   });
 
-  final ProfileUserModel user;
+  final ProfileUserEntity user;
   final VoidCallback onEditName;
   final bool isLoading;
 
@@ -25,11 +23,11 @@ class CustomProfileCard extends StatelessWidget {
     return Container(
       width: 398.w,
       decoration: BoxDecoration(
-        color: Color(0xffFAFAFA),
+        color: const Color(0xffFAFAFA),
         borderRadius: BorderRadius.circular(15.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),

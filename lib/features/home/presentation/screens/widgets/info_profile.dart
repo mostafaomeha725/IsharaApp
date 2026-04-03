@@ -22,22 +22,11 @@ class InfoProfile extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Stack(
-          children: [
-            AppAsset(
-              assetName:
-                  isDark ? Assets.iconProfileCircle : Assets.iconProfileCircleL,
-              width: 85.w,
-              height: 85.h,
-            ),
-            Positioned(
-              child: AppAsset(
-                assetName: Assets.iconEdit,
-              ),
-              bottom: 0,
-              right: 0,
-            )
-          ],
+        AppAsset(
+          assetName:
+              isDark ? Assets.iconProfileCircle : Assets.iconProfileCircleL,
+          width: 85.w,
+          height: 85.h,
         ),
         SizedBox(height: 16.h),
         Column(
@@ -45,7 +34,8 @@ class InfoProfile extends StatelessWidget {
             Text(
               fullName,
               style: font20w700.copyWith(
-                  color: isDark ? Colors.white : Colors.black),
+                color: isDark ? Colors.white : Colors.black,
+              ),
             ),
           ],
         )

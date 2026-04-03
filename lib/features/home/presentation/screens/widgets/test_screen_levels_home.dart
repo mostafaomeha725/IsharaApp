@@ -4,16 +4,19 @@ import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_appbar.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen_level_data.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen_levels_map.dart';
 
 class TestScreenLevelsHome extends StatelessWidget {
   const TestScreenLevelsHome({
     super.key,
     required this.themeController,
+    required this.levels,
     required this.onOpenLevel,
   });
 
   final ThemeController themeController;
+  final List<TestScreenLevelData> levels;
   final ValueChanged<int> onOpenLevel;
 
   @override
@@ -40,6 +43,7 @@ class TestScreenLevelsHome extends StatelessWidget {
           ),
           TestScreenLevelsMap(
             themeMode: themeController.themeMode,
+            levels: levels,
             onOpenLevel: onOpenLevel,
           ),
         ],

@@ -8,6 +8,7 @@ import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen
 Widget buildTestSelectedLevel({
   required TestScreenLevelData level,
   required VoidCallback onBack,
+  required Future<void> Function(int wordId) onCompleteWord,
 }) {
   switch (level.id) {
     case 1:
@@ -19,6 +20,10 @@ Widget buildTestSelectedLevel({
         itemType: 'Word',
         headerTitle: '',
         headerSubtitle: '',
+        lessonIdsByItem: level.wordIds,
+        completedItems: level.completedItems,
+        completionType: 'test',
+        onCompleteLesson: onCompleteWord,
       );
     case 2:
       return LearnLevelTwoScreen(
@@ -29,6 +34,10 @@ Widget buildTestSelectedLevel({
         itemType: 'Word',
         headerTitle: '',
         headerSubtitle: '',
+        lessonIdsByItem: level.wordIds,
+        completedItems: level.completedItems,
+        completionType: 'test',
+        onCompleteLesson: onCompleteWord,
       );
     case 3:
       return LearnLevelThreeScreen(
@@ -39,6 +48,10 @@ Widget buildTestSelectedLevel({
         itemType: 'Word',
         headerTitle: '',
         headerSubtitle: '',
+        lessonIdsByItem: level.wordIds,
+        completedItems: level.completedItems,
+        completionType: 'test',
+        onCompleteLesson: onCompleteWord,
       );
     case 4:
       return LearnLevelFourScreen(
@@ -49,6 +62,10 @@ Widget buildTestSelectedLevel({
         itemType: 'Word',
         headerTitle: '',
         headerSubtitle: '',
+        lessonIdsByItem: level.wordIds,
+        completedItems: level.completedItems,
+        completionType: 'test',
+        onCompleteLesson: onCompleteWord,
       );
     default:
       return const SizedBox.shrink();

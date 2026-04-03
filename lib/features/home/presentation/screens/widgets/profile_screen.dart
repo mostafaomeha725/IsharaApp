@@ -4,18 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
-import 'package:isharaapp/core/storage/app_session_manager.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/features/auth/presentation/screens/widgets/theme_toggle_switch.dart';
-import 'package:isharaapp/features/home/data/models/profile_user_model.dart';
-import 'package:isharaapp/features/home/data/services/profile_api_service.dart';
+import 'package:isharaapp/features/home/domain/entities/profile_user_entity.dart';
 import 'package:isharaapp/features/home/presentation/cubit/profile_cubit.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_appbar.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_profile_card.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/info_profile.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/item_profile_options.dart';
+import 'package:isharaapp/core/di/profile_di.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -29,6 +28,7 @@ class ProfileScreen extends StatelessWidget {
 
     final firstNameController = TextEditingController(text: user.firstName);
     final lastNameController = TextEditingController(text: user.lastName);
+    final emailController = TextEditingController(text: user.email);
 
     await showDialog<void>(
       context: context,
@@ -38,6 +38,11 @@ class ProfileScreen extends StatelessWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+              ),
               TextField(
                 controller: firstNameController,
                 decoration: const InputDecoration(labelText: 'First name'),
@@ -57,14 +62,16 @@ class ProfileScreen extends StatelessWidget {
               onPressed: () {
                 final firstName = firstNameController.text.trim();
                 final lastName = lastNameController.text.trim();
+                final email = emailController.text.trim();
 
-                if (firstName.isEmpty || lastName.isEmpty) {
+                if (firstName.isEmpty || lastName.isEmpty || email.isEmpty) {
                   return;
                 }
 
                 context.read<ProfileCubit>().updateName(
                       firstName: firstName,
                       lastName: lastName,
+                      email: email,
                     );
                 Navigator.of(dialogContext).pop();
               },
@@ -79,10 +86,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ProfileCubit(
-        profileApiService: ProfileApiService(),
-        sessionManager: AppSessionManager(),
-      )..loadProfile(),
+      create: (_) => ProfileDi.createCubit()..loadProfile(),
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state.status == ProfileStatus.error && state.message != null) {
@@ -107,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
           final bool isDark = themeController.themeMode == ThemeMode.dark;
           final user = state.user;
           final displayUser = user ??
-              const ProfileUserModel(
+              const ProfileUserEntity(
                 id: 0,
                 firstName: '',
                 lastName: '',
@@ -173,7 +177,7 @@ class ProfileScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.r),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
+                                color: Colors.black.withValues(alpha: 0.2),
                                 blurRadius: 8,
                                 offset: const Offset(0, 3),
                               ),
@@ -195,7 +199,7 @@ class ProfileScreen extends StatelessWidget {
                                 SizedBox(height: 16.h),
                                 Row(
                                   children: [
-                                    ItemProfileOptions(
+                                    const ItemProfileOptions(
                                       image: Assets.iconTheme,
                                       title: 'Change Theme',
                                     ),

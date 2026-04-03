@@ -27,6 +27,9 @@ class TestLevelTemplate extends StatefulWidget {
   final String word;
   final VoidCallback onBackPressed;
   final CameraDescription? camera;
+  final int? completionId;
+  final String? completionType;
+  final Future<void> Function(int itemId)? onComplete;
 
   const TestLevelTemplate({
     super.key,
@@ -34,6 +37,9 @@ class TestLevelTemplate extends StatefulWidget {
     required this.word,
     required this.onBackPressed,
     this.camera,
+    this.completionId,
+    this.completionType,
+    this.onComplete,
   });
 
   @override
@@ -45,6 +51,7 @@ class _TestLevelTemplateState extends State<TestLevelTemplate>
   late final TestLevelCubit _testLevelCubit;
   late final TestLevelRuntimeController _runtimeController;
   late final TestLevelLoadingGateController _loadingGateController;
+  bool _completionSubmitted = false;
 
   String get _cleanWord => normalizeWord(widget.word);
 
@@ -144,6 +151,15 @@ class _TestLevelTemplateState extends State<TestLevelTemplate>
           final isLoading = state.viewStatus == TestLevelViewStatus.initial ||
               state.viewStatus == TestLevelViewStatus.loading;
           _syncLoadingGate(isLoading);
+
+          if (state.isLevelCompleted &&
+              !_completionSubmitted &&
+              widget.completionId != null &&
+              widget.completionId! > 0 &&
+              widget.onComplete != null) {
+            _completionSubmitted = true;
+            unawaited(widget.onComplete!(widget.completionId!));
+          }
         },
         builder: (context, state) {
           final bool isDarkMode = themeController.themeMode == ThemeMode.dark;

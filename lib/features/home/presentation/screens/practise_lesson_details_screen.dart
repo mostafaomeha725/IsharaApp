@@ -17,12 +17,18 @@ class PractiseLessonDetailsScreen extends StatelessWidget {
   final String title;
   final List<String> words;
   final CameraDescription camera;
+  final int? completionId;
+  final String? completionType;
+  final Future<void> Function(int itemId)? onComplete;
 
   const PractiseLessonDetailsScreen({
     super.key,
     required this.title,
     required this.words,
     required this.camera,
+    this.completionId,
+    this.completionType,
+    this.onComplete,
   });
 
   @override
@@ -43,6 +49,9 @@ class PractiseLessonDetailsScreen extends StatelessWidget {
         word: singleWord,
         onBackPressed: () => GoRouter.of(context).pop(),
         camera: camera,
+        completionId: completionId,
+        completionType: completionType,
+        onComplete: onComplete,
       );
     }
 

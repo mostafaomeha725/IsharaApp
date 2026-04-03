@@ -46,18 +46,27 @@ class AuthCubit extends Cubit<AuthState> {
   final VerifyOtpUseCase _verifyOtpUseCase;
   final ResendOtpUseCase _resendOtpUseCase;
 
+  void _safeEmit(AuthState state) {
+    if (!isClosed) {
+      emit(state);
+    }
+  }
+
   Future<void> _handleResult({
     required Future<Either<Failure, AuthResult>> request,
     required AuthAction action,
     bool persistToken = false,
   }) async {
-    emit(AuthState.loading(action: action));
+    _safeEmit(AuthState.loading(action: action));
 
     final result = await request;
+    if (isClosed) {
+      return;
+    }
 
     await result.fold(
       (failure) async {
-        emit(AuthState.error(failure.message, action: action));
+        _safeEmit(AuthState.error(failure.message, action: action));
       },
       (data) async {
         if (persistToken && data.token != null && data.token!.isNotEmpty) {
@@ -65,7 +74,11 @@ class AuthCubit extends Cubit<AuthState> {
           await prefs.setString(tokenStorageKey, data.token!);
         }
 
-        emit(
+        if (isClosed) {
+          return;
+        }
+
+        _safeEmit(
           AuthState.success(
             message: data.message,
             token: data.token,
@@ -105,7 +118,7 @@ class AuthCubit extends Cubit<AuthState> {
         dateOfBirth: dateOfBirth,
       ),
       action: AuthAction.register,
-      persistToken: true,
+      persistToken: false,
     );
   }
 
@@ -178,6 +191,6 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void reset() {
-    emit(const AuthState.initial());
+    _safeEmit(const AuthState.initial());
   }
 }

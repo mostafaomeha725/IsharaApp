@@ -30,10 +30,12 @@ class ItemProfileOptions extends StatelessWidget {
               height: 30.h,
             ),
             SizedBox(width: 24.w),
-            Text(title,
-                style: font12w400.copyWith(
-                  color: Colors.black,
-                )),
+            Text(
+              title,
+              style: font12w400.copyWith(
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
       ),

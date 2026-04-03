@@ -29,13 +29,19 @@ class ProfileApiService {
   Future<ProfileUserModel> updateName({
     required String firstName,
     required String lastName,
+    String? email,
   }) async {
+    final data = <String, dynamic>{
+      'first_name': firstName.trim(),
+      'last_name': lastName.trim(),
+    };
+    if (email != null && email.trim().isNotEmpty) {
+      data['email'] = email.trim();
+    }
+
     final response = await _authorizedPost(
       '/api/profile/update-name',
-      data: {
-        'first_name': firstName.trim(),
-        'last_name': lastName.trim(),
-      },
+      data: data,
     );
 
     final json = _asMap(response.data);
@@ -46,7 +52,7 @@ class ProfileApiService {
   }
 
   Future<String> clearProgress() async {
-    final response = await _authorizedPost('/api/profile/clear-progress');
+    final response = await _authorizedDelete('/api/profile/clear-progress');
     final json = _asMap(response.data);
     return json['message']?.toString() ?? 'Progress cleared successfully.';
   }
@@ -122,6 +128,26 @@ class ProfileApiService {
     }
 
     final response = await _dio.get<dynamic>(
+      path,
+      options: Options(
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        validateStatus: (_) => true,
+      ),
+    );
+
+    return _validateResponse(response);
+  }
+
+  Future<Response<dynamic>> _authorizedDelete(String path) async {
+    final token = await _sessionManager.getAuthToken();
+    if (token == null || token.isEmpty) {
+      throw const ServerException('User is not authenticated.');
+    }
+
+    final response = await _dio.delete<dynamic>(
       path,
       options: Options(
         headers: {

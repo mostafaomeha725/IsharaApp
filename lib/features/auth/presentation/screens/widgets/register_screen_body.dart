@@ -65,8 +65,16 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
           _showErrorSnackBar(state.message!);
         }
 
-        if (state.status == AuthStatus.success) {
-          GoRouter.of(context).go(Routes.customNavBar);
+        if (state.status == AuthStatus.success &&
+            state.action == AuthAction.register) {
+          final email = emailController.text.trim();
+          GoRouter.of(context).go(
+            Routes.checkMailScreen,
+            extra: {
+              'email': email,
+              'flow': 'verify',
+            },
+          );
         }
       },
       builder: (context, state) {

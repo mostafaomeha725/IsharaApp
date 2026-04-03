@@ -37,7 +37,7 @@ GoRouter createRouter({
   unawaited(prewarmTestLevelModel());
 
   return GoRouter(
-    initialLocation: Routes.customNavBar,
+    initialLocation: Routes.splashScreen,
     navigatorKey: navigatorKey,
     debugLogDiagnostics: true,
     observers: [
@@ -118,6 +118,9 @@ GoRouter createRouter({
 
           String title = 'Practice';
           List<String> words = const [];
+          int? completionId;
+          String? completionType;
+          Future<void> Function(int itemId)? onComplete;
 
           if (extra is String) {
             title = extra;
@@ -128,6 +131,12 @@ GoRouter createRouter({
             final dynamic wordsValue = extra['words'];
             if (wordsValue is List) {
               words = wordsValue.map((e) => e.toString()).toList();
+            }
+            completionId = (extra['completionId'] as num?)?.toInt();
+            completionType = extra['completionType']?.toString();
+            final callback = extra['onComplete'];
+            if (callback is Future<void> Function(int itemId)) {
+              onComplete = callback;
             }
           }
 
@@ -150,6 +159,9 @@ GoRouter createRouter({
             title: title,
             words: words,
             camera: frontCamera,
+            completionId: completionId,
+            completionType: completionType,
+            onComplete: onComplete,
           );
         },
       ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:isharaapp/core/constants/app_assets.dart';
+import 'package:isharaapp/core/routes/route_paths.dart';
+import 'package:isharaapp/core/storage/app_session_manager.dart';
 import 'package:isharaapp/features/home/presentation/screens/home_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/learn_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/nav_bar_item.dart';
@@ -10,22 +13,36 @@ import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen
 
 class CustomNavBar extends StatefulWidget {
   const CustomNavBar({super.key});
-  static _CustomNavBarState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_CustomNavBarState>();
+  static CustomNavBarState? of(BuildContext context) =>
+      context.findAncestorStateOfType<CustomNavBarState>();
 
   @override
-  State<CustomNavBar> createState() => _CustomNavBarState();
+  State<CustomNavBar> createState() => CustomNavBarState();
 }
 
-class _CustomNavBarState extends State<CustomNavBar> {
+class CustomNavBarState extends State<CustomNavBar> {
   int _selectedIndex = 0;
 
   final List<int> _navigationStack = [0];
   final List<Widget> _screens = [];
+  final AppSessionManager _sessionManager = AppSessionManager();
+
+  Future<void> _guardAuthToken() async {
+    final hasAuthToken = await _sessionManager.hasAuthToken();
+    if (!mounted || hasAuthToken) {
+      return;
+    }
+
+    GoRouter.of(context).go(Routes.loginScreen);
+  }
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _guardAuthToken();
+    });
 
     _screens.addAll([
       HomeScreen(
@@ -63,8 +80,14 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onWillPop,
+    return PopScope(
+      canPop: _navigationStack.length <= 1,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) {
+          return;
+        }
+        await onWillPop();
+      },
       child: Scaffold(
         body: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
@@ -72,7 +95,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
         ),
         bottomNavigationBar: BottomAppBar(
           height: 65.h,
-          color: Color(0xff252525),
+          color: const Color(0xff252525),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

@@ -14,11 +14,13 @@ class LesseonDetailsScreen extends StatelessWidget {
     required this.onBack,
     required this.letter,
     this.onNext,
+    this.isCompleting = false,
   });
 
   final VoidCallback onBack;
   final VoidCallback? onNext;
   final String letter;
+  final bool isCompleting;
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +116,8 @@ class LesseonDetailsScreen extends StatelessWidget {
                   Expanded(
                     flex: 10,
                     child: AppButton(
-                      text: 'Next Letter',
-                      onPressed: onNext,
+                      text: isCompleting ? 'Saving...' : 'Next Letter',
+                      onPressed: isCompleting ? null : onNext,
                       height: 42.h,
                       color: buttonBg,
                       textColor: buttonText,

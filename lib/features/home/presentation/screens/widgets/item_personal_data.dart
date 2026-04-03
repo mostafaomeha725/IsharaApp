@@ -18,7 +18,7 @@ class ItemPersonalData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.h), // مسافة بين العناصر
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -27,7 +27,7 @@ class ItemPersonalData extends StatelessWidget {
             width: 30.w,
             height: 30.h,
           ),
-          SizedBox(width: 12.w), // مسافة بين الصورة والنصوص
+          SizedBox(width: 12.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

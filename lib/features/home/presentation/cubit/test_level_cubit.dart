@@ -39,8 +39,9 @@ class TestLevelCubit extends Cubit<TestLevelState> {
     required String detectedLabel,
     required String cleanWord,
   }) {
-    if (state.isLevelCompleted || state.currentIndex >= cleanWord.length)
+    if (state.isLevelCompleted || state.currentIndex >= cleanWord.length) {
       return;
+    }
 
     final String targetChar = cleanWord[state.currentIndex];
 

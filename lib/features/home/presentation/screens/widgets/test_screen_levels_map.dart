@@ -10,10 +10,12 @@ class TestScreenLevelsMap extends StatelessWidget {
   const TestScreenLevelsMap({
     super.key,
     required this.themeMode,
+    required this.levels,
     required this.onOpenLevel,
   });
 
   final ThemeMode themeMode;
+  final List<TestScreenLevelData> levels;
   final ValueChanged<int> onOpenLevel;
 
   @override
@@ -27,7 +29,7 @@ class TestScreenLevelsMap extends StatelessWidget {
               painter: DottedPathPainter(themeMode: themeMode),
             ),
           ),
-          ...testScreenLevels.map((level) {
+          ...levels.map((level) {
             return Align(
               alignment: level.alignment,
               child: LevelBubble(

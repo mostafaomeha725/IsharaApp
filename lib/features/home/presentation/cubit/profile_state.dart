@@ -18,7 +18,7 @@ enum ProfileStatus {
 class ProfileState extends Equatable {
   final ProfileStatus status;
   final ProfileAction action;
-  final ProfileUserModel? user;
+  final ProfileUserEntity? user;
   final String? message;
 
   const ProfileState({
@@ -35,7 +35,7 @@ class ProfileState extends Equatable {
 
   const ProfileState.loading({
     required ProfileAction action,
-    ProfileUserModel? user,
+    ProfileUserEntity? user,
   }) : this(
           status: ProfileStatus.loading,
           action: action,
@@ -44,7 +44,7 @@ class ProfileState extends Equatable {
 
   const ProfileState.success({
     required ProfileAction action,
-    ProfileUserModel? user,
+    ProfileUserEntity? user,
     String? message,
   }) : this(
           status: ProfileStatus.success,
@@ -56,7 +56,7 @@ class ProfileState extends Equatable {
   const ProfileState.error(
     String message, {
     ProfileAction action = ProfileAction.none,
-    ProfileUserModel? user,
+    ProfileUserEntity? user,
   }) : this(
           status: ProfileStatus.error,
           action: action,

@@ -1,187 +1,164 @@
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:isharaapp/core/error/exceptions.dart';
-import 'package:isharaapp/core/storage/app_session_manager.dart';
-import 'package:isharaapp/features/home/data/models/profile_user_model.dart';
-import 'package:isharaapp/features/home/data/services/profile_api_service.dart';
+import 'package:isharaapp/features/home/domain/entities/profile_user_entity.dart';
+import 'package:isharaapp/features/home/domain/repositories/profile_repository.dart';
+import 'package:isharaapp/features/home/domain/usecases/clear_profile_progress_use_case.dart';
+import 'package:isharaapp/features/home/domain/usecases/get_profile_use_case.dart';
+import 'package:isharaapp/features/home/domain/usecases/logout_profile_use_case.dart';
+import 'package:isharaapp/features/home/domain/usecases/update_profile_use_case.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit({
-    required ProfileApiService profileApiService,
-    required AppSessionManager sessionManager,
-  })  : _profileApiService = profileApiService,
-        _sessionManager = sessionManager,
+    required ProfileRepository profileRepository,
+    required GetProfileUseCase getProfileUseCase,
+    required UpdateProfileUseCase updateProfileUseCase,
+    required ClearProfileProgressUseCase clearProfileProgressUseCase,
+    required LogoutProfileUseCase logoutProfileUseCase,
+  })  : _profileRepository = profileRepository,
+        _getProfileUseCase = getProfileUseCase,
+        _updateProfileUseCase = updateProfileUseCase,
+        _clearProfileProgressUseCase = clearProfileProgressUseCase,
+        _logoutProfileUseCase = logoutProfileUseCase,
         super(const ProfileState.initial());
 
-  final ProfileApiService _profileApiService;
-  final AppSessionManager _sessionManager;
+  final ProfileRepository _profileRepository;
+  final GetProfileUseCase _getProfileUseCase;
+  final UpdateProfileUseCase _updateProfileUseCase;
+  final ClearProfileProgressUseCase _clearProfileProgressUseCase;
+  final LogoutProfileUseCase _logoutProfileUseCase;
+
+  void _safeEmit(ProfileState state) {
+    if (!isClosed) {
+      emit(state);
+    }
+  }
 
   Future<void> loadProfile({bool forceRefresh = false}) async {
-    final cachedUser = await _profileApiService.getCachedProfile();
+    final cachedUser = await _profileRepository.getCachedProfile();
     if (cachedUser != null) {
-      emit(
+      _safeEmit(
         ProfileState.success(
           action: ProfileAction.loadProfile,
           user: cachedUser,
         ),
       );
 
-      final isFresh = await _profileApiService.isCachedProfileFresh();
+      final isFresh = await _profileRepository.isCachedProfileFresh();
       if (!forceRefresh && isFresh) {
         return;
       }
     } else {
-      emit(const ProfileState.loading(action: ProfileAction.loadProfile));
+      _safeEmit(const ProfileState.loading(action: ProfileAction.loadProfile));
     }
 
-    try {
-      final user = await _profileApiService.getProfile();
-      emit(
+    final result = await _getProfileUseCase();
+    if (isClosed) {
+      return;
+    }
+
+    result.fold(
+      (failure) => _safeEmit(
+        ProfileState.error(
+          failure.message,
+          action: ProfileAction.loadProfile,
+          user: state.user,
+        ),
+      ),
+      (user) => _safeEmit(
         ProfileState.success(
           action: ProfileAction.loadProfile,
           user: user,
         ),
-      );
-    } on ServerException catch (error) {
-      emit(
-        ProfileState.error(
-          error.message,
-          action: ProfileAction.loadProfile,
-          user: state.user,
-        ),
-      );
-    } on DioException catch (error) {
-      emit(
-        ProfileState.error(
-          error.message ?? 'Network error',
-          action: ProfileAction.loadProfile,
-          user: state.user,
-        ),
-      );
-    } catch (_) {
-      emit(
-        ProfileState.error(
-          'Failed to load profile.',
-          action: ProfileAction.loadProfile,
-          user: state.user,
-        ),
-      );
-    }
+      ),
+    );
   }
 
   Future<void> updateName({
     required String firstName,
     required String lastName,
+    String? email,
   }) async {
-    emit(ProfileState.loading(
+    _safeEmit(ProfileState.loading(
         action: ProfileAction.updateName, user: state.user));
 
-    try {
-      final user = await _profileApiService.updateName(
-        firstName: firstName,
-        lastName: lastName,
-      );
-      emit(
+    final result = await _updateProfileUseCase(
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+    );
+    if (isClosed) {
+      return;
+    }
+
+    result.fold(
+      (failure) => _safeEmit(
+        ProfileState.error(
+          failure.message,
+          action: ProfileAction.updateName,
+          user: state.user,
+        ),
+      ),
+      (user) => _safeEmit(
         ProfileState.success(
           action: ProfileAction.updateName,
           user: user,
           message: 'Name updated successfully.',
         ),
-      );
-    } on ServerException catch (error) {
-      emit(
-        ProfileState.error(
-          error.message,
-          action: ProfileAction.updateName,
-          user: state.user,
-        ),
-      );
-    } on DioException catch (error) {
-      emit(
-        ProfileState.error(
-          error.message ?? 'Network error',
-          action: ProfileAction.updateName,
-          user: state.user,
-        ),
-      );
-    } catch (_) {
-      emit(
-        ProfileState.error(
-          'Failed to update name.',
-          action: ProfileAction.updateName,
-          user: state.user,
-        ),
-      );
-    }
+      ),
+    );
   }
 
   Future<void> clearProgress() async {
-    emit(ProfileState.loading(
+    _safeEmit(ProfileState.loading(
         action: ProfileAction.clearProgress, user: state.user));
 
-    try {
-      final message = await _profileApiService.clearProgress();
-      emit(
+    final result = await _clearProfileProgressUseCase();
+    if (isClosed) {
+      return;
+    }
+
+    result.fold(
+      (failure) => _safeEmit(
+        ProfileState.error(
+          failure.message,
+          action: ProfileAction.clearProgress,
+          user: state.user,
+        ),
+      ),
+      (message) => _safeEmit(
         ProfileState.success(
           action: ProfileAction.clearProgress,
           user: state.user,
           message: message,
         ),
-      );
-    } on ServerException catch (error) {
-      emit(
-        ProfileState.error(
-          error.message,
-          action: ProfileAction.clearProgress,
-          user: state.user,
-        ),
-      );
-    } on DioException catch (error) {
-      emit(
-        ProfileState.error(
-          error.message ?? 'Network error',
-          action: ProfileAction.clearProgress,
-          user: state.user,
-        ),
-      );
-    } catch (_) {
-      emit(
-        ProfileState.error(
-          'Failed to clear progress.',
-          action: ProfileAction.clearProgress,
-          user: state.user,
-        ),
-      );
-    }
+      ),
+    );
   }
 
   Future<void> logout() async {
-    emit(ProfileState.loading(action: ProfileAction.logout, user: state.user));
+    _safeEmit(
+        ProfileState.loading(action: ProfileAction.logout, user: state.user));
 
-    try {
-      final message = await _profileApiService.logout();
-      await _sessionManager.clearAuthToken();
-      await _profileApiService.clearProfileCache();
-      emit(
+    final result = await _logoutProfileUseCase();
+    if (isClosed) {
+      return;
+    }
+
+    result.fold(
+      (failure) => _safeEmit(
+        ProfileState.error(
+          failure.message,
+          action: ProfileAction.logout,
+        ),
+      ),
+      (message) => _safeEmit(
         ProfileState.success(
           action: ProfileAction.logout,
           message: message,
         ),
-      );
-    } on ServerException catch (error) {
-      emit(ProfileState.error(error.message, action: ProfileAction.logout));
-    } on DioException catch (error) {
-      emit(
-        ProfileState.error(
-          error.message ?? 'Network error',
-          action: ProfileAction.logout,
-        ),
-      );
-    } catch (_) {
-      emit(const ProfileState.error('Failed to logout.'));
-    }
+      ),
+    );
   }
 }

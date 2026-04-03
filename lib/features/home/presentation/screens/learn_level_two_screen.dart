@@ -19,6 +19,11 @@ class LearnLevelTwoScreen extends StatefulWidget {
     required this.ispractise,
     this.onBack,
     this.items,
+    this.lessonIdsByItem = const <String, int>{},
+    this.completedItems = const <String>{},
+    this.completingLessonId,
+    this.onCompleteLesson,
+    this.completionType,
     this.itemType = 'Letter',
     this.headerTitle = 'letters',
     this.headerSubtitle,
@@ -27,6 +32,11 @@ class LearnLevelTwoScreen extends StatefulWidget {
   final bool ispractise;
   final VoidCallback? onBack;
   final List<String>? items;
+  final Map<String, int> lessonIdsByItem;
+  final Set<String> completedItems;
+  final int? completingLessonId;
+  final Future<void> Function(int lessonId)? onCompleteLesson;
+  final String? completionType;
   final String itemType;
   final String headerTitle;
   final String? headerSubtitle;
@@ -51,6 +61,16 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
   String get itemTypeLabel => widget.itemType;
 
   @override
+  Map<String, int> get routeItemIds => widget.lessonIdsByItem;
+
+  @override
+  String? get routeCompletionType => widget.completionType;
+
+  @override
+  Future<void> Function(int itemId)? get routeCompleteCallback =>
+      widget.onCompleteLesson;
+
+  @override
   String get levelLabel => 'Level Two';
 
   @override
@@ -67,6 +87,16 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
 
   @override
   set isShowingLessonDetails(bool value) => _showLessonDetails = value;
+
+  @override
+  Future<void> onLessonMarkedCompleted(String item) async {
+    final lessonId = widget.lessonIdsByItem[item];
+    if (lessonId == null || widget.onCompleteLesson == null) {
+      return;
+    }
+
+    await widget.onCompleteLesson!(lessonId);
+  }
 
   @override
   void initState() {
@@ -98,6 +128,11 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
                     letter: _selectedLetter ?? lessonTitleForItem(_items.first),
                     onBack: goBackFromLesson,
                     onNext: goToNextLesson,
+                    isCompleting: widget.completingLessonId ==
+                        widget.lessonIdsByItem[(_selectedLetter ??
+                                lessonTitleForItem(_items.first))
+                            .split(' ')
+                            .last],
                   )
                 : SingleChildScrollView(
                     key: const ValueKey('levelTwoList'),
@@ -140,18 +175,22 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
                           ],
                         ),
                         SizedBox(height: 8.h),
-                        ..._items
-                            .map(
-                              (item) => CourseCard(
-                                title: 'Level Two',
-                                subtitle: '${widget.itemType} $item',
-                                completetext: '0 of 1 Completed',
-                                value: 0,
-                                onTap: () => openLesson(item),
-                                isPractice: widget.ispractise,
-                              ),
-                            )
-                            .toList(),
+                        ..._items.map(
+                          (item) {
+                            final isCompleted =
+                                widget.completedItems.contains(item);
+                            return CourseCard(
+                              title: 'Level Two',
+                              subtitle: '${widget.itemType} $item',
+                              completetext: isCompleted
+                                  ? '1 of 1 Completed'
+                                  : '0 of 1 Completed',
+                              value: isCompleted ? 1 : 0,
+                              onTap: () => openLesson(item),
+                              isPractice: widget.ispractise,
+                            );
+                          },
+                        ).toList(),
                         SizedBox(height: 16.h),
                       ],
                     ),

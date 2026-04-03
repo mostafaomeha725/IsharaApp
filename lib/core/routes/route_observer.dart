@@ -8,7 +8,10 @@ class CustomGoRouterObserver extends NavigatorObserver {
     super.didPop(route, previousRoute);
     if (previousRoute != null) {
       this.previousRoute = route.settings.name;
-      print("Returned to: ${route.settings.name}");
+      assert(() {
+        debugPrint('Returned to: ${route.settings.name}');
+        return true;
+      }());
     }
   }
 }
