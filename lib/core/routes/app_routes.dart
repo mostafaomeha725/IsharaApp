@@ -181,7 +181,12 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          return TestLevelOneScreen(camera: frontCamera);
+          final letterOverride = state.extra is String ? state.extra as String : null;
+
+          return TestLevelOneScreen(
+            camera: frontCamera,
+            letterOverride: letterOverride,
+          );
         },
       ),
 
@@ -200,7 +205,12 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          return TestLevelTwoScreen(camera: frontCamera);
+          final letterOverride = state.extra is String ? state.extra as String : null;
+
+          return TestLevelTwoScreen(
+            camera: frontCamera,
+            letterOverride: letterOverride,
+          );
         },
       ),
 
@@ -219,7 +229,12 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          return TestLevelThreeScreen(camera: frontCamera);
+          final letterOverride = state.extra is String ? state.extra as String : null;
+
+          return TestLevelThreeScreen(
+            camera: frontCamera,
+            letterOverride: letterOverride,
+          );
         },
       ),
 
@@ -238,7 +253,12 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          return TestLevelFourScreen(camera: frontCamera);
+          final letterOverride = state.extra is String ? state.extra as String : null;
+
+          return TestLevelFourScreen(
+            camera: frontCamera,
+            letterOverride: letterOverride,
+          );
         },
       ),
     ],

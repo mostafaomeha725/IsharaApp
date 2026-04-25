@@ -32,11 +32,15 @@ class CreateNewPasswordScreenBody extends StatefulWidget {
 class _CreateNewPasswordScreenBodyState
     extends State<CreateNewPasswordScreenBody> {
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   bool obscurePassword = true;
+  bool obscureConfirmPassword = true;
 
   @override
   void dispose() {
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -82,7 +86,7 @@ class _CreateNewPasswordScreenBodyState
                     ),
                     SizedBox(height: 12.h),
                     AppText(
-                      'Here’s a tip: Use a combination of\nNumbers, Uppercase, lowercase and Special characters',
+                      'Here\'s a tip: Use a combination of\nNumbers, Uppercase, lowercase and Special characters',
                       style: font16w400,
                       maxLines: 3,
                       textAlign: TextAlign.center,
@@ -116,6 +120,34 @@ class _CreateNewPasswordScreenBodyState
                         },
                       ),
                     ),
+                    SizedBox(height: 16.h),
+                    AppFormField(
+                      controller: confirmPasswordController,
+                      hintText: 'Confirm Password',
+                      maxLines: 1,
+                      obsecureText: obscureConfirmPassword,
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 16.h, right: 6.h),
+                        child: const Icon(Icons.lock_outline),
+                      ),
+                      radius: 22.r,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscureConfirmPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: isDarkMode
+                              ? AppDarkColors.offwhite
+                              : AppLightColors.black,
+                          size: 22.sp,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            obscureConfirmPassword = !obscureConfirmPassword;
+                          });
+                        },
+                      ),
+                    ),
                     SizedBox(height: 32.h),
                     AppButton(
                       text: state.isLoading ? 'Loading...' : 'Reset Password',
@@ -123,11 +155,23 @@ class _CreateNewPasswordScreenBodyState
                           ? null
                           : () {
                               final password = passwordController.text;
+                              final confirmPassword =
+                                  confirmPasswordController.text;
+
                               if (password.length < 6) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
                                         'Password must be at least 6 characters.'),
+                                  ),
+                                );
+                                return;
+                              }
+
+                              if (password != confirmPassword) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Passwords do not match.'),
                                   ),
                                 );
                                 return;

@@ -14,11 +14,13 @@ class LesseonDetailsScreen extends StatelessWidget {
     required this.onBack,
     required this.letter,
     this.onNext,
+    this.onTestTap,
     this.isCompleting = false,
   });
 
   final VoidCallback onBack;
   final VoidCallback? onNext;
+  final VoidCallback? onTestTap;
   final String letter;
   final bool isCompleting;
 
@@ -127,6 +129,37 @@ class LesseonDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              if (onTestTap != null) ...[
+                SizedBox(height: 16.h),
+                GestureDetector(
+                  onTap: onTestTap,
+                  child: Container(
+                    width: double.infinity,
+                    height: 42.h,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF6C63FF), Color(0xFF48CAE4)],
+                      ),
+                      borderRadius: BorderRadius.circular(12.sp),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.videocam_rounded,
+                          color: Colors.white,
+                          size: 18.sp,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'Test This Letter',
+                          style: font16w700.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
               SizedBox(height: 32.h),
             ],
           ),

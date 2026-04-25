@@ -78,164 +78,158 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
       },
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 48.w),
-          child: Stack(
-            children: [
-              AppAsset(
-                assetName: themeController.themeMode == ThemeMode.dark
-                    ? Assets.splashdark
-                    : Assets.splashlight,
-              ),
-              SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height - 48.h,
-                  ),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 36.h),
-                        AppAsset(
-                          assetName: themeController.themeMode == ThemeMode.dark
-                              ? Assets.darklogo
-                              : Assets.lightlogo,
-                          width: 250.w,
-                          height: 250.h,
+          padding: EdgeInsets.symmetric(horizontal: 22.w),
+          child: SingleChildScrollView(
+            child: Stack(
+              children: [
+                AppAsset(
+                  assetName: themeController.themeMode == ThemeMode.dark
+                      ? Assets.splashdark
+                      : Assets.splashlight,
+                ),
+                Column(
+                  children: [
+                    SizedBox(height: 36.h),
+                    AppAsset(
+                      assetName: themeController.themeMode == ThemeMode.dark
+                          ? Assets.darklogo
+                          : Assets.lightlogo,
+                      width: 250.w,
+                      height: 250.h,
+                    ),
+                    SizedBox(height: 18.h),
+                    AppFormField(
+                      controller: emailcontroller,
+                      hintText: 'Email Address',
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(right: 6.h, left: 16.h),
+                        child: Icon(Icons.email, size: 24.sp),
+                      ),
+                      radius: 22.r,
+                    ),
+                    SizedBox(height: 18.h),
+                    AppFormField(
+                      maxLines: 1,
+                      controller: passwordcontroller,
+                      hintText: 'Password',
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 16.h, right: 6.h),
+                        child: const Icon(Icons.lock),
+                      ),
+                      obsecureText: obscurePassword,
+                      radius: 22.r,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: isDarkMode
+                              ? AppDarkColors.offwhite
+                              : Colors.black,
+                          size: 22.sp,
                         ),
-                        SizedBox(height: 18.h),
-                        AppFormField(
-                          controller: emailcontroller,
-                          hintText: 'Email Address',
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(right: 6.h, left: 16.h),
-                            child: Icon(Icons.email, size: 24.sp),
-                          ),
-                          radius: 22.r,
+                        onPressed: () {
+                          setState(() {
+                            obscurePassword = !obscurePassword;
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).push(Routes.resetScreen);
+                      },
+                      child: AppText(
+                        'Forgotten your password..?',
+                        style: font14w500.copyWith(
+                          color: Theme.of(context).brightness ==
+                                  Brightness.dark
+                              ? AppDarkColors.offwhite
+                              : const Color(0xffC4C4C4),
+                          decoration: TextDecoration.underline,
                         ),
-                        SizedBox(height: 18.h),
-                        AppFormField(
-                          maxLines: 1,
-                          controller: passwordcontroller,
-                          hintText: 'Password',
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 16.h, right: 6.h),
-                            child: const Icon(Icons.lock),
-                          ),
-                          obsecureText: obscurePassword,
-                          radius: 22.r,
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              obscurePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: isDarkMode
-                                  ? AppDarkColors.offwhite
-                                  : Colors.black,
-                              size: 22.sp,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                obscurePassword = !obscurePassword;
-                              });
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    AppButton(
+                      text: state.isLoading ? 'Signing in...' : 'Sign in',
+                      color: themeController.themeMode == ThemeMode.dark
+                          ? Colors.white
+                          : Colors.black,
+                      textColor: themeController.themeMode == ThemeMode.dark
+                          ? Colors.black
+                          : Colors.white,
+                      onPressed: state.isLoading
+                          ? null
+                          : () {
+                              final email = emailcontroller.text.trim();
+                              final password = passwordcontroller.text;
+
+                              if (email.isEmpty || password.isEmpty) {
+                                _showErrorSnackBar(
+                                  'Email and password are required.',
+                                );
+                                return;
+                              }
+
+                              if (!_isValidEmail(email)) {
+                                _showErrorSnackBar(
+                                  'Please enter a valid email address.',
+                                );
+                                return;
+                              }
+
+                              context.read<AuthCubit>().login(
+                                    email: email,
+                                    password: password,
+                                  );
                             },
+                      height: 50.h,
+                      radius: 22.r,
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppText(
+                          'Don\'t have an account ?  ',
+                          style: font14w500.copyWith(
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? AppDarkColors.offwhite
+                                : const Color(0xffC4C4C4),
                           ),
                         ),
-                        SizedBox(height: 16.h),
                         GestureDetector(
                           onTap: () {
-                            GoRouter.of(context).push(Routes.resetScreen);
+                            GoRouter.of(context)
+                                .push(Routes.registerScreen);
                           },
                           child: AppText(
-                            'Forgotten your password..?',
-                            style: font14w500.copyWith(
+                            'Register now',
+                            style: font14w700.copyWith(
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? AppDarkColors.offwhite
                                   : const Color(0xffC4C4C4),
-                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
-                        SizedBox(height: 16.h),
-                        AppButton(
-                          text: state.isLoading ? 'Signing in...' : 'Sign in',
-                          color: themeController.themeMode == ThemeMode.dark
-                              ? Colors.white
-                              : Colors.black,
-                          textColor: themeController.themeMode == ThemeMode.dark
-                              ? Colors.black
-                              : Colors.white,
-                          onPressed: state.isLoading
-                              ? null
-                              : () {
-                                  final email = emailcontroller.text.trim();
-                                  final password = passwordcontroller.text;
-
-                                  if (email.isEmpty || password.isEmpty) {
-                                    _showErrorSnackBar(
-                                      'Email and password are required.',
-                                    );
-                                    return;
-                                  }
-
-                                  if (!_isValidEmail(email)) {
-                                    _showErrorSnackBar(
-                                      'Please enter a valid email address.',
-                                    );
-                                    return;
-                                  }
-
-                                  context.read<AuthCubit>().login(
-                                        email: email,
-                                        password: password,
-                                      );
-                                },
-                          height: 50.h,
-                          radius: 22.r,
-                        ),
-                        SizedBox(height: 8.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AppText(
-                              'Don’t have an account ?  ',
-                              style: font14w500.copyWith(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppDarkColors.offwhite
-                                    : const Color(0xffC4C4C4),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                GoRouter.of(context)
-                                    .push(Routes.registerScreen);
-                              },
-                              child: AppText(
-                                'Register now',
-                                style: font14w700.copyWith(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? AppDarkColors.offwhite
-                                      : const Color(0xffC4C4C4),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        ThemeToggleSwitch(
-                          isDarkMode: isDarkMode,
-                          onChanged: (value) {
-                            themeController.toggleTheme();
-                          },
-                        ),
                       ],
                     ),
-                  ),
+                    SizedBox(height: 32.h),
+                    ThemeToggleSwitch(
+                      isDarkMode: isDarkMode,
+                      onChanged: (value) {
+                        themeController.toggleTheme();
+                      },
+                    ),
+                    SizedBox(height: 24.h),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

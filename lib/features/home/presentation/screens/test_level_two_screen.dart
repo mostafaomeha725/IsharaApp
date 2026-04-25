@@ -18,21 +18,27 @@ const List<String> _levelTwoWords = [
 
 class TestLevelTwoScreen extends StatelessWidget {
   final CameraDescription camera;
+  final String? letterOverride;
 
   const TestLevelTwoScreen({
     super.key,
     required this.camera,
+    this.letterOverride,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isLetterMode = letterOverride != null && letterOverride!.isNotEmpty;
     return LearnLevelTwoScreen(
       ispractise: true,
       onBack: () => context.pop(),
-      items: _levelTwoWords,
-      itemType: 'Word',
-      headerTitle: 'words',
-      headerSubtitle: 'Choose a word from cards below',
+      items: isLetterMode ? [letterOverride!] : _levelTwoWords,
+      itemType: isLetterMode ? 'Letter' : 'Word',
+      headerTitle: isLetterMode ? 'Test Letter $letterOverride' : 'words',
+      headerSubtitle: isLetterMode
+          ? 'Sign the letter "$letterOverride" with your hand'
+          : 'Choose a word from cards below',
     );
   }
 }
+

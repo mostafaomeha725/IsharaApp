@@ -42,61 +42,49 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 24.h),
-                    GestureDetector(
-                      onTap: () {
-                        onNavigateToTab?.call(1);
-                      },
-                      child: HomeCard(
-                        title: "Learn",
-                        subtitle:
-                            'Explore new lessons and expand your knowledge',
-                        image: themeController.themeMode == ThemeMode.dark
-                            ? Assets.learnBoy
-                            : Assets.learngirl,
-                        backgroundColor:
-                            themeController.themeMode == ThemeMode.dark
-                                ? const Color(0xFFECF2FE)
-                                : const Color(0xffFEF1F9),
-                        onArrowTap: () {},
-                      ),
+                    HomeCard(
+                      onTap: () => onNavigateToTab?.call(1),
+                      title: "Learn",
+                      subtitle:
+                          'Explore new lessons and expand your knowledge',
+                      image: themeController.themeMode == ThemeMode.dark
+                          ? Assets.learnBoy
+                          : Assets.learngirl,
+                      backgroundColor:
+                          themeController.themeMode == ThemeMode.dark
+                              ? const Color(0xFFECF2FE)
+                              : const Color(0xffFEF1F9),
+                      onArrowTap: () {},
                     ),
                     SizedBox(height: 8.h),
-                    GestureDetector(
-                      onTap: () {
-                        onNavigateToTab?.call(2);
-                      },
-                      child: HomeCard(
-                        title: "Practice",
-                        subtitle:
-                            'Reinforce what you have learned with Quick exercises',
-                        image: themeController.themeMode == ThemeMode.dark
-                            ? Assets.practieboy
-                            : Assets.practiegirl,
-                        backgroundColor:
-                            themeController.themeMode == ThemeMode.dark
-                                ? const Color(0xFFECF2FE)
-                                : const Color(0xffFEF1F9),
-                        onArrowTap: () {},
-                      ),
+                    HomeCard(
+                      onTap: () => onNavigateToTab?.call(2),
+                      title: "Practice",
+                      subtitle:
+                          'Reinforce what you have learned with Quick exercises',
+                      image: themeController.themeMode == ThemeMode.dark
+                          ? Assets.practieboy
+                          : Assets.practiegirl,
+                      backgroundColor:
+                          themeController.themeMode == ThemeMode.dark
+                              ? const Color(0xFFECF2FE)
+                              : const Color(0xffFEF1F9),
+                      onArrowTap: () {},
                     ),
                     SizedBox(height: 8.h),
-                    GestureDetector(
-                      onTap: () {
-                        onNavigateToTab?.call(3);
-                      },
-                      child: HomeCard(
-                        title: "Test yourself with AI Bot",
-                        subtitle:
-                            'Explore new lessons and expand your knowledge',
-                        image: themeController.themeMode == ThemeMode.dark
-                            ? Assets.testboy
-                            : Assets.testgirl,
-                        backgroundColor:
-                            themeController.themeMode == ThemeMode.dark
-                                ? const Color(0xFFECF2FE)
-                                : const Color(0xffFEF1F9),
-                        onArrowTap: () {},
-                      ),
+                    HomeCard(
+                      onTap: () => onNavigateToTab?.call(3),
+                      title: "Test yourself with AI Bot",
+                      subtitle:
+                          'Explore new lessons and expand your knowledge',
+                      image: themeController.themeMode == ThemeMode.dark
+                          ? Assets.testboy
+                          : Assets.testgirl,
+                      backgroundColor:
+                          themeController.themeMode == ThemeMode.dark
+                              ? const Color(0xFFECF2FE)
+                              : const Color(0xffFEF1F9),
+                      onArrowTap: () {},
                     ),
                   ],
                 ),

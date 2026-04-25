@@ -28,7 +28,6 @@ class ProfileScreen extends StatelessWidget {
 
     final firstNameController = TextEditingController(text: user.firstName);
     final lastNameController = TextEditingController(text: user.lastName);
-    final emailController = TextEditingController(text: user.email);
 
     await showDialog<void>(
       context: context,
@@ -38,11 +37,6 @@ class ProfileScreen extends StatelessWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-              ),
               TextField(
                 controller: firstNameController,
                 decoration: const InputDecoration(labelText: 'First name'),
@@ -62,16 +56,14 @@ class ProfileScreen extends StatelessWidget {
               onPressed: () {
                 final firstName = firstNameController.text.trim();
                 final lastName = lastNameController.text.trim();
-                final email = emailController.text.trim();
 
-                if (firstName.isEmpty || lastName.isEmpty || email.isEmpty) {
+                if (firstName.isEmpty || lastName.isEmpty) {
                   return;
                 }
 
                 context.read<ProfileCubit>().updateName(
                       firstName: firstName,
                       lastName: lastName,
-                      email: email,
                     );
                 Navigator.of(dialogContext).pop();
               },

@@ -7,6 +7,7 @@ import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
+import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_runtime_helpers.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/learn_level_shared_flow_mixin.dart';
@@ -133,6 +134,19 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
                                 lessonTitleForItem(_items.first))
                             .split(' ')
                             .last],
+                    onTestTap: () {
+                      final letter = (_selectedLetter ??
+                              lessonTitleForItem(_items.first))
+                          .split(' ')
+                          .last;
+                      context.push(
+                        Routes.practisedetails,
+                        extra: {
+                          'title': '$levelLabel Letter $letter',
+                          'words': [letter],
+                        },
+                      );
+                    },
                   )
                 : SingleChildScrollView(
                     key: const ValueKey('levelTwoList'),
