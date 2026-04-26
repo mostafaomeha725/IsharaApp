@@ -77,24 +77,17 @@ class _PracticeScreenState extends State<PracticeScreen> {
         },
         builder: (context, state) {
           final themeController = ThemeController.of(context);
-          final levels = state.levels;
-
-          final appBarTitle = _selectedLevelIndex == null
-              ? 'Practice'
-              : (levels.length > _selectedLevelIndex!
-                  ? (levels[_selectedLevelIndex!].title.isEmpty
-                      ? 'Level ${_selectedLevelIndex! + 1}'
-                      : levels[_selectedLevelIndex!].title)
-                  : 'Practice');
 
           return Scaffold(
             extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: HomeAppbar(title: appBarTitle, onBack: _goBackOneStep),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
+            appBar: _selectedLevelIndex != null
+                ? null
+                : AppBar(
+                    automaticallyImplyLeading: false,
+                    title: HomeAppbar(title: 'Practice', onBack: _goBackOneStep),
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                  ),
             body: Stack(
               fit: StackFit.expand,
               children: [

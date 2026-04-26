@@ -134,9 +134,11 @@ GoRouter createRouter({
             }
             completionId = (extra['completionId'] as num?)?.toInt();
             completionType = extra['completionType']?.toString();
-            final callback = extra['onComplete'];
-            if (callback is Future<void> Function(int itemId)) {
-              onComplete = callback;
+            final dynamic rawCallback = extra['onComplete'];
+            if (rawCallback != null) {
+              try {
+                onComplete = rawCallback as Future<void> Function(int);
+              } catch (_) {}
             }
           }
 
@@ -181,7 +183,8 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          final letterOverride = state.extra is String ? state.extra as String : null;
+          final letterOverride =
+              state.extra is String ? state.extra as String : null;
 
           return TestLevelOneScreen(
             camera: frontCamera,
@@ -205,7 +208,8 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          final letterOverride = state.extra is String ? state.extra as String : null;
+          final letterOverride =
+              state.extra is String ? state.extra as String : null;
 
           return TestLevelTwoScreen(
             camera: frontCamera,
@@ -229,7 +233,8 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          final letterOverride = state.extra is String ? state.extra as String : null;
+          final letterOverride =
+              state.extra is String ? state.extra as String : null;
 
           return TestLevelThreeScreen(
             camera: frontCamera,
@@ -253,7 +258,8 @@ GoRouter createRouter({
             orElse: () => cameras.first,
           );
 
-          final letterOverride = state.extra is String ? state.extra as String : null;
+          final letterOverride =
+              state.extra is String ? state.extra as String : null;
 
           return TestLevelFourScreen(
             camera: frontCamera,

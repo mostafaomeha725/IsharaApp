@@ -144,6 +144,9 @@ class _LearnLevelThreeScreenState extends State<LearnLevelThreeScreen>
                         extra: {
                           'title': '$levelLabel Letter $letter',
                           'words': [letter],
+                          'completionId': widget.lessonIdsByItem[letter],
+                          'completionType': widget.completionType,
+                          'onComplete': widget.onCompleteLesson,
                         },
                       );
                     },

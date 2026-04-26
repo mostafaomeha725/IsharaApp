@@ -13,6 +13,7 @@ class ResetScreen extends StatelessWidget {
     return BlocProvider<AuthCubit>(
       create: (_) => AuthDi.createCubit(),
       child: const Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AuthAppBar(title: 'Reset password'),
         body: ResetScreenBody(),
       ),

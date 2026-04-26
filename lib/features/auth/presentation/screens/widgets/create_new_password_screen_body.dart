@@ -63,17 +63,17 @@ class _CreateNewPasswordScreenBodyState
         }
       },
       builder: (context, state) {
-        return Stack(
-          children: [
-            AppAsset(
-              assetName: themeController.themeMode == ThemeMode.dark
-                  ? Assets.splashdark
-                  : Assets.splashlight,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 22.w),
-              child: SingleChildScrollView(
-                child: Column(
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 22.w),
+          child: SingleChildScrollView(
+            child: Stack(
+              children: [
+                AppAsset(
+                  assetName: themeController.themeMode == ThemeMode.dark
+                      ? Assets.splashdark
+                      : Assets.splashlight,
+                ),
+                Column(
                   children: [
                     SizedBox(height: 66.h),
                     const AppAsset(
@@ -191,9 +191,9 @@ class _CreateNewPasswordScreenBodyState
                     SizedBox(height: 42.h),
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         );
       },
     );

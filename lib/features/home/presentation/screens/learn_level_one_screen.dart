@@ -155,6 +155,9 @@ class _LearnLevelOneScreenState extends State<LearnLevelOneScreen>
                         extra: {
                           'title': '$levelLabel Letter $letter',
                           'words': [letter],
+                          'completionId': widget.lessonIdsByItem[letter],
+                          'completionType': widget.completionType,
+                          'onComplete': widget.onCompleteLesson,
                         },
                       );
                     },

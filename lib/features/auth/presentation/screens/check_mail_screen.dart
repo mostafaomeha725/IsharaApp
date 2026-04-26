@@ -22,6 +22,7 @@ class CheckMailScreen extends StatelessWidget {
     return BlocProvider<AuthCubit>(
       create: (_) => AuthDi.createCubit(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: const AuthAppBar(title: 'Reset password'),
         body: CheckMailScreenBody(
           email: email,

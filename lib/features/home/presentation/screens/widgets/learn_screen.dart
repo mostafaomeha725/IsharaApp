@@ -6,6 +6,7 @@ import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/features/home/domain/entities/learn_level_entity.dart';
 import 'package:isharaapp/features/home/presentation/cubit/learn_cubit.dart';
+import 'package:isharaapp/features/home/presentation/cubit/practice_cubit.dart';
 import 'package:isharaapp/features/home/presentation/screens/learn_level_four_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/learn_level_one_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/learn_level_three_screen.dart';
@@ -14,6 +15,7 @@ import 'package:isharaapp/features/home/presentation/screens/start_learning_scre
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/home_appbar.dart';
 import 'package:isharaapp/core/di/learn_di.dart';
+import 'package:isharaapp/core/di/practice_di.dart';
 
 class LearnScreen extends StatefulWidget {
   const LearnScreen({super.key});
@@ -25,6 +27,7 @@ class LearnScreen extends StatefulWidget {
 class _LearnScreenState extends State<LearnScreen> {
   int _currentIndex = 0;
   late final LearnCubit _learnCubit;
+  late final PracticeCubit _practiceCubit;
 
   static const List<String> _levelCardAssets = <String>[
     Assets.catonbooks,
@@ -37,12 +40,29 @@ class _LearnScreenState extends State<LearnScreen> {
   void initState() {
     super.initState();
     _learnCubit = LearnDi.createCubit()..loadLevels();
+    _practiceCubit = PracticeDi.createCubit()..loadLevels();
   }
 
   @override
   void dispose() {
     _learnCubit.close();
+    _practiceCubit.close();
     super.dispose();
+  }
+
+  /// Finds the practice lesson ID for a given letter across all practice levels
+  /// and marks it complete.
+  Future<void> _completePracticeForLetter(String letter) async {
+    final practiceState = _practiceCubit.state;
+    for (final level in practiceState.levels) {
+      for (final lesson in level.lessons) {
+        final label = lesson.title.trim().split(RegExp(r'\s+')).last.toUpperCase();
+        if (label == letter.toUpperCase() && !lesson.isCompleted) {
+          await _practiceCubit.completeLesson(lesson.id);
+          return;
+        }
+      }
+    }
   }
 
   void _goTo(int index) {
@@ -149,10 +169,19 @@ class _LearnScreenState extends State<LearnScreen> {
     final completedItems =
         level == null ? const <String>{} : _buildCompletedItems(level);
 
+    // Saves Learn progress AND Practice progress for the same letter
     final Future<void> Function(int lessonId)? onCompleteLesson = level == null
         ? null
-        : (lessonId) {
-            return blocContext.read<LearnCubit>().completeLesson(lessonId);
+        : (lessonId) async {
+            await blocContext.read<LearnCubit>().completeLesson(lessonId);
+            // Find letter from lessonIdsByItem and complete matching practice lesson
+            final letter = lessonIdsByItem.entries
+                .where((e) => e.value == lessonId)
+                .map((e) => e.key)
+                .firstOrNull;
+            if (letter != null) {
+              await _completePracticeForLetter(letter);
+            }
           };
 
     switch (index) {
