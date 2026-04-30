@@ -128,6 +128,8 @@ class Assets {
       "assets/side view of young man wearing smart watch and holding book.png";
   static const String youngwomanwritingnotebook =
       "assets/young woman writing in a notebook.png";
+  static const String logoUnivirsity = "assets/logo_univirsity.PNG";
+  static const String logo2 = "assets/logo2.PNG";
 
   static String letterAssetFor(String value) {
     final normalized = value.trim().toUpperCase();

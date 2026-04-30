@@ -78,17 +78,22 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
         }
       },
       builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 22.w),
-          child: SingleChildScrollView(
-            child: Stack(
-              children: [
-                AppAsset(
-                  assetName: themeController.themeMode == ThemeMode.dark
-                      ? Assets.splashdark
-                      : Assets.splashlight,
-                ),
-                Column(
+        return Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height,
+              child: AppAsset(
+                assetName: themeController.themeMode == ThemeMode.dark
+                    ? Assets.splashdark
+                    : Assets.splashlight,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                child: Column(
                   children: [
                     SizedBox(height: 36.h),
                     AppAsset(
@@ -309,11 +314,12 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       isDarkMode: isDarkMode,
                       onChanged: (_) => themeController.toggleTheme(),
                     ),
+                    SizedBox(height: 24.h),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         );
       },
     );

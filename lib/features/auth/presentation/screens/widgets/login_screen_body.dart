@@ -77,17 +77,22 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
         }
       },
       builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 22.w),
-          child: SingleChildScrollView(
-            child: Stack(
-              children: [
-                AppAsset(
-                  assetName: themeController.themeMode == ThemeMode.dark
-                      ? Assets.splashdark
-                      : Assets.splashlight,
-                ),
-                Column(
+        return Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height,
+              child: AppAsset(
+                assetName: themeController.themeMode == ThemeMode.dark
+                    ? Assets.splashdark
+                    : Assets.splashlight,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                child: Column(
                   children: [
                     SizedBox(height: 36.h),
                     AppAsset(
@@ -143,8 +148,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                       child: AppText(
                         'Forgotten your password..?',
                         style: font14w500.copyWith(
-                          color: Theme.of(context).brightness ==
-                                  Brightness.dark
+                          color: Theme.of(context).brightness == Brightness.dark
                               ? AppDarkColors.offwhite
                               : const Color(0xffC4C4C4),
                           decoration: TextDecoration.underline,
@@ -195,16 +199,15 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                         AppText(
                           'Don\'t have an account ?  ',
                           style: font14w500.copyWith(
-                            color: Theme.of(context).brightness ==
-                                    Brightness.dark
-                                ? AppDarkColors.offwhite
-                                : const Color(0xffC4C4C4),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppDarkColors.offwhite
+                                    : const Color(0xffC4C4C4),
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            GoRouter.of(context)
-                                .push(Routes.registerScreen);
+                            GoRouter.of(context).push(Routes.registerScreen);
                           },
                           child: AppText(
                             'Register now',
@@ -219,6 +222,19 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                       ],
                     ),
                     SizedBox(height: 32.h),
+                    Row(
+                      children: [
+                        AppAsset(
+                          assetName: Assets.logo2,
+                          height: 120.h,
+                        ),
+                        AppAsset(
+                          assetName: Assets.logoUnivirsity,
+                          height: 112.h,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 56.h),
                     ThemeToggleSwitch(
                       isDarkMode: isDarkMode,
                       onChanged: (value) {
@@ -228,9 +244,9 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                     SizedBox(height: 24.h),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         );
       },
     );
