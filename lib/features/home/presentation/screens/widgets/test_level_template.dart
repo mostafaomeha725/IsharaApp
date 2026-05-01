@@ -15,7 +15,7 @@ import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_celebration_overlay.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_failure_overlay.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_loading_gate_controller.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_loading_overlay.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/loading_overlay/test_level_loading_overlay.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_status_box.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_tips_section.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_word_progress.dart';

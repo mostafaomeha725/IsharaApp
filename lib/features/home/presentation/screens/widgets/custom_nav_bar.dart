@@ -5,9 +5,9 @@ import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/core/storage/app_session_manager.dart';
 import 'package:isharaapp/features/home/presentation/screens/home_screen.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/learn_screen.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/learn/learn_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/nav_bar_item.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/practice_screen.dart';
+import 'package:isharaapp/features/home/presentation/screens/widgets/practice/practice_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/profile_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen.dart';
 

@@ -96,9 +96,8 @@ class _NavBarItemState extends State<NavBarItem>
                 assetName: widget.icon,
                 width: 30.w,
                 height: 30.h,
-                color: widget.isSelected
-                    ? const Color(0xff252525)
-                    : Colors.white,
+                color:
+                    widget.isSelected ? const Color(0xff252525) : Colors.white,
               ),
             ],
           ),
@@ -107,4 +106,3 @@ class _NavBarItemState extends State<NavBarItem>
     );
   }
 }
-
