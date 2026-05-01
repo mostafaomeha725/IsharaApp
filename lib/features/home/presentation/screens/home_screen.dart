@@ -4,6 +4,7 @@ import 'package:isharaapp/core/constants/app_assets.dart';
 import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
+import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/home_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        AppText(
                           'Good Night',
                           style: font20w700.copyWith(
                             color: isDark ? Colors.white : Colors.black,
@@ -45,8 +46,7 @@ class HomeScreen extends StatelessWidget {
                     HomeCard(
                       onTap: () => onNavigateToTab?.call(1),
                       title: "Learn",
-                      subtitle:
-                          'Explore new lessons and expand your knowledge',
+                      subtitle: 'Explore new lessons and expand your knowledge',
                       image: themeController.themeMode == ThemeMode.dark
                           ? Assets.learnBoy
                           : Assets.learngirl,
@@ -54,7 +54,6 @@ class HomeScreen extends StatelessWidget {
                           themeController.themeMode == ThemeMode.dark
                               ? const Color(0xFFECF2FE)
                               : const Color(0xffFEF1F9),
-                      onArrowTap: () {},
                     ),
                     SizedBox(height: 8.h),
                     HomeCard(
@@ -69,14 +68,12 @@ class HomeScreen extends StatelessWidget {
                           themeController.themeMode == ThemeMode.dark
                               ? const Color(0xFFECF2FE)
                               : const Color(0xffFEF1F9),
-                      onArrowTap: () {},
                     ),
                     SizedBox(height: 8.h),
                     HomeCard(
                       onTap: () => onNavigateToTab?.call(3),
                       title: "Test yourself with AI Bot",
-                      subtitle:
-                          'Explore new lessons and expand your knowledge',
+                      subtitle: 'Explore new lessons and expand your knowledge',
                       image: themeController.themeMode == ThemeMode.dark
                           ? Assets.testboy
                           : Assets.testgirl,
@@ -84,7 +81,6 @@ class HomeScreen extends StatelessWidget {
                           themeController.themeMode == ThemeMode.dark
                               ? const Color(0xFFECF2FE)
                               : const Color(0xffFEF1F9),
-                      onArrowTap: () {},
                     ),
                   ],
                 ),

@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(milliseconds: 233), _navigateNext);
+    Future.delayed(const Duration(seconds: 3), _navigateNext);
   }
 
   Future<void> _navigateNext() async {
