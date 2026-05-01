@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:isharaapp/core/widgets/custom_loading.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/features/home/presentation/cubit/test_level_state.dart';
 
@@ -47,9 +48,7 @@ class TestLevelCameraBox extends StatelessWidget {
                 child: CameraPreview(controller),
               )
             else
-              const Center(
-                child: CircularProgressIndicator(color: Colors.white),
-              ),
+              const CustomLoading(color: Colors.white),
             if (isCameraInitialized)
               Positioned(
                 top: 10.h,

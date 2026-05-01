@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:camera/camera.dart'; // 1. إضافة مكتبة الكاميرا
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,7 @@ import 'package:isharaapp/features/home/presentation/screens/test_level_one_scre
 import 'package:isharaapp/features/home/presentation/screens/test_level_three_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/test_level_two_screen.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/custom_nav_bar.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_runtime_helpers.dart';
+
 import 'package:isharaapp/features/splash/presentation/screens/onboarding_screen.dart';
 import 'package:isharaapp/features/splash/presentation/screens/splash_screen.dart';
 import 'package:isharaapp/features/auth/presentation/screens/reset_screen.dart';
@@ -34,7 +32,7 @@ GoRouter createRouter({
   required ThemeMode themeMode,
   required List<CameraDescription> cameras,
 }) {
-  unawaited(prewarmTestLevelModel());
+  // Model warm-up is handled by SplashCubit before any navigation occurs.
 
   return GoRouter(
     initialLocation: Routes.splashScreen,

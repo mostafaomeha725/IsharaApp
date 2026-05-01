@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:isharaapp/core/theme/styles.dart';
 import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_runtime_helpers.dart';
+
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_template.dart';
 
 class PractiseLessonDetailsScreen extends StatelessWidget {
@@ -33,8 +32,6 @@ class PractiseLessonDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    unawaited(prewarmTestLevelModel());
-
     final cleanedWords = words
         .map((word) => word.trim())
         .where((word) => word.isNotEmpty)
@@ -104,7 +101,6 @@ class PractiseLessonDetailsScreen extends StatelessWidget {
                         return InkWell(
                           borderRadius: BorderRadius.circular(16.r),
                           onTap: () async {
-                            await prewarmTestLevelModel();
                             if (!context.mounted) {
                               return;
                             }

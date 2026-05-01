@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +7,7 @@ import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/core/widgets/custom_text.dart';
 import 'package:isharaapp/core/routes/route_paths.dart';
 import 'package:isharaapp/features/home/presentation/screens/lesseon_details_screen.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_runtime_helpers.dart';
+
 import 'package:isharaapp/features/home/presentation/screens/widgets/learn_level_shared_flow_mixin.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/course_card.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/home_appbar.dart';
@@ -24,6 +22,7 @@ class LearnLevelTwoScreen extends StatefulWidget {
     this.completedItems = const <String>{},
     this.completingLessonId,
     this.onCompleteLesson,
+    this.onCompleteTest,
     this.completionType,
     this.itemType = 'Letter',
     this.headerTitle = 'letters',
@@ -37,6 +36,7 @@ class LearnLevelTwoScreen extends StatefulWidget {
   final Set<String> completedItems;
   final int? completingLessonId;
   final Future<void> Function(int lessonId)? onCompleteLesson;
+  final Future<void> Function(int lessonId)? onCompleteTest;
   final String? completionType;
   final String itemType;
   final String headerTitle;
@@ -102,9 +102,6 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
   @override
   void initState() {
     super.initState();
-    if (widget.ispractise) {
-      unawaited(prewarmTestLevelModel());
-    }
   }
 
   void _goBackToLevels() {
@@ -135,10 +132,10 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
                             .split(' ')
                             .last],
                     onTestTap: () {
-                      final letter = (_selectedLetter ??
-                              lessonTitleForItem(_items.first))
-                          .split(' ')
-                          .last;
+                      final letter =
+                          (_selectedLetter ?? lessonTitleForItem(_items.first))
+                              .split(' ')
+                              .last;
                       context.push(
                         Routes.practisedetails,
                         extra: {
@@ -146,7 +143,8 @@ class _LearnLevelTwoScreenState extends State<LearnLevelTwoScreen>
                           'words': [letter],
                           'completionId': widget.lessonIdsByItem[letter],
                           'completionType': widget.completionType,
-                          'onComplete': widget.onCompleteLesson,
+                          'onComplete':
+                              widget.onCompleteTest ?? widget.onCompleteLesson,
                         },
                       );
                     },

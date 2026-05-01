@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,7 @@ import 'package:isharaapp/core/theme/theme_controller.dart';
 import 'package:isharaapp/core/widgets/app_asset.dart';
 import 'package:isharaapp/features/home/domain/entities/test/test_level_entity.dart';
 import 'package:isharaapp/features/home/presentation/cubit/test_api_cubit.dart';
-import 'package:isharaapp/features/home/presentation/screens/widgets/test_level_runtime_helpers.dart';
+
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen_level_data.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen_levels_home.dart';
 import 'package:isharaapp/features/home/presentation/screens/widgets/test_screen_selected_level.dart';
@@ -81,10 +80,6 @@ class _TestScreenState extends State<TestScreen> {
   void initState() {
     super.initState();
     _testApiCubit = TestDi.createCubit()..loadLevels();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      unawaited(prewarmTestLevelModel());
-    });
   }
 
   @override

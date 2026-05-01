@@ -56,7 +56,8 @@ class _LearnScreenState extends State<LearnScreen> {
     final practiceState = _practiceCubit.state;
     for (final level in practiceState.levels) {
       for (final lesson in level.lessons) {
-        final label = lesson.title.trim().split(RegExp(r'\s+')).last.toUpperCase();
+        final label =
+            lesson.title.trim().split(RegExp(r'\s+')).last.toUpperCase();
         if (label == letter.toUpperCase() && !lesson.isCompleted) {
           await _practiceCubit.completeLesson(lesson.id);
           return;
@@ -169,11 +170,19 @@ class _LearnScreenState extends State<LearnScreen> {
     final completedItems =
         level == null ? const <String>{} : _buildCompletedItems(level);
 
-    // Saves Learn progress AND Practice progress for the same letter
+    // Saves Learn progress only
     final Future<void> Function(int lessonId)? onCompleteLesson = level == null
         ? null
         : (lessonId) async {
             await blocContext.read<LearnCubit>().completeLesson(lessonId);
+          };
+
+    // Saves BOTH Learn progress AND Practice progress
+    final Future<void> Function(int lessonId)? onCompleteTest = level == null
+        ? null
+        : (lessonId) async {
+            await blocContext.read<LearnCubit>().completeLesson(lessonId);
+
             // Find letter from lessonIdsByItem and complete matching practice lesson
             final letter = lessonIdsByItem.entries
                 .where((e) => e.value == lessonId)
@@ -194,6 +203,7 @@ class _LearnScreenState extends State<LearnScreen> {
           completedItems: completedItems,
           completingLessonId: completingLessonId,
           onCompleteLesson: onCompleteLesson,
+          onCompleteTest: onCompleteTest,
         );
       case 1:
         return LearnLevelTwoScreen(
@@ -204,6 +214,7 @@ class _LearnScreenState extends State<LearnScreen> {
           completedItems: completedItems,
           completingLessonId: completingLessonId,
           onCompleteLesson: onCompleteLesson,
+          onCompleteTest: onCompleteTest,
         );
       case 2:
         return LearnLevelThreeScreen(
@@ -214,6 +225,7 @@ class _LearnScreenState extends State<LearnScreen> {
           completedItems: completedItems,
           completingLessonId: completingLessonId,
           onCompleteLesson: onCompleteLesson,
+          onCompleteTest: onCompleteTest,
         );
       case 3:
         return LearnLevelFourScreen(
@@ -224,6 +236,7 @@ class _LearnScreenState extends State<LearnScreen> {
           completedItems: completedItems,
           completingLessonId: completingLessonId,
           onCompleteLesson: onCompleteLesson,
+          onCompleteTest: onCompleteTest,
         );
       default:
         return LearnLevelOneScreen(ispractise: false, onBack: _goBack);
