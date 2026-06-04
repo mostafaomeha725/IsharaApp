@@ -88,7 +88,7 @@ class TestLevelRuntimeController extends ChangeNotifier {
       unawaited(_startImageStream());
     } catch (e) {
       debugPrint('Runtime Initialization Error: $e');
-      testLevelCubit.setFailure('Failed to initialize camera. Please retry.');
+      testLevelCubit.setFailure('Error: ${e.toString()}');
     }
   }
 
