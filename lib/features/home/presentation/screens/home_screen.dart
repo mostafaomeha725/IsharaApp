@@ -9,8 +9,7 @@ import 'package:isharaapp/features/home/presentation/screens/widgets/home_card.d
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, this.onNavigateToTab});
-  final Function(int)?
-      onNavigateToTab; //دس الفانكشن اللي بتعملي نافجين جوا ال nav bar كانه تايمر
+  final Function(int)? onNavigateToTab;
 
   @override
   Widget build(BuildContext context) {
