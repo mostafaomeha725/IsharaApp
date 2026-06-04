@@ -39,9 +39,18 @@ Future<TestLevelRuntimeBootstrap> bootstrapTestLevelRuntime({
   );
 
   await controller.initialize();
-  await controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
-  await controller.setFlashMode(FlashMode.off);
-  await controller.setFocusMode(FocusMode.auto);
+
+  try {
+    await controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
+  } catch (_) {}
+
+  try {
+    await controller.setFlashMode(FlashMode.off);
+  } catch (_) {}
+
+  try {
+    await controller.setFocusMode(FocusMode.auto);
+  } catch (_) {}
 
   return TestLevelRuntimeBootstrap(vision: vision, controller: controller);
 }
@@ -64,7 +73,7 @@ Future<FlutterVision> getOrLoadSharedVisionModel() async {
       labels: 'assets/model/labels.txt',
       modelVersion: 'yolov8',
       numThreads: 2,
-      useGpu: true,
+      useGpu: Platform.isAndroid ? true : false,
     );
 
     _isSharedModelLoaded = true;
